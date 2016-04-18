@@ -1,6 +1,6 @@
 /*
 Autor(en)               : Dominik Elis, Robin Grahl, Dustin Wels, David Fischer,
-                          Jennifer Hermanns
+Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : .c
 Datum                   : 18.04.2016
@@ -28,24 +28,27 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-int startMenu();
+void startMenu(void);
+void Spielmenue(void);
 
 /*******************************************************************************
 Funktion main()
 *******************************************************************************/
 int main(void)
 {
-    //initscr();
-    system("MODE CON: COLS=80");
-    Spielmenue();
-    system("pause");
+    initscr();
+    cbreak();
+    noecho();
+    keypad(stdscr, TRUE);
+    timeout(1000);
+
+    startMenu();
 
     system("MODE CON: COLS=180");
     NeuesSpiel();
 
-    //system("pause");
 
-    //endwin();
+    endwin();
 
     return EXIT_SUCCESS;
 }
@@ -53,43 +56,83 @@ int main(void)
 /*******************************************************************************
 Funktion Spielmenue()
 Uebergabe Parameter:    -
-Rueckgabe:              void
+Rueckgabe:              -
 Beschreibung:           
 *******************************************************************************/
-int Spielmenue(void)
+void Spielmenue(void)
 {
-    system("MODE CON: COLS=80");
+    char cEingabe;
+    curs_set(0);
+
+    clear();
+    printw("\n");
+    printw("\t\t\t\tS U D O K U\n\n");
+    printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+    printw("\t\t============================================\n\n");
+    printw("\t\t\t[N]\tNeues Spiel\n\n");
+    printw("\t\t\t[R]\tSpielregeln\n\n");
+    printw("\t\t\t[B]\tBestenliste\n\n");
+    printw("\t\t\t[L]\tLogout\n\n");
+    printw("\t\t============================================\n\n");
+    refresh();
+
+    while(1){
+
+        cEingabe = getch();
+        switch(cEingabe)
+        {
+        case 'N': 
+        case 'n': break;
+        case 'R': 
+        case 'r': break;
+        case 'B': 
+        case 'b': break;
+        case 'L': 
+        case 'l': break;
+        }
+    }
     
-    printf("\t\t\t\t\t\t\tS U D O K U\n");
-    printf("\t\t\t\t(C) HHBK Tendo Research Center\n");
-    printf("\t\t\t\t[N]\tNeues Spiel\n\n");
-    printf("\t\t\t\t[R]\tSpielregeln\n\n");
-    printf("\t\t\t\t[B]\tBestenregeln\n\n");
-    printf("\t\t\t\t[L]\Logout\n\n");
 }
 
 /*******************************************************************************
 Funktion startMenu()
-Uebergabe Parameter:    void
-Rueckgabe:              int
-Beschreibung:           Erstellt das Startmenü und gibt die Auswahl als Integer
-						zurück.
+Uebergabe Parameter:    -
+Rueckgabe:              -
+Beschreibung:           Erstellt das Startmenü
 *******************************************************************************/
-int startMenu()
+void startMenu(void)
 {
-	printf("\n");
-	printf("\t\t\t\tS U D O K U\n\n");
-	printf("\t\t\t(C) HHBK Tendo Research Center\n\n");
-	printf("\t\t============================================\n\n");
-	printf("\t\t\t[E]\tEinloggen\n\n");
-	printf("\t\t\t[N]\tNicht einloggen\n\n");
-	printf("\t\t\t[R]\tRegistrieren\n\n");
-	printf("\t\t\t[X]\tBeenden\n\n");
-	printf("\t\t============================================\n\n");
+    char cEingabe;
 
-	while(1) {
+    curs_set(0); // Cursor unsichtbar
 
-	};
+    clear();
+    printw("\n");
+    printw("\t\t\t\tS U D O K U\n\n");
+    printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+    printw("\t\t============================================\n\n");
+    printw("\t\t\t[E]\tEinloggen\n\n");
+    printw("\t\t\t[N]\tNicht einloggen\n\n");
+    printw("\t\t\t[R]\tRegistrieren\n\n");
+    printw("\t\t\t[X]\tBeenden\n\n");
+    printw("\t\t============================================\n\n");
+    
 
-    return 0;
+    refresh();
+
+    while(1){
+
+        cEingabe = getch();
+        switch(cEingabe)
+        {
+        case 'E': 
+        case 'e': break;
+        case 'N': 
+        case 'n': Spielmenue(); break;
+        case 'R': 
+        case 'r': break;
+        case 'X': 
+        case 'x': break;
+        }
+    }
 }

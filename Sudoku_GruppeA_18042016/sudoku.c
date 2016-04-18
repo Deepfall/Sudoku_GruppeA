@@ -26,13 +26,10 @@ void NeuesSpiel(void)
 	char formattedElapsedTime[9];
 	time_t startTime, currentTime;
 	
-    //system("MODE CON: COLS=160");
+    
 
-	initscr();
-	cbreak();
-	noecho();
-	keypad(stdscr, TRUE);
-	timeout(1000);
+	
+	
 	time(&startTime);
 	
 	while(1) {
@@ -87,5 +84,5 @@ void NeuesSpiel(void)
         refresh();
     }
 
-    endwin();
+    
 }
