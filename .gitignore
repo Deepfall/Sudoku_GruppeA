@@ -11,7 +11,7 @@
 *.userprefs
 
 # Build results
-[Dd]ebug/
+Sudoku_GruppeA_18042016/Debug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
@@ -234,4 +234,3 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
-
