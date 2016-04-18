@@ -1,5 +1,6 @@
 /*
-Autor(en)               : 
+Autor(en)               : Dominik Elis, Robin Grahl, Dustin Wels, David Fischer,
+                          Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : .c
 Datum                   : ..2016
