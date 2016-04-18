@@ -29,6 +29,8 @@ Praeprozessoranweisungen
 Funktionsprototypen
 *******************************************************************************/
 void getFormattedTime(char formattedTime[9], int elapsedSeconds);
+int startMenu();
+
 
 /*******************************************************************************
 Globale Variablen
@@ -150,7 +152,6 @@ int Spielfeld(void)
 }
 
 /*******************************************************************************
-<<<<<<< HEAD
 Funktion Spielmenue()
 Uebergabe Parameter:    -
 Rueckgabe:              void
@@ -166,6 +167,30 @@ int Spielmenue(void)
     printf("\t\t\t\t[R]\tSpielregeln\n\n");
     printf("\t\t\t\t[B]\tBestenregeln\n\n");
     printf("\t\t\t\t[L]\Logout\n\n");
+}
 
-   
+/*******************************************************************************
+Funktion startMenu()
+Uebergabe Parameter:    void
+Rueckgabe:              int
+Beschreibung:           Erstellt das Startmenü und gibt die Auswahl als Integer
+						zurück.
+*******************************************************************************/
+int startMenu()
+{
+	printf("\n");
+	printf("\t\t\t\tS U D O K U\n\n");
+	printf("\t\t\t(C) HHBK Tendo Research Center\n\n");
+	printf("\t\t============================================\n\n");
+	printf("\t\t\t[E]\tEinloggen\n\n");
+	printf("\t\t\t[N]\tNicht einloggen\n\n");
+	printf("\t\t\t[R]\tRegistrieren\n\n");
+	printf("\t\t\t[X]\tBeenden\n\n");
+	printf("\t\t============================================\n\n");
+
+	while(1) {
+
+	};
+
+    return 0;
 }
