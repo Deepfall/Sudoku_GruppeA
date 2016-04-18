@@ -19,7 +19,11 @@ Praeprozessoranweisungen
 #include <stdlib.h>
 #include <curses.h>
 #include <time.h>
-#include "globalDefines.h"
+
+// Allgemein
+#define OK                          0
+#define TRUE                        1
+#define FALSE                       0
 
 /*******************************************************************************
 Funktionsprototypen
