@@ -42,7 +42,6 @@ Funktion main()
 *******************************************************************************/
 int main(void)
 {
-<<<<<<< Updated upstream
     //initscr();
     system("MODE CON: COLS=80");
     Spielmenue();
@@ -103,31 +102,6 @@ int Spielfeld(void)
 		
 		printw("      A       B       C        D       E       F        G       H      I                                      \n");
 		printw("  +-------+-------+----------------+-------+----------------+-------+-------+                                 \n");
-=======
-    WINDOW *sudokuGrid, *sidebox, *errors;
-    int elapsedSeconds, pressedKey;
-    char formattedElapsedTime[9];
-    time_t startTime, currentTime;
-
-    system("MODE CON: COLS=160");
-    initscr();
-    cbreak();
-    noecho();
-    keypad(stdscr, TRUE);
-    timeout(500);
-    time(&startTime);
-
-    while(1) {
-        pressedKey = getch();
-
-        clear();
-        time(&currentTime);
-        elapsedSeconds = (int) difftime(currentTime, startTime);
-        getFormattedTime(formattedElapsedTime, elapsedSeconds);
-
-        printw("      A       B       C        D       E       F        G       H      I                                      \n");
-        printw("  +-------+-------+----------------+-------+----------------+-------+-------+                                 \n");
->>>>>>> Stashed changes
         printw("  |       |       |       ||       |       |       ||       |       |       |     Zeit:          %s     \n", formattedElapsedTime);
         printw("1 |       |       |       ||       |       |       ||       |       |       |     Hilfe genutzt: 0            \n");
         printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
