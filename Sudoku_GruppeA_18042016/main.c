@@ -21,7 +21,6 @@ Praeprozessoranweisungen
 #include <time.h>
 
 // Allgemein
-#define OK                          0
 #define TRUE                        1
 #define FALSE                       0
 
@@ -148,7 +147,7 @@ int Spielfeld(void)
 
     endwin();
 
-    return OK;
+    return EXIT_SUCCESS;
 }
 
 /*******************************************************************************
