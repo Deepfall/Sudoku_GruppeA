@@ -3,7 +3,7 @@ Autor(en)               : Dominik Elis, Robin Grahl, Dustin Wels, David Fischer,
                           Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : .c
-Datum                   : ..2016
+Datum                   : 18.04.2016
 Beschreibung            : 
 Version                 : 
 Aenderungen             : 
@@ -38,6 +38,28 @@ Globale Variablen
 /*******************************************************************************
 Funktion main()
 *******************************************************************************/
+int main(void)
+{
+    //initscr();
+    system("MODE CON: COLS=80");
+    Spielmenue();
+    system("pause");
+
+    system("MODE CON: COLS=180");
+    clear();
+    Spielfeld();
+
+    //system("pause");
+
+    //endwin();
+}
+
+/*******************************************************************************
+Funktion getFormattedTime()
+Uebergabe Parameter:    -
+Rueckgabe:              void
+Beschreibung:           
+*******************************************************************************/
 void getFormattedTime(char formattedTime[9], int elapsedSeconds)
 {
 	int hour = elapsedSeconds / 3600;
@@ -47,13 +69,20 @@ void getFormattedTime(char formattedTime[9], int elapsedSeconds)
 	sprintf(formattedTime, "%02d:%02d:%02d", hour, minutes, seconds);
 }
 
-int main(void)
+/*******************************************************************************
+Funktion Spielfeld()
+Uebergabe Parameter:    -
+Rueckgabe:              void
+Beschreibung:           
+*******************************************************************************/
+int Spielfeld(void)
 {
 	int elapsedSeconds, pressedKey;
 	char formattedElapsedTime[9];
 	time_t startTime, currentTime;
 	
-    system("MODE CON: COLS=160");
+    //system("MODE CON: COLS=160");
+
 	initscr();
 	cbreak();
 	noecho();
@@ -121,8 +150,22 @@ int main(void)
 }
 
 /*******************************************************************************
-Funktion ()
+Funktion Spielmenue()
 Uebergabe Parameter:    -
 Rueckgabe:              void
 Beschreibung:           
 *******************************************************************************/
+int Spielmenue(void)
+{
+    system("MODE CON: COLS=80");
+    
+    printf("\t\t\t\t\t\t\tS U D O K U\n");
+    printf("\t\t\t\t(C) HHBK Tendo Research Center\n");
+    printf("\t\t\t\t[N]\tNeues Spiel\n\n");
+    printf("\t\t\t\t[R]\tSpielregeln\n\n");
+    printf("\t\t\t\t[B]\tBestenregeln\n\n");
+    printf("\t\t\t\t[L]\Logout\n\n");
+
+    
+
+}
