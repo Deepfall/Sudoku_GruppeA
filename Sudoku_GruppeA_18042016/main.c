@@ -1,6 +1,6 @@
 /*
 Autor(en)               : Dominik Elis, Robin Grahl, Dustin Wels, David Fischer,
-Jennifer Hermanns
+                          Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : .c
 Datum                   : 18.04.2016
@@ -28,41 +28,78 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-void startMenu(void);
+void startMenue(void);
 void Spielmenue(void);
+void SchwierigkeitsStufenMenue(void);
 
 /*******************************************************************************
 Funktion main()
 *******************************************************************************/
 int main(void)
 {
+    system("MODE CON: COLS=160");
     initscr();
     cbreak();
     noecho();
     keypad(stdscr, TRUE);
     timeout(1000);
 
-    startMenu();
-
-    system("MODE CON: COLS=180");
-    NeuesSpiel();
+    startMenue();
 
 
     endwin();
 
     return EXIT_SUCCESS;
 }
+/*******************************************************************************
+Funktion Schwierigkeitsstufenmenue()
+Uebergabe Parameter:    -
+Rueckgabe:              -
+Beschreibung:           Erstellt das Menue für die 3 Schwierigkeitsstufen.
+*******************************************************************************/
+void SchwierigkeitsStufenMenue(void)
+{
+    char cEingabe;
+    curs_set(0); // Cursor unsichtbar machen
+
+    clear();
+    printw("\n");
+    printw("\t\t\t\tS U D O K U\n\n");
+    printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+    printw("\t\t============================================\n\n");
+    printw("\t\t\t[L]\tLeicht\n\n");
+    printw("\t\t\t[M]\tMittel\n\n");
+    printw("\t\t\t[S]\tSchwer\n\n");
+    printw("\t\t============================================\n\n");
+   
+    refresh();
+
+    // Abfangen der unerwuenschten Buchstaben
+    while(1){
+
+        cEingabe = getch();
+        switch(cEingabe)
+        {
+        case 'L': 
+        case 'l': NeuesSpiel(); break;
+        case 'M': 
+        case 'm': NeuesSpiel(); break;
+        case 'S': 
+        case 's': NeuesSpiel(); break;
+        }
+    }
+}
 
 /*******************************************************************************
 Funktion Spielmenue()
 Uebergabe Parameter:    -
 Rueckgabe:              -
-Beschreibung:           
+Beschreibung:           Erstellt das Spielmenue.
 *******************************************************************************/
 void Spielmenue(void)
 {
     char cEingabe;
-    curs_set(0);
+    curs_set(0); // Cursor unsichtbar machen
 
     clear();
     printw("\n");
@@ -74,17 +111,19 @@ void Spielmenue(void)
     printw("\t\t\t[B]\tBestenliste\n\n");
     printw("\t\t\t[L]\tLogout\n\n");
     printw("\t\t============================================\n\n");
+
     refresh();
 
+    // Abfangen der unerwuenschten Buchstaben
     while(1){
 
         cEingabe = getch();
         switch(cEingabe)
         {
         case 'N': 
-        case 'n': break;
+        case 'n': SchwierigkeitsStufenMenue(); break;
         case 'R': 
-        case 'r': break;
+        case 'r': SpielregelnAnzeigen(); break;
         case 'B': 
         case 'b': break;
         case 'L': 
@@ -95,16 +134,16 @@ void Spielmenue(void)
 }
 
 /*******************************************************************************
-Funktion startMenu()
+Funktion startMenue()
 Uebergabe Parameter:    -
 Rueckgabe:              -
-Beschreibung:           Erstellt das Startmenü
+Beschreibung:           Erstellt das Startmenü.
 *******************************************************************************/
-void startMenu(void)
+void startMenue(void)
 {
     char cEingabe;
 
-    curs_set(0); // Cursor unsichtbar
+    curs_set(0); // Cursor unsichtbar machen
 
     clear();
     printw("\n");
@@ -117,11 +156,10 @@ void startMenu(void)
     printw("\t\t\t[X]\tBeenden\n\n");
     printw("\t\t============================================\n\n");
     
-
     refresh();
 
+    // Abfangen der unerwuenschten Buchstaben
     while(1){
-
         cEingabe = getch();
         switch(cEingabe)
         {
@@ -135,4 +173,22 @@ void startMenu(void)
         case 'x': break;
         }
     }
+}
+/*******************************************************************************
+Funktion SPielregelnAnzeigen()
+Uebergabe Parameter:    -
+Rueckgabe:              -
+Beschreibung:           Erstellt das Startmenü.
+*******************************************************************************/
+void SpielregelnAnzeigen(void)
+{
+    FILE *fp;
+
+    fp = fopen("W:\LF06\Wissemann\Projekt_GruppeA\Regeln.html","r");
+
+    if(fp != NULL)
+    {
+        fclose(fp);
+    }
+    
 }
