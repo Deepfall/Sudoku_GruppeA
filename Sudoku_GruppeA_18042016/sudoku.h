@@ -20,7 +20,27 @@ Praeprozessoranweisungen
 #define TRUE                        1
 #define FALSE                       0
 
+#define START_POSITION_SPALTE       6
+#define START_POSITION_ZEILE        3
+#define OFFSET_SPALTE               8
+#define OFFSET_ZEILE                4
+#define START_ZEILE                 1
+#define START_SPALTE                1
+
+typedef struct
+{
+    int x;
+    int y;
+    int aktuelleSpielfeldZeile;
+    int aktuelleSpielfeldSpalte;
+}
+CURSOR;
+
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
 void NeuesSpiel(void);
+void BewegeCursorLinks(CURSOR *cursor);
+void BewegeCursorRechts(CURSOR *cursor);
+void BewegeCursorHoch(CURSOR *cursor);
+void BewegeCursorRunter(CURSOR *cursor);

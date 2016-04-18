@@ -22,26 +22,43 @@ Beschreibung:
 *******************************************************************************/
 void NeuesSpiel(void)
 {
-    int elapsedSeconds, pressedKey;
-	char formattedElapsedTime[9];
-	time_t startTime, currentTime;
-	
-    
+    WINDOW *spielfeldFenster, *infoFenster;
+    CURSOR cursor = { START_POSITION_SPALTE, START_POSITION_ZEILE, 
+                      START_ZEILE, START_SPALTE };
+    int elapsedSeconds, gedrueckteTaste;
+    char formattedElapsedTime[9];
+    time_t startTime, currentTime;
 
-	
-	
-	time(&startTime);
-	
-	while(1) {
-		pressedKey = getch();
-	
-		clear();
-		time(&currentTime);
-		elapsedSeconds = (int) difftime(currentTime, startTime);
-		getFormattedTime(formattedElapsedTime, elapsedSeconds);
-		
-		printw("      A       B       C        D       E       F        G       H      I                                      \n");
-		printw("  +-------+-------+----------------+-------+----------------+-------+-------+                                 \n");
+    curs_set(1);
+    time(&startTime);
+
+    do
+    {
+        gedrueckteTaste = getch();
+
+        switch(gedrueckteTaste)
+        {
+        case KEY_LEFT:
+            BewegeCursorLinks(&cursor);
+            break;
+        case KEY_RIGHT:
+            BewegeCursorRechts(&cursor);
+            break;
+        case KEY_UP:
+            BewegeCursorHoch(&cursor);
+            break;
+        case KEY_DOWN:
+            BewegeCursorRunter(&cursor);
+            break;
+        }
+
+        clear();
+        time(&currentTime);
+        elapsedSeconds = (int) difftime(currentTime, startTime);
+        getFormattedTime(formattedElapsedTime, elapsedSeconds);
+
+        printw("      A       B       C        D       E       F        G       H      I                                      \n");
+        printw("  +-------+-------+----------------+-------+----------------+-------+-------+                                 \n");
         printw("  |       |       |       ||       |       |       ||       |       |       |     Zeit:          %s     \n", formattedElapsedTime);
         printw("1 |       |       |       ||       |       |       ||       |       |       |     Hilfe genutzt: 0            \n");
         printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
@@ -78,11 +95,63 @@ void NeuesSpiel(void)
         printw("9 |       |       |       ||       |       |       ||       |       |       |                                 \n");
         printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
         printw("  +-------+-------+----------------+-------+----------------+-------+-------+                                 \n");
+        printw("\nX: %i\n", cursor.x);
+        printw("\nY: %i\n", cursor.y);
+        printw("\nZeile: %i\n", cursor.aktuelleSpielfeldZeile);
+        printw("\nSpalte: %i\n", cursor.aktuelleSpielfeldSpalte);
 
-        printw("Pressed key: %d", pressedKey);
-
+        move(cursor.y, cursor.x);
         refresh();
     }
+    while(gedrueckteTaste != 'L' && gedrueckteTaste != 'l');
 
-    
+    clear();
+}
+
+void BewegeCursorLinks(CURSOR *cursor)
+{
+    if(cursor->aktuelleSpielfeldSpalte > 1)
+    {
+        cursor->x -= OFFSET_SPALTE;
+
+        if(cursor->aktuelleSpielfeldSpalte % 3 == 1)
+        {
+            cursor->x--;
+        }
+
+        cursor->aktuelleSpielfeldSpalte--;
+    }
+}
+
+void BewegeCursorRechts(CURSOR *cursor)
+{
+    if(cursor->aktuelleSpielfeldSpalte < 9)
+    {
+        cursor->x += OFFSET_SPALTE;
+
+        if(cursor->aktuelleSpielfeldSpalte % 3 == 0)
+        {
+            cursor->x++;
+        }
+
+        cursor->aktuelleSpielfeldSpalte++;
+    }
+}
+
+void BewegeCursorHoch(CURSOR *cursor)
+{
+    if(cursor->aktuelleSpielfeldZeile > 1)
+    {
+        cursor->y -= OFFSET_ZEILE;
+        cursor->aktuelleSpielfeldZeile--;
+    }
+}
+
+void BewegeCursorRunter(CURSOR *cursor)
+{
+    if(cursor->aktuelleSpielfeldZeile < 9)
+    {
+        cursor->y += OFFSET_ZEILE;
+        cursor->aktuelleSpielfeldZeile++;
+    }
 }
