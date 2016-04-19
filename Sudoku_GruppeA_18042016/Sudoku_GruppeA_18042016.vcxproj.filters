@@ -24,6 +24,12 @@
     <ClCompile Include="spielfeld.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="datenbankanbindung.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlite3.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sudoku.h">
@@ -32,5 +38,19 @@
     <ClInclude Include="spielfeld.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="datenbankanbindung.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite3.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite3ext.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sudoku.db">
+      <Filter>Ressourcendateien</Filter>
+    </None>
   </ItemGroup>
 </Project>

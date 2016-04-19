@@ -17,9 +17,11 @@ Praeprozessoranweisungen
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <curses.h>
 #include <time.h>
 #include "sudoku.h"
+#include "datenbankanbindung.h"
 
 // Allgemein
 #define TRUE                        1
@@ -28,29 +30,128 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-void startMenue(void);
+void StartMenue(void);
 void Spielmenue(void);
 void SchwierigkeitsStufenMenue(void);
+void LoggInmenue(void);
+void Registrierungsmenue(void);
+
+void SpielregelnAnzeigen(void);
 
 /*******************************************************************************
 Funktion main()
 *******************************************************************************/
 int main(void)
 {
-    system("MODE CON: COLS=160");
-    initscr();
-    cbreak();
-    noecho();
+    system("MODE CON: COLS=160"); // Festsetzen der Gr\224ße vom Konsolenfenster
+    initscr(); 
+    cbreak(); // evtl noch rauspacken
+    noecho(); // evtl noch rauspacken
     keypad(stdscr, TRUE);
     timeout(1000);
 
-    startMenue();
+    StartMenue();
 
 
     endwin();
 
     return EXIT_SUCCESS;
 }
+/*******************************************************************************
+Funktion LoggInmenue()
+Uebergabe Parameter:    -
+Rueckgabe:              -
+Beschreibung:           Erstellt das Menue für das Einloggen eines Benutzers, 
+                        dafür müssen der Nickname und das Passwort eingegeben 
+                        werden. 
+*******************************************************************************/
+void LoggInmenue(void)
+{
+    char cNickname[TEXTLAENGE];
+    char cPasswort[PASSWORTLAENGE];
+   
+    curs_set(1); // Cursor sichtbar machen
+    echo(); // Eingabe anzeigen lassen 
+    timeout(-1); //timeout deaktivieren
+
+    clear();
+    printw("\n");
+    printw("\t\t\t\tS U D O K U\n\n");
+    printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+    printw("\t\t============================================\n\n");
+    printw("\t\t\tBitte geben Sie ihre Daten ein,\n"
+           "\t\t\tum sich erfolgreich anzumelden.\n\n");
+    printw("\t\t\tNickname: ");
+    getstr(cNickname);
+
+    printw("\t\t\tPasswort: ");
+    getstr(cPasswort);
+    printw("\t\t============================================\n\n");
+
+    // Weitergabe an die Datenbankanbindung
+
+}
+
+/*******************************************************************************
+Funktion Registrierungsmenue()
+Uebergabe Parameter:    -
+Rueckgabe:              -
+Beschreibung:           Erstellt das Menue für die Registrierung eines neuen
+                        Benutzers. F\201r die Registrierung werden Nachname, 
+                        Vorname, Nickname und ein Passwort benötigt.
+*******************************************************************************/
+void Registrierungsmenue(void)
+{
+    char cNachname[TEXTLAENGE];
+    char cVorname[TEXTLAENGE];
+    char cNickname[TEXTLAENGE];
+    char cPasswort[PASSWORTLAENGE];
+
+    int iRueckgabe;
+   
+    curs_set(1); // Cursor sichtbar machen
+    echo(); // Eingabe anzeigen lassen 
+    timeout(-1); //timeout deaktivieren
+
+    // Ausgabe des Registrierungsmenues
+    clear();
+    printw("\n");
+    printw("\t\t\t\tS U D O K U\n\n");
+    printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+    printw("\t\t============================================\n\n");
+    printw("\t\t\tBitte f\204llen Sie die folgenden Felder aus um.\n");
+    printw("\n\t\t\tNachname (max. 20 Zeichen): ");
+    getstr(cNachname);
+
+    printw("\n\t\t\tVorname  (max. 20 Zeichen): ");
+    getstr(cVorname);
+
+    printw("\n\t\t\tNickname (max. 20 Zeichen): ");
+    getstr(cNickname);
+
+    //curs_set(0); // Cursor unsichtbar machen
+    printw("\n\t\t\tPasswort (6 Zeichen lang): ");
+    getstr(cPasswort);
+    printw("\n\n\t\t============================================\n\n");
+
+
+    // Weitergabe an die Datenbankanbindung
+    iRueckgabe = Registrieren(cNachname, cVorname, cNickname, cPasswort);
+
+    if (iRueckgabe == 0)
+    {
+        printf("\nDie Registrierung war erfolgreich.\n\n");
+        timeout(5000);
+        Spielmenue();
+    }
+    else
+    {
+        printf("\nDie Registrierung ist fehlgeschlagen.\n\n");
+        timeout(5000);
+        StartMenue;
+    }
+}
+
 /*******************************************************************************
 Funktion Schwierigkeitsstufenmenue()
 Uebergabe Parameter:    -
@@ -62,6 +163,7 @@ void SchwierigkeitsStufenMenue(void)
     char cEingabe;
     curs_set(0); // Cursor unsichtbar machen
 
+    // Ausgabe des Menues für die Schwierigkeitsstufen
     clear();
     printw("\n");
     printw("\t\t\t\tS U D O K U\n\n");
@@ -76,7 +178,6 @@ void SchwierigkeitsStufenMenue(void)
 
     // Abfangen der unerwuenschten Buchstaben
     while(1){
-
         cEingabe = getch();
         switch(cEingabe)
         {
@@ -101,6 +202,7 @@ void Spielmenue(void)
     char cEingabe;
     curs_set(0); // Cursor unsichtbar machen
 
+    // Ausgabe des Spielmenues
     clear();
     printw("\n");
     printw("\t\t\t\tS U D O K U\n\n");
@@ -116,35 +218,35 @@ void Spielmenue(void)
 
     // Abfangen der unerwuenschten Buchstaben
     while(1){
-
         cEingabe = getch();
         switch(cEingabe)
         {
-        case 'N': 
-        case 'n': SchwierigkeitsStufenMenue(); break;
-        case 'R': 
-        case 'r': SpielregelnAnzeigen(); break;
-        case 'B': 
-        case 'b': break;
-        case 'L': 
-        case 'l': break;
+            case 'N': 
+            case 'n': SchwierigkeitsStufenMenue(); break;
+            case 'R': 
+            case 'r': SpielregelnAnzeigen(); break;
+            case 'B': 
+            case 'b': break;
+            case 'L': 
+            case 'l': break;
         }
     }
     
 }
 
 /*******************************************************************************
-Funktion startMenue()
+Funktion StartMenue()
 Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           Erstellt das Startmenü.
 *******************************************************************************/
-void startMenue(void)
+void StartMenue(void)
 {
     char cEingabe;
 
     curs_set(0); // Cursor unsichtbar machen
 
+    // Ausgabe des Startmenues
     clear();
     printw("\n");
     printw("\t\t\t\tS U D O K U\n\n");
@@ -163,32 +265,25 @@ void startMenue(void)
         cEingabe = getch();
         switch(cEingabe)
         {
-        case 'E': 
-        case 'e': break;
-        case 'N': 
-        case 'n': Spielmenue(); break;
-        case 'R': 
-        case 'r': break;
-        case 'X': 
-        case 'x': break;
+            case 'E': 
+            case 'e': LoggInmenue(); break;
+            case 'N': 
+            case 'n': Spielmenue(); break;
+            case 'R': 
+            case 'r': Registrierungsmenue(); break;
+            case 'X': 
+            case 'x': break;
         }
     }
 }
 /*******************************************************************************
-Funktion SPielregelnAnzeigen()
+Funktion SpielregelnAnzeigen()
 Uebergabe Parameter:    -
 Rueckgabe:              -
-Beschreibung:           Erstellt das Startmenü.
+Beschreibung:           \231ffnen der HTML-Datei, die die Regeln zu dem Spiel
+                        enth\204lt.
 *******************************************************************************/
 void SpielregelnAnzeigen(void)
 {
-    FILE *fp;
-
-    fp = fopen("W:\LF06\Wissemann\Projekt_GruppeA\Regeln.html","r");
-
-    if(fp != NULL)
-    {
-        fclose(fp);
-    }
-    
+   system("start firefox.exe file://W:/LF06/Wissemann/Projekt_GruppeA/Regeln.html");  
 }

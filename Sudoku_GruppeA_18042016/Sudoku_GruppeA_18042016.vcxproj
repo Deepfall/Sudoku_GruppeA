@@ -43,7 +43,7 @@
     <ClCompile>
       <WarningLevel>EnableAllWarnings</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -65,13 +65,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="datenbankanbindung.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="spielfeld.c" />
+    <ClCompile Include="sqlite3.c" />
     <ClCompile Include="sudoku.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="datenbankanbindung.h" />
     <ClInclude Include="spielfeld.h" />
+    <ClInclude Include="sqlite3.h" />
+    <ClInclude Include="sqlite3ext.h" />
     <ClInclude Include="sudoku.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sudoku.db" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
