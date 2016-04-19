@@ -43,15 +43,14 @@ Funktion main()
 *******************************************************************************/
 int main(void)
 {
-    system("MODE CON: COLS=160"); // Festsetzen der Gr\224ße vom Konsolenfenster
+    system("MODE CON: COLS=109 LINES=48"); // Festsetzen der Groesse vom Konsolenfenster
     initscr(); 
     cbreak(); // evtl noch rauspacken
     noecho(); // evtl noch rauspacken
     keypad(stdscr, TRUE);
-    timeout(1000);
+    refresh();
 
     StartMenue();
-
 
     endwin();
 

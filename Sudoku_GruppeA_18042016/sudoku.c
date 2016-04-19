@@ -12,7 +12,6 @@ Compiler                : Visual Studio 2012
 Praeprozessoranweisungen
 *******************************************************************************/
 #include "sudoku.h"
-#include "spielfeld.h"
 
 /*******************************************************************************
 Funktion NeuesSpiel()
@@ -22,136 +21,115 @@ Beschreibung:
 *******************************************************************************/
 void NeuesSpiel(void)
 {
-    WINDOW *spielfeldFenster, *infoFenster;
+    WINDOW *spielfeldFenster, *infoFenster, *kommandoFenster;
     CURSOR cursor = { START_POSITION_SPALTE, START_POSITION_ZEILE, 
                       START_ZEILE, START_SPALTE };
-    int elapsedSeconds, gedrueckteTaste;
+    SUDOKUFELD spielfelder[81];
+    int elapsedSeconds, gedrueckteTaste = -1;
     char formattedElapsedTime[9];
     time_t startTime, currentTime;
 
-    curs_set(1);
+    curs_set(2);
+    timeout(33);
+
+    spielfeldFenster = ErstelleNeuesSpielfeldFenster();
+    infoFenster = ErstelleNeuesInfoFenster();
+    kommandoFenster = ErstelleNeuesKommandoFenster();
+
+    wclear(kommandoFenster);
+    wprintw(kommandoFenster, "[H] Hilfe (Feld füllen)\n");
+    wprintw(kommandoFenster, "[K] Kandidaten anzeigen\n");
+    wprintw(kommandoFenster, "[L] Lösung\n");
+    wprintw(kommandoFenster, "[R] Spielregeln\n");
+    wnoutrefresh(kommandoFenster);
+
     time(&startTime);
 
-    do
+    while(gedrueckteTaste != 'L' && gedrueckteTaste != 'l')
     {
-        gedrueckteTaste = getch();
+        gedrueckteTaste = VerarbeiteEingabe(&cursor, spielfelder);
 
-        switch(gedrueckteTaste)
-        {
-        case KEY_LEFT:
-            BewegeCursorLinks(&cursor);
-            break;
-        case KEY_RIGHT:
-            BewegeCursorRechts(&cursor);
-            break;
-        case KEY_UP:
-            BewegeCursorHoch(&cursor);
-            break;
-        case KEY_DOWN:
-            BewegeCursorRunter(&cursor);
-            break;
-        }
-
-        clear();
         time(&currentTime);
         elapsedSeconds = (int) difftime(currentTime, startTime);
         getFormattedTime(formattedElapsedTime, elapsedSeconds);
 
-        printw("      A       B       C        D       E       F        G       H      I                                      \n");
-        printw("  +-------+-------+----------------+-------+----------------+-------+-------+                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |     Zeit:          %s     \n", formattedElapsedTime);
-        printw("1 |       |       |       ||       |       |       ||       |       |       |     Hilfe genutzt: 0            \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  +-------+-------+-------++-------+-------+-------++-------+-------+-------+     [H] Hilfe (Feld füllen)     \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |     [K] Kandidaten anzeigen     \n");
-        printw("2 |       |       |       ||       |       |       ||       |       |       |     [L] Lösung                  \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |     [R] Spielregeln             \n");
-        printw("  +-------+-------+-------++-------+-------+-------++-------+-------+-------+                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("3 |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  |=========================================================================|                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("4 |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  +-------+-------+-------++-------+-------+-------++-------+-------+-------+                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("5 |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  +-------+-------+-------++-------+-------+-------++-------+-------+-------+                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("6 |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  |=========================================================================|                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("7 |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  +-------+-------+-------++-------+-------+-------++-------+-------+-------+                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("8 |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  +-------+-------+-------++-------+-------+-------++-------+-------+-------+                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("9 |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  |       |       |       ||       |       |       ||       |       |       |                                 \n");
-        printw("  +-------+-------+----------------+-------+----------------+-------+-------+                                 \n");
-        printw("\nX: %i\n", cursor.x);
-        printw("\nY: %i\n", cursor.y);
-        printw("\nZeile: %i\n", cursor.aktuelleSpielfeldZeile);
-        printw("\nSpalte: %i\n", cursor.aktuelleSpielfeldSpalte);
+        wprintw(infoFenster, "Zeit:          %s\n", formattedElapsedTime);
+        wprintw(infoFenster, "Hilfe genutzt: 0\n\n");
+        wnoutrefresh(infoFenster);
 
-        move(cursor.y, cursor.x);
-        refresh();
-    }
-    while(gedrueckteTaste != 'L' && gedrueckteTaste != 'l');
+        wprintw(spielfeldFenster, "      A       B       C        D       E       F        G       H      I\n");
+        wprintw(spielfeldFenster, "  +-------+-------+----------------+-------+----------------+-------+-------+\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "1 |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "2 |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "3 |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  |=========================================================================|\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "4 |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "5 |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "6 |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  |=========================================================================|\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "7 |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "8 |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "9 |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
+        wprintw(spielfeldFenster, "  +-------+-------+----------------+-------+----------------+-------+-------+\n");
+        wprintw(spielfeldFenster, "X: %i\n", cursor.iX);
+        wprintw(spielfeldFenster, "Y: %i\n", cursor.iY);
+        wprintw(spielfeldFenster, "Zeile: %i\n", cursor.iAktuelleSpielfeldZeile);
+        wprintw(spielfeldFenster, "Spalte: %i\n", cursor.iAktuelleSpielfeldSpalte);
+        wnoutrefresh(spielfeldFenster);
 
-    clear();
-}
-
-void BewegeCursorLinks(CURSOR *cursor)
-{
-    if(cursor->aktuelleSpielfeldSpalte > 1)
-    {
-        cursor->x -= OFFSET_SPALTE;
-
-        if(cursor->aktuelleSpielfeldSpalte % 3 == 1)
-        {
-            cursor->x--;
-        }
-
-        cursor->aktuelleSpielfeldSpalte--;
+        wclear(spielfeldFenster);
+        wclear(infoFenster);
+        doupdate();
     }
 }
 
-void BewegeCursorRechts(CURSOR *cursor)
+WINDOW *ErstelleNeuesSpielfeldFenster(void)
 {
-    if(cursor->aktuelleSpielfeldSpalte < 9)
-    {
-        cursor->x += OFFSET_SPALTE;
+    int iHoehe = 47, iBreite = 78, 
+        iStartY = 1, iStartX = 1;
+    WINDOW *spielfeldFenster = newwin(iHoehe, iBreite, iStartY, iStartX);
 
-        if(cursor->aktuelleSpielfeldSpalte % 3 == 0)
-        {
-            cursor->x++;
-        }
-
-        cursor->aktuelleSpielfeldSpalte++;
-    }
+    return spielfeldFenster;
 }
 
-void BewegeCursorHoch(CURSOR *cursor)
+WINDOW *ErstelleNeuesInfoFenster(void)
 {
-    if(cursor->aktuelleSpielfeldZeile > 1)
-    {
-        cursor->y -= OFFSET_ZEILE;
-        cursor->aktuelleSpielfeldZeile--;
-    }
+    int iHoehe = 2, iBreite = 24, 
+        iStartY = 1, iStartX = 85;
+    WINDOW *infoFenster = newwin(iHoehe, iBreite, iStartY, iStartX);
+
+    return infoFenster;
 }
 
-void BewegeCursorRunter(CURSOR *cursor)
+WINDOW *ErstelleNeuesKommandoFenster(void)
 {
-    if(cursor->aktuelleSpielfeldZeile < 9)
-    {
-        cursor->y += OFFSET_ZEILE;
-        cursor->aktuelleSpielfeldZeile++;
-    }
+    int iHoehe = 44, iBreite = 24, 
+        iStartY = 4, iStartX = 85;
+    WINDOW *infoFenster = newwin(iHoehe, iBreite, iStartY, iStartX);
+
+    return infoFenster;
 }

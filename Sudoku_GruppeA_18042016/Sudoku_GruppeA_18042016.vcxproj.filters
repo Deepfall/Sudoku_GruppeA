@@ -27,6 +27,12 @@
     <ClCompile Include="datenbankanbindung.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="eingabeverarbeitung.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="cursor.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
     <ClCompile Include="sqlite3.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -39,6 +45,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="datenbankanbindung.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="eingabeverarbeitung.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="cursor.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="sqlite3.h">

@@ -1,10 +1,10 @@
-#ifndef SPIELFELD_H
-#define SPIELFELD_H
+#ifndef CURSOR_H
+#define CURSOR_H
 /*
 Autor(en)               : David Fischer
 Klasse                  : FA11
-Programmname            : sudoku.h
-Datum                   : 18.04.2016
+Programmname            : cursor.h
+Datum                   : 19.04.2016
 Beschreibung            : 
 Version                 : 1.0
 Compiler                : Visual Studio 2012
@@ -13,19 +13,24 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
-#include <stdio.h>
+#define OFFSET_SPALTE               8
+#define OFFSET_ZEILE                4
 
 typedef struct
 {
-    int iWert;
-    int iIstVorbefuellt;
-    int iKandiaten[9];
+    int iX;
+    int iY;
+    int iAktuelleSpielfeldZeile;
+    int iAktuelleSpielfeldSpalte;
 }
-SUDOKUFELD;
+CURSOR;
 
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-void getFormattedTime(char formattedTime[9], int elapsedSeconds);
+void BewegeCursorLinks(CURSOR *cursor);
+void BewegeCursorRechts(CURSOR *cursor);
+void BewegeCursorHoch(CURSOR *cursor);
+void BewegeCursorRunter(CURSOR *cursor);
 
 #endif

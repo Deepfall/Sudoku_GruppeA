@@ -1,10 +1,10 @@
-#ifndef SPIELFELD_H
-#define SPIELFELD_H
+#ifndef EINGABEVERARBEITUNG_H
+#define EINGABEVERARBEITUNG_H
 /*
 Autor(en)               : David Fischer
 Klasse                  : FA11
-Programmname            : sudoku.h
-Datum                   : 18.04.2016
+Programmname            : eingabeverarbeitung.h
+Datum                   : 19.04.2016
 Beschreibung            : 
 Version                 : 1.0
 Compiler                : Visual Studio 2012
@@ -13,19 +13,15 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
-#include <stdio.h>
-
-typedef struct
-{
-    int iWert;
-    int iIstVorbefuellt;
-    int iKandiaten[9];
-}
-SUDOKUFELD;
+#include <curses.h>
+#include "cursor.h"
+#include "spielfeld.h"
 
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-void getFormattedTime(char formattedTime[9], int elapsedSeconds);
+int VerarbeiteEingabe(CURSOR *cursor, SUDOKUFELD sudokufeld[81]);
+void VerarbeiteCursorBewegung(int gedrueckteTaste, CURSOR *cursor);
+void VerarbeiteFeldEingabe(int gedrueckteTaste, CURSOR *cursor, SUDOKUFELD sudokufelder[81]);
 
 #endif

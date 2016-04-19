@@ -66,6 +66,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="datenbankanbindung.c" />
+    <ClCompile Include="cursor.c" />
+    <ClCompile Include="eingabeverarbeitung.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="spielfeld.c" />
     <ClCompile Include="sqlite3.c" />
@@ -73,6 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="datenbankanbindung.h" />
+    <ClInclude Include="eingabeverarbeitung.h" />
+    <ClInclude Include="cursor.h" />
     <ClInclude Include="spielfeld.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="sqlite3ext.h" />
