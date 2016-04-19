@@ -57,7 +57,7 @@ void VerarbeiteCursorBewegung(int gedrueckteTaste, CURSOR *cursor)
 }
 
 /*******************************************************************************
-Funktion VerarbeiteCursorBewegung()
+Funktion VerarbeiteFeldEingabe()
 Uebergabe Parameter:    -
 Rueckgabe:              void
 Beschreibung:           

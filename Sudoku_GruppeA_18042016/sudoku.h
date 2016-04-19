@@ -36,5 +36,8 @@ void NeuesSpiel(void);
 WINDOW *ErstelleNeuesInfoFenster(void);
 WINDOW *ErstelleNeuesSpielfeldFenster(void);
 WINDOW *ErstelleNeuesKommandoFenster(void);
+void ZeicheSpielfeld(WINDOW *spielfeldFenster);
+void ZeichneInfo(WINDOW *infoFenster, char formattedElapsedTime[9]);
+void ZeicheKommandos(WINDOW *kommandoFenster);
 
 #endif

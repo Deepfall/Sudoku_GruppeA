@@ -43,7 +43,7 @@ Funktion main()
 *******************************************************************************/
 int main(void)
 {
-    system("MODE CON: COLS=109 LINES=48"); // Festsetzen der Groesse vom Konsolenfenster
+    system("MODE CON: COLS=109 LINES=40"); // Festsetzen der Groesse vom Konsolenfenster
     initscr(); 
     cbreak(); // evtl noch rauspacken
     noecho(); // evtl noch rauspacken
@@ -89,6 +89,7 @@ void LoggInmenue(void)
 
     // Weitergabe an die Datenbankanbindung
 
+    noecho();
 }
 
 /*******************************************************************************
@@ -141,14 +142,16 @@ void Registrierungsmenue(void)
     {
         printf("\nDie Registrierung war erfolgreich.\n\n");
         timeout(5000);
-        Spielmenue();
+        StartMenue();
     }
     else
     {
         printf("\nDie Registrierung ist fehlgeschlagen.\n\n");
         timeout(5000);
-        StartMenue;
+        StartMenue();
     }
+
+    noecho();
 }
 
 /*******************************************************************************
@@ -159,33 +162,45 @@ Beschreibung:           Erstellt das Menue für die 3 Schwierigkeitsstufen.
 *******************************************************************************/
 void SchwierigkeitsStufenMenue(void)
 {
-    char cEingabe;
-    curs_set(0); // Cursor unsichtbar machen
-
-    // Ausgabe des Menues für die Schwierigkeitsstufen
-    clear();
-    printw("\n");
-    printw("\t\t\t\tS U D O K U\n\n");
-    printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
-    printw("\t\t============================================\n\n");
-    printw("\t\t\t[L]\tLeicht\n\n");
-    printw("\t\t\t[M]\tMittel\n\n");
-    printw("\t\t\t[S]\tSchwer\n\n");
-    printw("\t\t============================================\n\n");
-   
-    refresh();
+    char cEingabe = -1, cFalscheEingabe = TRUE;
 
     // Abfangen der unerwuenschten Buchstaben
-    while(1){
+    while(cFalscheEingabe)
+    {
+        curs_set(0); // Cursor unsichtbar machen
+        clear();
+
+        // Ausgabe des Menues für die Schwierigkeitsstufen
+        printw("\n");
+        printw("\t\t\t\tS U D O K U\n\n");
+        printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+        printw("\t\t============================================\n\n");
+        printw("\t\t\t[L]\tLeicht\n\n");
+        printw("\t\t\t[M]\tMittel\n\n");
+        printw("\t\t\t[S]\tSchwer\n\n");
+        printw("\t\t============================================\n\n");
+
+        refresh();
+
         cEingabe = getch();
+
         switch(cEingabe)
         {
-        case 'L': 
-        case 'l': NeuesSpiel(); break;
-        case 'M': 
-        case 'm': NeuesSpiel(); break;
-        case 'S': 
-        case 's': NeuesSpiel(); break;
+        case 'L':
+        case 'l':
+            NeuesSpiel();
+            cFalscheEingabe = FALSE;
+            break;
+        case 'M':
+        case 'm':
+            NeuesSpiel();
+            cFalscheEingabe = FALSE;
+            break;
+        case 'S':
+        case 's':
+            NeuesSpiel();
+            cFalscheEingabe = FALSE;
+            break;
         }
     }
 }
@@ -198,39 +213,48 @@ Beschreibung:           Erstellt das Spielmenue.
 *******************************************************************************/
 void Spielmenue(void)
 {
-    char cEingabe;
-    curs_set(0); // Cursor unsichtbar machen
-
-    // Ausgabe des Spielmenues
-    clear();
-    printw("\n");
-    printw("\t\t\t\tS U D O K U\n\n");
-    printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
-    printw("\t\t============================================\n\n");
-    printw("\t\t\t[N]\tNeues Spiel\n\n");
-    printw("\t\t\t[R]\tSpielregeln\n\n");
-    printw("\t\t\t[B]\tBestenliste\n\n");
-    printw("\t\t\t[L]\tLogout\n\n");
-    printw("\t\t============================================\n\n");
-
-    refresh();
+    char cEingabe = -1;
 
     // Abfangen der unerwuenschten Buchstaben
-    while(1){
+    while(cEingabe != 'L' && cEingabe != 'l')
+    {
+        curs_set(0); // Cursor unsichtbar machen
+        clear();
+
+        // Ausgabe des Spielmenues
+        printw("\n");
+        printw("\t\t\t\tS U D O K U\n\n");
+        printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+        printw("\t\t============================================\n\n");
+        printw("\t\t\t[N]\tNeues Spiel\n\n");
+        printw("\t\t\t[R]\tSpielregeln\n\n");
+        printw("\t\t\t[B]\tBestenliste\n\n");
+        printw("\t\t\t[L]\tLogout\n\n");
+        printw("\t\t============================================\n\n");
+
+        refresh();
+
         cEingabe = getch();
+
         switch(cEingabe)
         {
-            case 'N': 
-            case 'n': SchwierigkeitsStufenMenue(); break;
-            case 'R': 
-            case 'r': SpielregelnAnzeigen(); break;
-            case 'B': 
-            case 'b': break;
-            case 'L': 
-            case 'l': break;
+        case 'N': 
+        case 'n':
+            SchwierigkeitsStufenMenue();
+            break;
+        case 'R': 
+        case 'r':
+            SpielregelnAnzeigen();
+            break;
+        case 'B': 
+        case 'b':
+            break;
+        case 'L': 
+        case 'l':
+            break;
         }
     }
-    
+
 }
 
 /*******************************************************************************
@@ -241,37 +265,46 @@ Beschreibung:           Erstellt das Startmenü.
 *******************************************************************************/
 void StartMenue(void)
 {
-    char cEingabe;
-
-    curs_set(0); // Cursor unsichtbar machen
-
-    // Ausgabe des Startmenues
-    clear();
-    printw("\n");
-    printw("\t\t\t\tS U D O K U\n\n");
-    printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
-    printw("\t\t============================================\n\n");
-    printw("\t\t\t[E]\tEinloggen\n\n");
-    printw("\t\t\t[N]\tNicht einloggen\n\n");
-    printw("\t\t\t[R]\tRegistrieren\n\n");
-    printw("\t\t\t[X]\tBeenden\n\n");
-    printw("\t\t============================================\n\n");
-    
-    refresh();
+    char cEingabe = -1;
 
     // Abfangen der unerwuenschten Buchstaben
-    while(1){
+    while(cEingabe != 'X' && cEingabe != 'x')
+    {
+        curs_set(0); // Cursor unsichtbar machen
+        clear();
+
+        // Ausgabe des Startmenues
+        printw("\n");
+        printw("\t\t\t\tS U D O K U\n\n");
+        printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+        printw("\t\t============================================\n\n");
+        printw("\t\t\t[E]\tEinloggen\n\n");
+        printw("\t\t\t[N]\tNicht einloggen\n\n");
+        printw("\t\t\t[R]\tRegistrieren\n\n");
+        printw("\t\t\t[X]\tBeenden\n\n");
+        printw("\t\t============================================\n\n");
+
+        refresh();
+
         cEingabe = getch();
+
         switch(cEingabe)
         {
-            case 'E': 
-            case 'e': LoggInmenue(); break;
-            case 'N': 
-            case 'n': Spielmenue(); break;
-            case 'R': 
-            case 'r': Registrierungsmenue(); break;
-            case 'X': 
-            case 'x': break;
+        case 'E':
+        case 'e':
+            LoggInmenue();
+            break;
+        case 'N':
+        case 'n':
+            Spielmenue();
+            break;
+        case 'R':
+        case 'r':
+            Registrierungsmenue();
+            break;
+        case 'X':
+        case 'x':
+            break;
         }
     }
 }
@@ -280,9 +313,9 @@ Funktion SpielregelnAnzeigen()
 Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           \231ffnen der HTML-Datei, die die Regeln zu dem Spiel
-                        enth\204lt.
+enth\204lt.
 *******************************************************************************/
 void SpielregelnAnzeigen(void)
 {
-   system("start firefox.exe file://W:/LF06/Wissemann/Projekt_GruppeA/Regeln.html");  
+    system("start firefox.exe file://W:/LF06/Wissemann/Projekt_GruppeA/Regeln.html");
 }
