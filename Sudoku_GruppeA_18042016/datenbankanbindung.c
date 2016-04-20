@@ -15,7 +15,8 @@ Praeprozessoranweisungen
 
 /*******************************************************************************
 Funktion Einloggen()
-Uebergabe Parameter:    -
+Uebergabe Parameter:    cNickname
+                        cPasswort
 Rueckgabe:              0 - Einloggen war erfolgreich
                         1 - Einloggen ist fehlgeschlagen
 Beschreibung:           
@@ -37,41 +38,27 @@ int Einloggen(char *cNickname, char *cPasswort)
     sprintf(sql, "SELECT Passwort "
                  "FROM Benutzer WHERE Nickname = '%s'", cNickname);
 
-    printw("\n\n%s", sql);
 
     iRueckgabe = sqlite3_prepare_v2(db_handle, sql, strlen(sql), &stmt, NULL);
     cols = sqlite3_column_count(stmt);
 
-    printw("\n\n");
-
-    /*for (col = 0; col < cols; col++)
-    {
-        printw("%20s ", (const char*) sqlite3_column_name(stmt, col));
-    }
-    */
-    printf("\n");
     clear();
     while(sqlite3_step(stmt) == SQLITE_ROW)
     {
         for(col = 0; col < cols; col++)
         {
             data = (const char *) sqlite3_column_text(stmt, col);
-            printw("%s %s", data, cPasswort); 
             if(strcmp(data,cPasswort) == 0)
             { 
-                printw("Passwort ist korrekt.");
-                printw("Der Benutzer konnte sich erfolgreich einloggen.");
                 iRueckgabe = 0;
             }
             else
             {
-                printw("Passwort ist inkorrekt.");
-                printw("Das eingegebene Passwort ist inkorrekt.");
                 iRueckgabe = -1;
             }
-            //printw("%20s ", data ? data : "NULL");
         }
         refresh();
+        
     }
 
     sqlite3_finalize(stmt);
@@ -83,7 +70,10 @@ int Einloggen(char *cNickname, char *cPasswort)
 
 /*******************************************************************************
 Funktion Registrieren()
-Uebergabe Parameter:    -
+Uebergabe Parameter:    cNachname
+                        cVorname
+                        cNickname
+                        cPasswort
 Rueckgabe:              0 - Registrierung war erfolgreich
                         1 - Registrierung ist fehlgeschlagen
 Beschreibung:           
@@ -91,7 +81,6 @@ Beschreibung:
 int Registrieren(char *cNachname, char *cVorname,
                  char *cNickname, char *cPasswort)
 {
-    
     int iRueckgabe;
     char *sql, *cErrMsg;
 
@@ -123,6 +112,40 @@ int Registrieren(char *cNachname, char *cVorname,
     }
     
 }
+/*******************************************************************************
+Funktion felderGefuellt()
+Uebergabe Parameter:    cNachname
+                        cVorname
+                        cNickname
+                        cPasswort
+Rueckgabe:              0 - Felder sind gefüllt und Länge in Ordnung
+                        1 - Felder sind leer
+                        2 - Felder sind zu lang
+Beschreibung:           
+*******************************************************************************/
+int felderGefuellt(char *cNachname, char *cVorname,
+                   char *cNickname, char *cPasswort)
+{
+    
+    if(strcmp(cNachname,"") || strcmp(cVorname,"") || strcmp(cNickname,"") || strcmp(cPasswort,""))
+    {
+        return 1;
+    }
+    else
+    {
+    if(strlen(cNachname) <= 20 || strlen(cVorname) <= 20 || strlen(cNickname) <= 20 || (strlen(cPasswort) <= 20 && strlen(cPasswort) >= 6 ))
+    {
+        return 2;
+    }
+    else
+    {
+        return 0;
+    }
+    }
+    
+    
+}
+
 /*******************************************************************************
 Funktion SudokuBereitstellen()
 Uebergabe Parameter:    -
