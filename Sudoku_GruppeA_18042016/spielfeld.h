@@ -26,6 +26,6 @@ SUDOKUFELD;
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-void getFormattedTime(char formattedTime[9], int elapsedSeconds);
+void getformatierteZeit(char cformatierteZeit[9], int ivergangeneSekunden);
 
 #endif

@@ -49,7 +49,6 @@ void LoggInmenue(void)
     printw("\t\t============================================\n\n");
 
     // Weitergabe an die Datenbankanbindung
-
     iRueckgabe = Einloggen(cNickname, cPasswort); 
 
     if(iRueckgabe == 0)

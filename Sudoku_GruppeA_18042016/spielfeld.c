@@ -14,16 +14,16 @@ Praeprozessoranweisungen
 #include "spielfeld.h"
 
 /*******************************************************************************
-Funktion getFormattedTime()
+Funktion getformatierteZeit()
 Uebergabe Parameter:    -
 Rueckgabe:              void
 Beschreibung:           
 *******************************************************************************/
-void getFormattedTime(char formattedTime[9], int elapsedSeconds)
+void getformatierteZeit(char cformatierteZeit[9], int ivergangeneSekunden)
 {
-	int hour = elapsedSeconds / 3600;
-	int minutes = (elapsedSeconds / 60) % 60;
-	int seconds = elapsedSeconds % 60;
+	int iStunde = ivergangeneSekunden/ 3600;
+	int iMinute = (ivergangeneSekunden / 60) % 60;
+	int iSekunden = ivergangeneSekunden % 60;
 	
-	sprintf(formattedTime, "%02d:%02d:%02d", hour, minutes, seconds);
+	sprintf(cformatierteZeit, "%02d:%02d:%02d", iStunde, iMinute, iSekunden);
 }

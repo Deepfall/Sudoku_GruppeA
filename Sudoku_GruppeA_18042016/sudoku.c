@@ -25,9 +25,10 @@ void NeuesSpiel(void)
     CURSOR cursor = { CURSOR_START_POSITION_SPALTE, CURSOR_START_POSITION_ZEILE, 
         START_ZEILE, START_SPALTE };
     SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER];
-    int elapsedSeconds, gedrueckteTaste = -1, i;
-    char formattedElapsedTime[9];
-    time_t startTime, currentTime;
+    int iVergangeneSekunden, iGedrueckteTaste = -1;
+    char cformatierteVergangeneZeit[9];
+    time_t Startzeit, aktuelleZeit;
+>>>>>>> Stashed changes
 
     curs_set(1);
     timeout(33);
@@ -54,17 +55,18 @@ void NeuesSpiel(void)
     ZeicheSpielfelder(spielfeldFenster, spielfelder);
     ZeicheKommandos(kommandoFenster);
 
-    time(&startTime);
+    time(&Startzeit);
 
-    while(gedrueckteTaste != 'L' && gedrueckteTaste != 'l')
+    while(iGedrueckteTaste != 'L' && iGedrueckteTaste != 'l')
     {
-        gedrueckteTaste = VerarbeiteEingabe(&cursor, spielfelder);
+        iGedrueckteTaste = VerarbeiteEingabe(&cursor, spielfelder);
 
-        time(&currentTime);
-        elapsedSeconds = (int) difftime(currentTime, startTime);
-        getFormattedTime(formattedElapsedTime, elapsedSeconds);
+        time(&aktuelleZeit);
+        iVergangeneSekunden = (int) difftime(aktuelleZeit, Startzeit);
+        getformatierteZeit(cformatierteVergangeneZeit, iVergangeneSekunden);
 
-        ZeichneInfo(infoFenster, formattedElapsedTime);
+        ZeichneInfo(infoFenster, cformatierteVergangeneZeit);
+        ZeicheSpielfeld(spielfeldFenster);
 
         doupdate();
     }
@@ -184,11 +186,11 @@ void ZeicheSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_S
     wnoutrefresh(spielfeldFenster);
 }
 
-void ZeichneInfo(WINDOW *infoFenster, char formattedElapsedTime[9])
+void ZeichneInfo(WINDOW *infoFenster, char cformatierteVergangeneZeit[9])
 {
     wclear(infoFenster);
 
-    wprintw(infoFenster, "Zeit:          %s\n", formattedElapsedTime);
+    wprintw(infoFenster, "Zeit:          %s\n", cformatierteVergangeneZeit);
     wprintw(infoFenster, "Hilfe genutzt: 0");
 
     wnoutrefresh(infoFenster);
