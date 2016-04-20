@@ -13,7 +13,9 @@ Praeprozessoranweisungen
 *******************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
+#include <curses.h>
 #include "sqlite3.h"
 
 
@@ -33,6 +35,7 @@ Funktionsprototypen
 *******************************************************************************/
 int Registrieren(char *cNachname, char *cVorname,
                  char *cNickname, char *cPasswort);
+int Einloggen(char *cNickname, char *Passwort);
 
 /*******************************************************************************
 Globale Variablen

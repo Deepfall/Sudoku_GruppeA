@@ -1,6 +1,6 @@
 /*
 Autor(en)               : Dominik Elis, Robin Grahl, Dustin Wels, David Fischer,
-                          Jennifer Hermanns
+Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : .c
 Datum                   : 18.04.2016
@@ -61,14 +61,16 @@ Funktion LoggInmenue()
 Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           Erstellt das Menue für das Einloggen eines Benutzers, 
-                        dafür müssen der Nickname und das Passwort eingegeben 
-                        werden. 
+dafür müssen der Nickname und das Passwort eingegeben 
+werden. 
 *******************************************************************************/
 void LoggInmenue(void)
 {
     char cNickname[TEXTLAENGE];
     char cPasswort[PASSWORTLAENGE];
-   
+
+    int iRueckgabe;
+
     curs_set(1); // Cursor sichtbar machen
     echo(); // Eingabe anzeigen lassen 
     timeout(-1); //timeout deaktivieren
@@ -79,15 +81,27 @@ void LoggInmenue(void)
     printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
     printw("\t\t============================================\n\n");
     printw("\t\t\tBitte geben Sie ihre Daten ein,\n"
-           "\t\t\tum sich erfolgreich anzumelden.\n\n");
+        "\t\t\tum sich erfolgreich anzumelden.\n\n");
     printw("\t\t\tNickname: ");
     getstr(cNickname);
-
     printw("\t\t\tPasswort: ");
     getstr(cPasswort);
     printw("\t\t============================================\n\n");
 
     // Weitergabe an die Datenbankanbindung
+
+    iRueckgabe = Einloggen(cNickname, cPasswort); 
+
+    if(iRueckgabe == 0)
+    {
+        printw("Der Benutzer konnte sich erfolgreich einloggen.");
+        Spielmenue();
+    }
+    else
+    {
+        printw("Das eingegebene Passwort ist inkorrekt.");
+        StartMenue();
+    }
 
     noecho();
 }
@@ -97,8 +111,8 @@ Funktion Registrierungsmenue()
 Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           Erstellt das Menue für die Registrierung eines neuen
-                        Benutzers. F\201r die Registrierung werden Nachname, 
-                        Vorname, Nickname und ein Passwort benötigt.
+Benutzers. F\201r die Registrierung werden Nachname, 
+Vorname, Nickname und ein Passwort benötigt.
 *******************************************************************************/
 void Registrierungsmenue(void)
 {
@@ -108,7 +122,7 @@ void Registrierungsmenue(void)
     char cPasswort[PASSWORTLAENGE];
 
     int iRueckgabe;
-   
+
     curs_set(1); // Cursor sichtbar machen
     echo(); // Eingabe anzeigen lassen 
     timeout(-1); //timeout deaktivieren
@@ -141,7 +155,7 @@ void Registrierungsmenue(void)
     if (iRueckgabe == 0)
     {
         printf("\nDie Registrierung war erfolgreich.\n\n");
-        timeout(5000);
+        //timeout(10000);
         StartMenue();
     }
     else

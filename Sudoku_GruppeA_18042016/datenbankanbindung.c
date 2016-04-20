@@ -16,9 +16,70 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktion Einloggen()
 Uebergabe Parameter:    -
-Rueckgabe:              void
+Rueckgabe:              0 - Einloggen war erfolgreich
+                        1 - Einloggen ist fehlgeschlagen
 Beschreibung:           
 *******************************************************************************/
+int Einloggen(char *cNickname, char *cPasswort)
+{
+    int iRueckgabe, cols, col;
+    char sql[1000];
+    const char *data;
+    sqlite3_stmt *stmt;
+
+    iRueckgabe = sqlite3_open(DATENBANK_SUDOKU, &db_handle);
+
+    if (iRueckgabe != SQLITE_OK)
+    {
+        exit(iRueckgabe);
+    }
+
+    sprintf(sql, "SELECT Passwort "
+                 "FROM Benutzer WHERE Nickname = '%s'", cNickname);
+
+    printw("\n\n%s", sql);
+
+    iRueckgabe = sqlite3_prepare_v2(db_handle, sql, strlen(sql), &stmt, NULL);
+    cols = sqlite3_column_count(stmt);
+
+    printw("\n\n");
+
+    /*for (col = 0; col < cols; col++)
+    {
+        printw("%20s ", (const char*) sqlite3_column_name(stmt, col));
+    }
+    */
+    printf("\n");
+    clear();
+    while(sqlite3_step(stmt) == SQLITE_ROW)
+    {
+        for(col = 0; col < cols; col++)
+        {
+            data = (const char *) sqlite3_column_text(stmt, col);
+            printw("%s %s", data, cPasswort); 
+            if(strcmp(data,cPasswort) == 0)
+            { 
+                //printw("Passwort ist korrekt.");
+                iRueckgabe = 0;
+            }
+            else
+            {
+                //printw("Passwort ist inkorrekt.");
+                iRueckgabe = -1;
+            }
+            //printw("%20s ", data ? data : "NULL");
+        }
+        refresh();
+        //system("pause");
+        //printw("\n");
+    }
+
+    sqlite3_finalize(stmt);
+    sqlite3_close(db_handle);
+
+    return iRueckgabe;
+    
+}
 
 /*******************************************************************************
 Funktion Registrieren()
