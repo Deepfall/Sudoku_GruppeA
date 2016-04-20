@@ -25,10 +25,10 @@ void NeuesSpiel(void)
     CURSOR cursor = { CURSOR_START_POSITION_SPALTE, CURSOR_START_POSITION_ZEILE, 
         START_ZEILE, START_SPALTE };
     SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER];
-    int iVergangeneSekunden, iGedrueckteTaste = -1;
+    int iVergangeneSekunden, iGedrueckteTaste = -1, i;
     char cformatierteVergangeneZeit[9];
     time_t Startzeit, aktuelleZeit;
->>>>>>> Stashed changes
+
 
     curs_set(1);
     timeout(33);
