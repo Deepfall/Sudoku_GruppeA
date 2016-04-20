@@ -39,6 +39,9 @@
     <ClCompile Include="spielmenue.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="helpers.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sudoku.h">
@@ -66,6 +69,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="allgemeineDefines.h">
+	<Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="helpers.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

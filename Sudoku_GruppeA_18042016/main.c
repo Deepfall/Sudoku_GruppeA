@@ -28,6 +28,8 @@ Funktion main()
 *******************************************************************************/
 int main(void)
 {
+	unsigned int result = 0;
+
     system("MODE CON: COLS=109 LINES=40"); // Festsetzen der Groesse vom Konsolenfenster
     initscr(); 
     cbreak(); // evtl noch rauspacken
