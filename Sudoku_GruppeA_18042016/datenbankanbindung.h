@@ -18,12 +18,6 @@ Praeprozessoranweisungen
 #include <curses.h>
 #include "sqlite3.h"
 
-
-// Allgemein
-#define _CRT_SECURE_NO_DEPRECATE    1
-
-#define TRUE                        1
-#define FALSE                       0
 #define TEXTLAENGE                 20
 
 // Datenbank

@@ -23,7 +23,7 @@ void BewegeCursorLinks(CURSOR *cursor)
 {
     if(cursor->iAktuelleSpielfeldSpalte > 1)
     {
-        cursor->iX -= OFFSET_SPALTE;
+        cursor->iX -= CURSOR_OFFSET_SPALTE;
 
         if(cursor->iAktuelleSpielfeldSpalte % 3 == 1)
         {
@@ -44,7 +44,7 @@ void BewegeCursorRechts(CURSOR *cursor)
 {
     if(cursor->iAktuelleSpielfeldSpalte < 9)
     {
-        cursor->iX += OFFSET_SPALTE;
+        cursor->iX += CURSOR_OFFSET_SPALTE;
 
         if(cursor->iAktuelleSpielfeldSpalte % 3 == 0)
         {
@@ -65,7 +65,7 @@ void BewegeCursorHoch(CURSOR *cursor)
 {
     if(cursor->iAktuelleSpielfeldZeile > 1)
     {
-        cursor->iY -= OFFSET_ZEILE;
+        cursor->iY -= CURSOR_OFFSET_ZEILE;
         cursor->iAktuelleSpielfeldZeile--;
     }
 }
@@ -80,7 +80,7 @@ void BewegeCursorRunter(CURSOR *cursor)
 {
     if(cursor->iAktuelleSpielfeldZeile < 9)
     {
-        cursor->iY += OFFSET_ZEILE;
+        cursor->iY += CURSOR_OFFSET_ZEILE;
         cursor->iAktuelleSpielfeldZeile++;
     }
 }

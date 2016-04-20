@@ -75,6 +75,7 @@
     <ClCompile Include="sudoku.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="allgemeineDefines.h" />
     <ClInclude Include="datenbankanbindung.h" />
     <ClInclude Include="eingabeverarbeitung.h" />
     <ClInclude Include="cursor.h" />

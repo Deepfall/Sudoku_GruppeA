@@ -2,11 +2,10 @@
 Autor(en)               : Dominik Elis, Robin Grahl, Dustin Wels, David Fischer,
 Jennifer Hermanns
 Klasse                  : FA11
-Programmname            : .c
+Programmname            : main.c
 Datum                   : 18.04.2016
 Beschreibung            : 
-Version                 : 
-Aenderungen             : 
+Version                 : 1.0
 Compiler                : Visual Studio 2012
 */
 
@@ -20,12 +19,9 @@ Praeprozessoranweisungen
 #include <string.h>
 #include <curses.h>
 #include <time.h>
-#include "sudoku.h"
-#include "datenbankanbindung.h"
-
-// Allgemein
-#define TRUE                        1
-#define FALSE                       0
+#include <string.h>
+#include "spielmenue.h"
+#include "allgemeineDefines.h"
 
 /*******************************************************************************
 Funktion main()
@@ -45,4 +41,3 @@ int main(void)
 
     return EXIT_SUCCESS;
 }
-

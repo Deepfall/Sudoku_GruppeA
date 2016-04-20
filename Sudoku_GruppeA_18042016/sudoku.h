@@ -17,17 +17,18 @@ Praeprozessoranweisungen
 #include <stdlib.h>
 #include <curses.h>
 #include <time.h>
+#include <string.h>
 #include "spielfeld.h"
 #include "eingabeverarbeitung.h"
+#include "allgemeineDefines.h"
 
-// Allgemein
-#define TRUE                        1
-#define FALSE                       0
-
-#define START_POSITION_SPALTE       7
-#define START_POSITION_ZEILE        4
-#define START_ZEILE                 1
-#define START_SPALTE                1
+#define START_POSITION_SPALTE               6
+#define START_POSITION_ZEILE                3
+#define START_ZEILE                         1
+#define START_SPALTE                        1
+#define OFFSET_SPALTE                       8
+#define OFFSET_ZEILE                        4
+#define ANZAHL_SPIELFELDER                 81
 
 /*******************************************************************************
 Funktionsprototypen
@@ -37,6 +38,7 @@ WINDOW *ErstelleNeuesInfoFenster(void);
 WINDOW *ErstelleNeuesSpielfeldFenster(void);
 WINDOW *ErstelleNeuesKommandoFenster(void);
 void ZeicheSpielfeld(WINDOW *spielfeldFenster);
+void ZeicheSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER]);
 void ZeichneInfo(WINDOW *infoFenster, char formattedElapsedTime[9]);
 void ZeicheKommandos(WINDOW *kommandoFenster);
 

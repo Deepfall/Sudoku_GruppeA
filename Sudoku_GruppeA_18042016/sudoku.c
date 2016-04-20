@@ -22,20 +22,36 @@ Beschreibung:
 void NeuesSpiel(void)
 {
     WINDOW *spielfeldFenster, *infoFenster, *kommandoFenster;
-    CURSOR cursor = { START_POSITION_SPALTE, START_POSITION_ZEILE, 
+    CURSOR cursor = { CURSOR_START_POSITION_SPALTE, CURSOR_START_POSITION_ZEILE, 
         START_ZEILE, START_SPALTE };
-    SUDOKUFELD spielfelder[81];
-    int elapsedSeconds, gedrueckteTaste = -1;
+    SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER];
+    int elapsedSeconds, gedrueckteTaste = -1, i;
     char formattedElapsedTime[9];
     time_t startTime, currentTime;
 
-    curs_set(2);
+    curs_set(1);
     timeout(33);
 
     spielfeldFenster = ErstelleNeuesSpielfeldFenster();
     infoFenster = ErstelleNeuesInfoFenster();
     kommandoFenster = ErstelleNeuesKommandoFenster();
 
+    for(i = 0; i < ANZAHL_SPIELFELDER; i++)
+    {
+        if(i % 10 == 0)
+        {
+            spielfelder[i].iWert = 1;
+            spielfelder[i].iIstVorbefuellt = TRUE;
+        }
+        else
+        {
+            spielfelder[i].iWert = 0;
+            spielfelder[i].iIstVorbefuellt = FALSE;
+        }
+    }
+
+    ZeicheSpielfeld(spielfeldFenster);
+    ZeicheSpielfelder(spielfeldFenster, spielfelder);
     ZeicheKommandos(kommandoFenster);
 
     time(&startTime);
@@ -49,7 +65,6 @@ void NeuesSpiel(void)
         getFormattedTime(formattedElapsedTime, elapsedSeconds);
 
         ZeichneInfo(infoFenster, formattedElapsedTime);
-        ZeicheSpielfeld(spielfeldFenster);
 
         doupdate();
     }
@@ -57,6 +72,7 @@ void NeuesSpiel(void)
     delwin(infoFenster);
     delwin(spielfeldFenster);
     delwin(kommandoFenster);
+    timeout(-1);
 }
 
 WINDOW *ErstelleNeuesSpielfeldFenster(void)
@@ -78,9 +94,9 @@ WINDOW *ErstelleNeuesInfoFenster(void)
 WINDOW *ErstelleNeuesKommandoFenster(void)
 {
     int iHoehe = 4, iBreite = 24, iPositionY = 4, iPositionX = 85;
-    WINDOW *infoFenster = newwin(iHoehe, iBreite, iPositionY, iPositionX);
+    WINDOW *kommandoFenster = newwin(iHoehe, iBreite, iPositionY, iPositionX);
 
-    return infoFenster;
+    return kommandoFenster;
 }
 
 void ZeicheSpielfeld(WINDOW *spielfeldFenster)
@@ -88,7 +104,7 @@ void ZeicheSpielfeld(WINDOW *spielfeldFenster)
     wclear(spielfeldFenster);
 
     wprintw(spielfeldFenster, "      A       B       C        D       E       F        G       H      I\n");
-    wprintw(spielfeldFenster, "  +-------+-------+----------------+-------+----------------+-------+-------+\n");
+    wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
     wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
     wprintw(spielfeldFenster, "1 |       |       |       ||       |       |       ||       |       |       |\n");
     wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
@@ -124,7 +140,46 @@ void ZeicheSpielfeld(WINDOW *spielfeldFenster)
     wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
     wprintw(spielfeldFenster, "9 |       |       |       ||       |       |       ||       |       |       |\n");
     wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  +-------+-------+----------------+-------+----------------+-------+-------+\n");
+    wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
+
+    wnoutrefresh(spielfeldFenster);
+}
+
+void ZeicheSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER])
+{
+    int i = 0, x = START_POSITION_SPALTE, y = START_POSITION_ZEILE;
+    char cSpielfeldWertString[11];
+
+    for(i = 0; i <= ANZAHL_SPIELFELDER; i++)
+    {
+        if(i > 0)
+        {
+            if(i % 9 == 0)
+            {
+                x = START_POSITION_SPALTE;
+                y += OFFSET_ZEILE;
+            }
+            else if(i % 3 == 0)
+            {
+                x += OFFSET_SPALTE + 1;
+            }
+            else
+            {
+                x += OFFSET_SPALTE;
+            }
+        }
+
+        if(spielfelder[i].iWert >= 1 && spielfelder[i].iWert <= 9)
+        {
+            sprintf(cSpielfeldWertString, "%i", spielfelder[i].iWert);
+        }
+        else
+        {
+            strcpy(cSpielfeldWertString, "");
+        }
+
+        mvwprintw(spielfeldFenster, y, x, cSpielfeldWertString);
+    }
 
     wnoutrefresh(spielfeldFenster);
 }

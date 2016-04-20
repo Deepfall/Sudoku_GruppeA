@@ -13,8 +13,10 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
-#define OFFSET_SPALTE               8
-#define OFFSET_ZEILE                4
+#define CURSOR_START_POSITION_SPALTE        7
+#define CURSOR_START_POSITION_ZEILE         4
+#define CURSOR_OFFSET_SPALTE                8
+#define CURSOR_OFFSET_ZEILE                 4
 
 typedef struct
 {

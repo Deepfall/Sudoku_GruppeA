@@ -65,6 +65,9 @@
     <ClInclude Include="spielmenue.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="allgemeineDefines.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Sudoku.db">

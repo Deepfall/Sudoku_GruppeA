@@ -65,20 +65,24 @@ Beschreibung:
 *******************************************************************************/
 void VerarbeiteFeldEingabe(int gedrueckteTaste, CURSOR *cursor, SUDOKUFELD sudokufeld[81])
 {
+    int iFeld;
+
     switch(gedrueckteTaste)
     {
-        case '1':
-        case '2':
-        case '3':
-        case '4':
-        case '5':
-        case '6':
-        case '7':
-        case '8':
-        case '9':
-        if(!sudokufeld[cursor->iY * cursor->iX].iIstVorbefuellt)
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
+        iFeld = cursor->iAktuelleSpielfeldSpalte + ((cursor->iAktuelleSpielfeldZeile - 1) * 9) - 1;
+
+        if(!sudokufeld[iFeld].iIstVorbefuellt)
         {
-            sudokufeld[cursor->iY * cursor->iX].iWert = gedrueckteTaste - 48;
+            sudokufeld[iFeld].iWert = gedrueckteTaste - 48;
             mvprintw(cursor->iY, cursor->iX, "%c", gedrueckteTaste);
         }
         break;
