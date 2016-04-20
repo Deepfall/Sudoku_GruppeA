@@ -59,19 +59,19 @@ int Einloggen(char *cNickname, char *cPasswort)
             printw("%s %s", data, cPasswort); 
             if(strcmp(data,cPasswort) == 0)
             { 
-                //printw("Passwort ist korrekt.");
+                printw("Passwort ist korrekt.");
+                printw("Der Benutzer konnte sich erfolgreich einloggen.");
                 iRueckgabe = 0;
             }
             else
             {
-                //printw("Passwort ist inkorrekt.");
+                printw("Passwort ist inkorrekt.");
+                printw("Das eingegebene Passwort ist inkorrekt.");
                 iRueckgabe = -1;
             }
             //printw("%20s ", data ? data : "NULL");
         }
         refresh();
-        //system("pause");
-        //printw("\n");
     }
 
     sqlite3_finalize(stmt);

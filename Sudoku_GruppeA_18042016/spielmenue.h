@@ -2,7 +2,7 @@
 Autor(en)               : Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : datenbankanbindung.h
-Datum                   : 18.04.2016
+Datum                   : 20.04.2016
 Beschreibung            : 
 Version                 : 1.0
 Compiler                : Visual Studio 2012
@@ -17,6 +17,8 @@ Praeprozessoranweisungen
 #include <time.h>
 #include <curses.h>
 #include "sqlite3.h"
+#include "datenbankanbindung.h"
+#include "sudoku.h"
 
 
 // Allgemein
@@ -26,17 +28,13 @@ Praeprozessoranweisungen
 #define FALSE                       0
 #define TEXTLAENGE                 20
 
-// Datenbank
-#define DATENBANK_SUDOKU  "Sudoku.db"
-
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-int Registrieren(char *cNachname, char *cVorname,
-                 char *cNickname, char *cPasswort);
-int Einloggen(char *cNickname, char *Passwort);
+void StartMenue(void);
+void Spielmenue(void);
+void SchwierigkeitsStufenMenue(void);
+void LoggInmenue(void);
+void Registrierungsmenue(void);
 
-/*******************************************************************************
-Globale Variablen
-*******************************************************************************/
-sqlite3 *db_handle;
+void SpielregelnAnzeigen(void);

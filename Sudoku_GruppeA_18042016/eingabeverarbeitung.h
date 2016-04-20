@@ -16,6 +16,7 @@ Praeprozessoranweisungen
 #include <curses.h>
 #include "cursor.h"
 #include "spielfeld.h"
+#include "spielmenue.h"
 
 /*******************************************************************************
 Funktionsprototypen
@@ -23,5 +24,6 @@ Funktionsprototypen
 int VerarbeiteEingabe(CURSOR *cursor, SUDOKUFELD sudokufeld[81]);
 void VerarbeiteCursorBewegung(int gedrueckteTaste, CURSOR *cursor);
 void VerarbeiteFeldEingabe(int gedrueckteTaste, CURSOR *cursor, SUDOKUFELD sudokufelder[81]);
+void VerarbeiteKommandos(int gedrueckteTaste);
 
 #endif
