@@ -32,7 +32,7 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-void NeuesSpiel(int iSchwierigkeit);
+void NeuesSpiel(int iSchwierigkeit,char *cNickname);
 WINDOW *ErstelleNeuesInfoFenster(void);
 WINDOW *ErstelleNeuesSpielfeldFenster(void);
 WINDOW *ErstelleNeuesKommandoFenster(void);

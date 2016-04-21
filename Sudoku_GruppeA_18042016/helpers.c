@@ -77,7 +77,7 @@ int isValid(char * cUeberprüfungsText,int iMin,int iMax)
 		return -3;
 	}
 
-	if(TextLaenge > iMin && TextLaenge < iMax) {
+	if(TextLaenge >= iMin && TextLaenge < iMax) {
 		return 0;
 	}
 

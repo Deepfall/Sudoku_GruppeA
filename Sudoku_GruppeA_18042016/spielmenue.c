@@ -20,19 +20,21 @@ Funktion LoggInmenue()
 Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           Erstellt das Menue für das Einloggen eines Benutzers, 
-dafür muessen der Nickname und das Passwort eingegeben 
+dafür muessen der cNickname und das Passwort eingegeben 
 werden. 
 *******************************************************************************/
 void LoggInmenue(void)
 {
-    char cNickname[TEXTLAENGE];
-    char cPasswort[TEXTLAENGE];
 
+
+    char cNickname[TEXTLAENGE] = "";
+    char cPasswort[TEXTLAENGE] = "";
     int iRueckgabe=-1, iKorrekt = -1;
 
     curs_set(1); // Cursor sichtbar machen
     echo(); // Eingabe anzeigen lassen 
     timeout(-1); //timeout deaktivieren
+
 
     while(iKorrekt != 0) {
 		clear();
@@ -79,13 +81,13 @@ Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           Erstellt das Menue für die Registrierung eines neuen
 Benutzers. Fuer die Registrierung werden Nachname, 
-Vorname, Nickname und ein Passwort benötigt.
+Vorname, cNickname und ein Passwort benötigt.
 *******************************************************************************/
 void Registrierungsmenue(void)
 {
     char cNachname[TEXTLAENGE];
     char cVorname[TEXTLAENGE];
-    char cNickname[TEXTLAENGE];
+    char ccNickname[TEXTLAENGE];
     char cPasswort[TEXTLAENGE];
 
 	int iKorrekt = -1;
@@ -98,6 +100,7 @@ void Registrierungsmenue(void)
 
     // Ausgabe des Registrierungsmenues
     
+
 	while (iKorrekt != 0) 
 	{
 		clear();
@@ -149,10 +152,11 @@ void Registrierungsmenue(void)
 		}	
 	}
 
+
     printw("\n\n\t\t============================================\n\n");
     // Weitergabe an die Datenbankanbindung
  
-   iRueckgabe = Registrieren(cNachname, cVorname, cNickname, cPasswort);
+   iRueckgabe = Registrieren(cNachname, cVorname, ccNickname, cPasswort);
   /* switch ()
            {
                case 0:
@@ -190,7 +194,7 @@ Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           Erstellt das Menue für die 3 Schwierigkeitsstufen.
 *******************************************************************************/
-void SchwierigkeitsStufenMenue(char *Nickname)
+void SchwierigkeitsStufenMenue(char *cNickname)
 {
     char cEingabe = -1, cFalscheEingabe = TRUE;
 
@@ -218,17 +222,17 @@ void SchwierigkeitsStufenMenue(char *Nickname)
         {
         case 'L':
         case 'l':
-            NeuesSpiel(1);
+            NeuesSpiel(1,cNickname);
             cFalscheEingabe = FALSE;
             break;
         case 'M':
         case 'm':
-            NeuesSpiel(2);
+            NeuesSpiel(2,cNickname);
             cFalscheEingabe = FALSE;
             break;
         case 'S':
         case 's':
-            NeuesSpiel(3);
+            NeuesSpiel(3,cNickname);
             cFalscheEingabe = FALSE;
             break;
         }
@@ -241,7 +245,7 @@ Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           Erstellt das Spielmenue.
 *******************************************************************************/
-void Spielmenue(char *Nickname)
+void Spielmenue(char *cNickname)
 {
     char cEingabe = -1;
 
@@ -270,7 +274,7 @@ void Spielmenue(char *Nickname)
         {
         case 'N': 
         case 'n':
-            SchwierigkeitsStufenMenue(Nickname);
+            SchwierigkeitsStufenMenue(cNickname);
             break;
         case 'R': 
         case 'r':

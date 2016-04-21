@@ -19,7 +19,7 @@ Uebergabe Parameter:    iSchwierigkeit
 Rueckgabe:              -
 Beschreibung:           
 *******************************************************************************/
-void NeuesSpiel(int iSchwierigkeit)
+void NeuesSpiel(int iSchwierigkeit,char *cNickname)
 {
     WINDOW *spielfeldFenster, *infoFenster, *kommandoFenster;
     SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER];

@@ -35,6 +35,7 @@ int loginDatenGefuellt(char *cNickname, char *cPasswort);
 int felderGefuellt(char *cNachname, char *cVorname,
                    char *cNickname, char *cPasswort);
 int SudokuBereitstellen(char *cDaten, int iSchwierigkeit);
+int highscoreEintragen(int iSchwierigkeit,char* cNickname,char* cZeit);
 
 /*******************************************************************************
 Globale Variablen
