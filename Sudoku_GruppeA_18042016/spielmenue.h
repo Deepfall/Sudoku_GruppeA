@@ -30,3 +30,4 @@ void SchwierigkeitsStufenMenue(void);
 void LoggInmenue(void);
 void Registrierungsmenue(void);
 void SpielregelnAnzeigen(void);
+char *PrintFullPath(char * partialPath);

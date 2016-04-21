@@ -49,6 +49,7 @@ int Einloggen(char *cNickname, char *cPasswort)
         for(col = 0; col < cols; col++)
         {
             data = (const char *) sqlite3_column_text(stmt, col);
+            printw("%s", data);
             if(strcmp(data,cPasswort) == 0)
             { 
                 iRueckgabe = 0;

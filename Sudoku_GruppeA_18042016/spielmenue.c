@@ -17,6 +17,8 @@ Praeprozessoranweisungen
 #include "datenbankanbindung.h"
 
 
+
+
 /*******************************************************************************
 Funktion LoggInmenue()
 Uebergabe Parameter:    -
@@ -197,6 +199,7 @@ void SchwierigkeitsStufenMenue(void)
         {
         case 'L':
         case 'l':
+
             NeuesSpiel();
             cFalscheEingabe = FALSE;
             break;
@@ -326,5 +329,16 @@ enth\204lt.
 *******************************************************************************/
 void SpielregelnAnzeigen(void)
 {
-    system("start firefox.exe file://W:/LF06/Wissemann/Projekt_GruppeA/Regeln.html");
+    char cPfad[_MAX_PATH];
+    strcpy(cPfad, "start firefox.exe file://");
+    strcat(cPfad, PrintFullPath("Regeln.html"));
+    system(cPfad);
+}
+char *PrintFullPath(char * partialPath)
+{
+    char pfad[_MAX_PATH];
+   
+    _fullpath( pfad, partialPath, _MAX_PATH);
+    return pfad;
+    
 }
