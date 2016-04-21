@@ -19,12 +19,12 @@ Uebergabe Parameter:    iSchwierigkeit
 Rueckgabe:              -
 Beschreibung:           
 *******************************************************************************/
-void NeuesSpiel(int iSchwierigkeit,char *cNickname)
+void NeuesSpiel(int iSchwierigkeit)
 {
     WINDOW *spielfeldFenster, *infoFenster, *kommandoFenster;
     SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER];
     time_t Startzeit;
-    int iGedrueckteTaste = -1;
+    int iGedrueckteTaste = -1, iStrafSekunden = 0, iAnzahlHilfeGenutzt = 0;
 
     timeout(33);
 
@@ -44,9 +44,11 @@ void NeuesSpiel(int iSchwierigkeit,char *cNickname)
 
     while(iGedrueckteTaste != 'L' && iGedrueckteTaste != 'l')
     {
-        iGedrueckteTaste = VerarbeiteEingabe(spielfelder);
+        iGedrueckteTaste = VerarbeiteEingabe(spielfelder, &iStrafSekunden,
+                                             &iAnzahlHilfeGenutzt);
 
-        ZeichneVerstricheneZeit(infoFenster, Startzeit);
+        ZeichneVerstricheneZeit(infoFenster, Startzeit, iStrafSekunden);
+        ZeichneAnzahlGenutzterHilfe(infoFenster, iAnzahlHilfeGenutzt);
 
         doupdate();
     }
@@ -230,14 +232,20 @@ void ZeichneKommandos(WINDOW *kommandoFenster)
     wnoutrefresh(kommandoFenster);
 }
 
-void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit)
+void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit, int iStrafSekunden)
 {
     char cformatierteVerstricheneZeit[9];
 
-    BerechneVerstricheneZeit(cformatierteVerstricheneZeit, Startzeit);
+    BerechneVerstricheneZeit(cformatierteVerstricheneZeit, Startzeit, iStrafSekunden);
 
     mvwprintw(infoFenster, 0, 15, cformatierteVerstricheneZeit);
 
     wnoutrefresh(infoFenster);
 }
 
+void ZeichneAnzahlGenutzterHilfe(WINDOW *infoFenster, int iAnzahlGenutzterHilfe)
+{
+    mvwprintw(infoFenster, 1, 15, "%i", iAnzahlGenutzterHilfe);
+
+    wnoutrefresh(infoFenster);
+}

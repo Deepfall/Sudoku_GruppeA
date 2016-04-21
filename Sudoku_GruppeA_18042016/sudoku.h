@@ -42,5 +42,6 @@ void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIE
 void ZeichneInfo(WINDOW *infoFenster);
 void ZeichneKommandos(WINDOW *kommandoFenster);
 void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit);
+void ZeichneAnzahlGenutzterHilfe(WINDOW *infoFenster, int iAnzahlGenutzterHilfe);
 
 #endif

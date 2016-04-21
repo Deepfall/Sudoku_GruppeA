@@ -21,9 +21,13 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-int VerarbeiteEingabe(SUDOKUFELD sudokufelder[]);
+int VerarbeiteEingabe(SUDOKUFELD sudokufelder[], int *iStrafSekunden,
+                      int *iAnzahlHilfeGenutzt);
 void VerarbeiteCursorBewegung(int iGedrueckteTaste, CURSOR *cursor);
-void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR *cursor, SUDOKUFELD sudokufelder[]);
-void VerarbeiteKommandos(int iGedrueckteTaste);
+void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR cursor,
+                           SUDOKUFELD sudokufelder[]);
+void VerarbeiteKommandos(int iGedrueckteTaste, CURSOR cursor,
+                         SUDOKUFELD sudokufelder[], int *iStrafSekunden,
+                         int *iAnzahlHilfeGenutzt);
 
 #endif

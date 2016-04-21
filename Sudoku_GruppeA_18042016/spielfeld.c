@@ -53,20 +53,43 @@ void BefuelleSpielfelder(SUDOKUFELD spielfelder[], int iSchwierigkeit)
     }
 }
 
-void SchreibeZahlInFeld(SUDOKUFELD sudokufeld, CURSOR *cursor, int iZahl)
+void SchreibeZahlInFeld(SUDOKUFELD sudokufeld, CURSOR cursor, int iZahl)
 {
     if(!sudokufeld.iIstVorbefuellt)
     {
         sudokufeld.iWert = iZahl;
-        mvprintw(cursor->iY, cursor->iX, "%i", iZahl);
+        mvprintw(cursor.iY, cursor.iX, "%i", iZahl);
     }
 }
 
-void LoescheZahlAusFeld(SUDOKUFELD sudokufeld, CURSOR *cursor)
+void LoescheZahlAusFeld(SUDOKUFELD sudokufeld, CURSOR cursor)
 {
     if(!sudokufeld.iIstVorbefuellt)
     {
         sudokufeld.iWert = 0;
-        mvprintw(cursor->iY, cursor->iX, " ");
+        mvprintw(cursor.iY, cursor.iX, " ");
+    }
+}
+
+/*******************************************************************************
+Funktion HilfeBenutzen()
+Uebergabe Parameter:    cursor, sudokufelder[], *iStrafSekunden
+Rueckgabe:              -
+Beschreibung:           
+*******************************************************************************/
+void HilfeBenutzen(CURSOR cursor, SUDOKUFELD sudokufelder[],
+                   int *iStrafSekunden, int *iAnzahlHilfeGenutzt)
+{
+    int iFeld = cursor.iAktuelleSpielfeldSpalte 
+                + ((cursor.iAktuelleSpielfeldZeile - 1) * 9) - 1;
+
+    if(!sudokufelder[iFeld].iIstVorbefuellt)
+    {
+        SchreibeZahlInFeld(sudokufelder[iFeld], cursor,
+                           sudokufelder[iFeld].iLoesung);
+
+        *iStrafSekunden += HILFE_STRAFZEIT;
+        (*iAnzahlHilfeGenutzt)++;
+        sudokufelder[iFeld].iIstVorbefuellt = TRUE;
     }
 }

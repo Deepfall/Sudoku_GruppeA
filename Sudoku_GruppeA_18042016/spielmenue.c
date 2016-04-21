@@ -87,7 +87,7 @@ void Registrierungsmenue(void)
 {
     char cNachname[TEXTLAENGE];
     char cVorname[TEXTLAENGE];
-    char ccNickname[TEXTLAENGE];
+    char cNickname[TEXTLAENGE];
     char cPasswort[TEXTLAENGE];
 
 	int iKorrekt = -1;
@@ -156,7 +156,7 @@ void Registrierungsmenue(void)
     printw("\n\n\t\t============================================\n\n");
     // Weitergabe an die Datenbankanbindung
  
-   iRueckgabe = Registrieren(cNachname, cVorname, ccNickname, cPasswort);
+   iRueckgabe = Registrieren(cNachname, cVorname, cNickname, cPasswort);
   /* switch ()
            {
                case 0:

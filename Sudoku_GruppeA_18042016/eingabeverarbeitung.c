@@ -19,7 +19,8 @@ Uebergabe Parameter:    sudokufeld[]
 Rueckgabe:              -
 Beschreibung:           
 *******************************************************************************/
-int VerarbeiteEingabe(SUDOKUFELD sudokufelder[])
+int VerarbeiteEingabe(SUDOKUFELD sudokufelder[], int *iStrafSekunden,
+                      int *iAnzahlHilfeGenutzt)
 {
     static CURSOR cursor = { CURSOR_START_POSITION_SPALTE,
                              CURSOR_START_POSITION_ZEILE,
@@ -28,8 +29,9 @@ int VerarbeiteEingabe(SUDOKUFELD sudokufelder[])
     int gedrueckteTaste = getch();
 
     VerarbeiteCursorBewegung(gedrueckteTaste, &cursor);
-    VerarbeiteFeldEingabe(gedrueckteTaste, &cursor, sudokufelder);
-    VerarbeiteKommandos(gedrueckteTaste);
+    VerarbeiteFeldEingabe(gedrueckteTaste, cursor, sudokufelder);
+    VerarbeiteKommandos(gedrueckteTaste, cursor, sudokufelder, iStrafSekunden,
+                        iAnzahlHilfeGenutzt);
 
     return gedrueckteTaste;
 }
@@ -68,11 +70,11 @@ Beschreibung:           Prueft ob eine Taste von 1 bis 9 gedrueckt wurde und
                         Prueft ob die "Entf"-Taste gedrueckt wurde und loescht
                         den Wert an der aktuellen Cursorpostition.
 *******************************************************************************/
-void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR *cursor,
+void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR cursor,
                            SUDOKUFELD sudokufelder[])
 {
-    int iFeld = cursor->iAktuelleSpielfeldSpalte
-                + ((cursor->iAktuelleSpielfeldZeile - 1) * 9) - 1;
+    int iFeld = cursor.iAktuelleSpielfeldSpalte
+                + ((cursor.iAktuelleSpielfeldZeile - 1) * 9) - 1;
     int iZahl;
 
     switch(iGedrueckteTaste)
@@ -94,6 +96,7 @@ void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR *cursor,
             break;
     }
 }
+
 /*******************************************************************************
 Funktion VerarbeiteKommandos()
 Uebergabe Parameter:    iGedrueckteTaste
@@ -101,12 +104,16 @@ Rueckgabe:              -
 Beschreibung:           Prüft ob eine Kommandotaste im Spiel gedrueckt wurde und
                         delegiert an die entsprechende Funktion.
 *******************************************************************************/
-void VerarbeiteKommandos(int iGedrueckteTaste)
+void VerarbeiteKommandos(int iGedrueckteTaste, CURSOR cursor,
+                         SUDOKUFELD sudokufelder[], int *iStrafSekunden,
+                         int *iAnzahlHilfeGenutzt)
 {
     switch(iGedrueckteTaste)
     {
         case 'H':
         case 'h':
+            HilfeBenutzen(cursor, sudokufelder, iStrafSekunden, 
+                          iAnzahlHilfeGenutzt);
             break;
         case 'K':
         case 'k':

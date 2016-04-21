@@ -19,8 +19,9 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-void BerechneVerstricheneZeit(char cVerstricheneZeit[], time_t Startzeit);
-void SchreibeFormatierteZeit(char cFormatierteZeit[], 
+void BerechneVerstricheneZeit(char cVerstricheneZeit[], time_t Startzeit,
+                              int iStrafSekunden);
+void SchreibeFormatierteZeit(char cFormatierteZeit[],
                              int iVerstricheneSekunden);
 
 #endif

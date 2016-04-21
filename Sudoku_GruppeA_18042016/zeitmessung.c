@@ -21,7 +21,8 @@ Beschreibung:           Berechnet die Differenz zwischen der aktuellen Zeit und
                         der Startzeit und speichert diese formatiert in 
                         cVerstricheneZeit[].
 *******************************************************************************/
-void BerechneVerstricheneZeit(char cVerstricheneZeit[], time_t Startzeit)
+void BerechneVerstricheneZeit(char cVerstricheneZeit[], time_t Startzeit,
+                              int iStrafSekunden)
 {
     time_t AktuelleZeit;
     int iVerstricheneSekunden;
@@ -29,6 +30,7 @@ void BerechneVerstricheneZeit(char cVerstricheneZeit[], time_t Startzeit)
     time(&AktuelleZeit);
 
     iVerstricheneSekunden = (int) difftime(AktuelleZeit, Startzeit);
+    iVerstricheneSekunden += iStrafSekunden;
 
     SchreibeFormatierteZeit(cVerstricheneZeit, iVerstricheneSekunden);
 }

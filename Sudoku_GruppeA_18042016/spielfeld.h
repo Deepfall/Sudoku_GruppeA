@@ -16,8 +16,10 @@ Praeprozessoranweisungen
 #include <curses.h>
 #include "cursor.h"
 #include "datenbankanbindung.h"
+#include "allgemeineDefines.h"
 
 #define ANZAHL_SPIELFELDER                 81
+#define HILFE_STRAFZEIT                    30
 
 typedef struct
 {
@@ -32,7 +34,9 @@ SUDOKUFELD;
 Funktionsprototypen
 *******************************************************************************/
 void BefuelleSpielfelder(SUDOKUFELD spielfelder[], int iSchwierigkeit);
-void SchreibeZahlInFeld(SUDOKUFELD sudokufeld, CURSOR *cursor, int iZahl);
-void LoescheZahlAusFeld(SUDOKUFELD sudokufeld, CURSOR *cursor);
+void SchreibeZahlInFeld(SUDOKUFELD sudokufeld, CURSOR cursor, int iZahl);
+void LoescheZahlAusFeld(SUDOKUFELD sudokufeld, CURSOR cursor);
+void HilfeBenutzen(CURSOR cursor, SUDOKUFELD sudokufelder[],
+                   int *iStrafSekunden, int *iAnzahlHilfeGenutzt);
 
 #endif
