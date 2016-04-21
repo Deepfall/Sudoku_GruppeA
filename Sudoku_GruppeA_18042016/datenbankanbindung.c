@@ -12,6 +12,7 @@ Compiler                : Visual Studio 2012
 Praeprozessoranweisungen
 *******************************************************************************/
 #include "datenbankanbindung.h"
+#include "helpers.h"
 
 /*******************************************************************************
 Funktion Einloggen()
@@ -114,37 +115,27 @@ int Registrieren(char *cNachname, char *cVorname,
 }
 /*******************************************************************************
 Funktion felderGefuellt()
-Uebergabe Parameter:    cNachname
-                        cVorname
-                        cNickname
-                        cPasswort
+Uebergabe Parameter:    ueberprüfungsText
+
 Rueckgabe:              0 - Felder sind gefüllt und Länge in Ordnung
                         1 - Felder sind leer
                         2 - Felder sind zu lang
 Beschreibung:           
 *******************************************************************************/
-int felderGefuellt(char *cNachname, char *cVorname,
-                   char *cNickname, char *cPasswort)
+int feldPlausi(char * cUeberprüfungsText,int iMin,int iMax)
 {
-    
-    if(strcmp(cNachname,"") || strcmp(cVorname,"") || strcmp(cNickname,"") || strcmp(cPasswort,""))
+    entferneLeerzeichen(cUeberprüfungsText);
+
+    if(strlen(cUeberprüfungsText) == 0 ||
+      (strlen(cUeberprüfungsText) > iMin && strlen(cUeberprüfungsText) < iMax))
     {
         return 1;
     }
-    else
-    {
-    if(strlen(cNachname) <= 20 || strlen(cVorname) <= 20 || strlen(cNickname) <= 20 || (strlen(cPasswort) <= 20 && strlen(cPasswort) >= 6 ))
-    {
-        return 2;
-    }
-    else
-    {
-        return 0;
-    }
-    }
+    return 0;
     
     
 }
+
 
 /*******************************************************************************
 Funktion SudokuBereitstellen()

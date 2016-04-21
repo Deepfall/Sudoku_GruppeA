@@ -1,5 +1,5 @@
 /*
-Autor(en)               : Dominik Elis, Robin Grahl, Dustin Wels, David Fischer,
+Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
 Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : main.c

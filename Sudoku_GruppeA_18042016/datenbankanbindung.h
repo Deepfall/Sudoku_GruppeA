@@ -29,8 +29,8 @@ Funktionsprototypen
 int Registrieren(char *cNachname, char *cVorname,
                  char *cNickname, char *cPasswort);
 int Einloggen(char *cNickname, char *Passwort);
-int felderGefuellt(char *cNachname, char *cVorname,
-                   char *cNickname, char *cPasswort);
+int feldPlausi(char * ueberprüfungsText,int min,int max);
+int loginDatenGefuellt(char *cNickname, char *cPasswort);
 
 /*******************************************************************************
 Globale Variablen

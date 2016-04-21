@@ -1,5 +1,5 @@
 /*
-Autor(en)               : Dominik Elis, Robin Grahl, Dustin Wels, David Fischer,
+Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
 Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : .c
@@ -14,6 +14,7 @@ Compiler                : Visual Studio 2012
 Praeprozessoranweisungen
 *******************************************************************************/
 #include "spielmenue.h"
+#include "datenbankanbindung.h"
 
 
 /*******************************************************************************
@@ -29,7 +30,7 @@ void LoggInmenue(void)
     char cNickname[TEXTLAENGE];
     char cPasswort[TEXTLAENGE];
 
-    int iRueckgabe;
+    int iRueckgabe=-1;
 
     curs_set(1); // Cursor sichtbar machen
     echo(); // Eingabe anzeigen lassen 
@@ -49,7 +50,12 @@ void LoggInmenue(void)
     printw("\t\t============================================\n\n");
 
     // Weitergabe an die Datenbankanbindung
-    iRueckgabe = Einloggen(cNickname, cPasswort); 
+ 
+     
+        iRueckgabe = Einloggen(cNickname, cPasswort); 
+        getch();
+    
+
 
     if(iRueckgabe == 0)
     {
@@ -78,36 +84,68 @@ void Registrierungsmenue(void)
     char cNickname[TEXTLAENGE];
     char cPasswort[TEXTLAENGE];
 
-    int iRueckgabe;
+    int iRueckgabe=-1;
+    int iRichtig = 1;
 
     curs_set(1); // Cursor sichtbar machen
     echo(); // Eingabe anzeigen lassen 
     timeout(-1); //timeout deaktivieren
 
     // Ausgabe des Registrierungsmenues
+    
     clear();
     printw("\n");
     printw("\t\t\t\tS U D O K U\n\n");
     printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
     printw("\t\t============================================\n\n");
-    printw("\t\t\tBitte f\204llen Sie die folgenden Felder aus um.\n");
+    printw("\t\t\tBitte fuellen Sie die folgenden Felder aus.\n");    
     printw("\n\t\t\tNachname (max. 20 Zeichen): ");
+    while(iRichtig == 1)
+    {
     getstr(cNachname);
-
+    iRichtig = feldPlausi(cNachname,1,20);
+    }
+    iRichtig = 1;
+     while(iRichtig == 1)
+    {
     printw("\n\t\t\tVorname  (max. 20 Zeichen): ");
     getstr(cVorname);
-
+    iRichtig = feldPlausi(cVorname,1,20);
+     }
+     iRichtig = 1;
+     while(iRichtig == 1)
+    {
     printw("\n\t\t\tNickname (max. 20 Zeichen): ");
     getstr(cNickname);
-
+    iRichtig = feldPlausi(cNickname,1,20);
+     }
+     iRichtig = 1;
     //curs_set(0); // Cursor unsichtbar machen
+     while(iRichtig == 1)
+    {
     printw("\n\t\t\tPasswort  (min. 6 Zeichen): ");
     getstr(cPasswort);
+    iRichtig = feldPlausi(cPasswort,6,20);
     printw("\n\n\t\t============================================\n\n");
-
+    }
 
     // Weitergabe an die Datenbankanbindung
-    iRueckgabe = Registrieren(cNachname, cVorname, cNickname, cPasswort);
+ 
+   iRueckgabe = Registrieren(cNachname, cVorname, cNickname, cPasswort);
+  /* switch ()
+           {
+               case 0:
+                     
+                     printw("\n\t\t\tAlle Felder muessen ausgefuellt sein.");
+                   break;         
+               case 1:
+                   printw("\n\t\t\tAlle Felder muessen ausgefuellt sein.");
+                   break;
+               case 2:
+                   printw("\n\t\t\tDie Felder sind zu lang.");
+                   break;
+           }*/
+    getch();
 
     if (iRueckgabe == 0)
     {
