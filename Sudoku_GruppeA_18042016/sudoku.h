@@ -36,10 +36,11 @@ void NeuesSpiel(int iSchwierigkeit,char *cNickname);
 WINDOW *ErstelleNeuesInfoFenster(void);
 WINDOW *ErstelleNeuesSpielfeldFenster(void);
 WINDOW *ErstelleNeuesKommandoFenster(void);
-void ZeicheSpielfeld(WINDOW *spielfeldFenster);
-void ZeicheSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER]);
+void ZeichneSpielfeld(WINDOW *spielfeldFenster);
+void ZeichneSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER]);
+void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER]);
 void ZeichneInfo(WINDOW *infoFenster);
-void ZeicheKommandos(WINDOW *kommandoFenster);
-void ZeicheVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit);
+void ZeichneKommandos(WINDOW *kommandoFenster);
+void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit);
 
 #endif

@@ -59,7 +59,6 @@ int Einloggen(char *cNickname, char *cPasswort)
     highscoreAusgeben(1);
     getch();
     return iRueckgabe;
-
 }
 
 /*******************************************************************************
@@ -114,7 +113,7 @@ Uebergabe Parameter:    -
 Rueckgabe:              void
 Beschreibung:           
 *******************************************************************************/
-int SudokuBereitstellen(char *cDaten, int iSchwierigkeit)
+int SudokuBereitstellen(char *cSudoku, char *cLoesung, int iSchwierigkeit)
 {
     int iRueckgabe, iSudokuId;
     char sql[1000];
@@ -129,14 +128,15 @@ int SudokuBereitstellen(char *cDaten, int iSchwierigkeit)
     }
 
     iSudokuId = generiereSudokuId(iSchwierigkeit);
-    sprintf(sql, "SELECT Gefuellt "
+    sprintf(sql, "SELECT Gefuellt, Loesung "
                  "FROM Sudoku WHERE Sudoku_ID = '%i' LIMIT 1", iSudokuId);
 
     iRueckgabe = sqlite3_prepare_v2(db_handle, sql, strlen(sql), &stmt, NULL);
 
     if(sqlite3_step(stmt) == SQLITE_ROW)
     {
-        strcpy(cDaten, (const char *) sqlite3_column_text(stmt, 0));
+        strcpy(cSudoku, (const char *) sqlite3_column_text(stmt, 0));
+        strcpy(cLoesung, (const char *) sqlite3_column_text(stmt, 1));
     }
 
     sqlite3_finalize(stmt);
@@ -145,12 +145,6 @@ int SudokuBereitstellen(char *cDaten, int iSchwierigkeit)
     return iRueckgabe;
 }
 
-/*******************************************************************************
-Funktion LoesungsBereitstellen()
-Uebergabe Parameter:    -
-Rueckgabe:              void
-Beschreibung:           
-*******************************************************************************/
 /*******************************************************************************
 Funktion highscoreEintragen()
 Uebergabe Parameter:    cSchwierigkeit
@@ -290,5 +284,4 @@ int highscoreAusgeben(int iSchwierigkeit)
     sqlite3_finalize(stmt);
     sqlite3_close(db_handle);
     return iRueckgabe;
-
 }

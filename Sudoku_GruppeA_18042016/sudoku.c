@@ -24,9 +24,7 @@ void NeuesSpiel(int iSchwierigkeit,char *cNickname)
     WINDOW *spielfeldFenster, *infoFenster, *kommandoFenster;
     SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER];
     time_t Startzeit;
-    int iGedrueckteTaste = -1, i, iWert;
-    char cDaten[1000], *cToken;
-    const char *ccTrenner = ";";
+    int iGedrueckteTaste = -1;
 
     timeout(33);
 
@@ -34,31 +32,13 @@ void NeuesSpiel(int iSchwierigkeit,char *cNickname)
     infoFenster = ErstelleNeuesInfoFenster();
     kommandoFenster = ErstelleNeuesKommandoFenster();
 
-    SudokuBereitstellen(cDaten, iSchwierigkeit);
-    cToken = strtok(cDaten, ccTrenner);
-
-    for(i = 0; i < ANZAHL_SPIELFELDER; i++)
-    {
-        if(cToken != NULL && cToken[0] >= '1' && cToken[0] <= '9')
-        {
-            iWert = (int) cToken[0] - 48;
-            spielfelder[i].iWert = iWert;
-            spielfelder[i].iIstVorbefuellt = TRUE;
-        }
-        else
-        {
-            spielfelder[i].iWert = 0;
-            spielfelder[i].iIstVorbefuellt = FALSE;
-        }
-
-        cToken = strtok(NULL, ccTrenner);
-    }
-
     InitialisiereCursor();
-    ZeicheSpielfeld(spielfeldFenster);
-    ZeicheSpielfelder(spielfeldFenster, spielfelder);
+    BefuelleSpielfelder(spielfelder, iSchwierigkeit);
+
+    ZeichneSpielfeld(spielfeldFenster);
+    ZeichneSpielfelder(spielfeldFenster, spielfelder);
     ZeichneInfo(infoFenster);
-    ZeicheKommandos(kommandoFenster);
+    ZeichneKommandos(kommandoFenster);
 
     time(&Startzeit);
 
@@ -66,15 +46,19 @@ void NeuesSpiel(int iSchwierigkeit,char *cNickname)
     {
         iGedrueckteTaste = VerarbeiteEingabe(spielfelder);
 
-        ZeicheVerstricheneZeit(infoFenster, Startzeit);
+        ZeichneVerstricheneZeit(infoFenster, Startzeit);
 
         doupdate();
     }
 
+    ZeichneLoesung(spielfeldFenster, spielfelder);
+
+    timeout(-1);
+    getch();
+
     delwin(infoFenster);
     delwin(spielfeldFenster);
     delwin(kommandoFenster);
-    timeout(-1);
 }
 
 WINDOW *ErstelleNeuesSpielfeldFenster(void)
@@ -101,7 +85,7 @@ WINDOW *ErstelleNeuesKommandoFenster(void)
     return kommandoFenster;
 }
 
-void ZeicheSpielfeld(WINDOW *spielfeldFenster)
+void ZeichneSpielfeld(WINDOW *spielfeldFenster)
 {
     wclear(spielfeldFenster);
 
@@ -147,7 +131,7 @@ void ZeicheSpielfeld(WINDOW *spielfeldFenster)
     wnoutrefresh(spielfeldFenster);
 }
 
-void ZeicheSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER])
+void ZeichneSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER])
 {
     int i = 0, x = START_POSITION_SPALTE, y = START_POSITION_ZEILE;
     char cSpielfeldWertString[11];
@@ -190,6 +174,40 @@ void ZeicheSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_S
     wnoutrefresh(spielfeldFenster);
 }
 
+void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER])
+{
+    int i = 0, x = START_POSITION_SPALTE, y = START_POSITION_ZEILE;
+    char cSpielfeldWertString[11];
+
+    for(i = 0; i <= ANZAHL_SPIELFELDER; i++)
+    {
+        if(i > 0)
+        {
+            if(i % 9 == 0)
+            {
+                x = START_POSITION_SPALTE;
+                y += OFFSET_ZEILE;
+            }
+            else if(i % 3 == 0)
+            {
+                x += OFFSET_SPALTE + 1;
+            }
+            else
+            {
+                x += OFFSET_SPALTE;
+            }
+        }
+        
+        if(!spielfelder[i].iIstVorbefuellt)
+        {
+            sprintf(cSpielfeldWertString, "%i", spielfelder[i].iLoesung);
+            mvwprintw(spielfeldFenster, y, x, cSpielfeldWertString);
+        }
+    }
+
+    wnoutrefresh(spielfeldFenster);
+}
+
 void ZeichneInfo(WINDOW *infoFenster)
 {
     wclear(infoFenster);
@@ -200,7 +218,7 @@ void ZeichneInfo(WINDOW *infoFenster)
     wnoutrefresh(infoFenster);
 }
 
-void ZeicheKommandos(WINDOW *kommandoFenster)
+void ZeichneKommandos(WINDOW *kommandoFenster)
 {
     wclear(kommandoFenster);
 
@@ -212,7 +230,7 @@ void ZeicheKommandos(WINDOW *kommandoFenster)
     wnoutrefresh(kommandoFenster);
 }
 
-void ZeicheVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit)
+void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit)
 {
     char cformatierteVerstricheneZeit[9];
 
