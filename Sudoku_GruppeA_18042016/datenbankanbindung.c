@@ -24,27 +24,26 @@ Beschreibung:
 *******************************************************************************/
 int Einloggen(char *cNickname, char *cPasswort)
 {
-    int iRueckgabe, iSpalten, iSpalte;
+    int iRueckgabe = -1, iSpalten, iSpalte;
     char sql[1000];
     const char *data;
     sqlite3_stmt *stmt;
     sqlite3 *db_handle;
 
-    iRueckgabe = sqlite3_open(DATENBANK_SUDOKU, &db_handle);
-
-    if (iRueckgabe != SQLITE_OK)
+    if (sqlite3_open(DATENBANK_SUDOKU, &db_handle) != SQLITE_OK)
     {
         exit(SQLITE_CANTOPEN);
     }
 
     sprintf(sql, "SELECT Passwort "
-        "FROM Benutzer WHERE Nickname = '%s'", cNickname);
+        "FROM Benutzer WHERE Nickname = '%s';", cNickname);
 
 
-    iRueckgabe = sqlite3_prepare_v2(db_handle, sql, strlen(sql), &stmt, NULL);
+    sqlite3_prepare_v2(db_handle, sql, strlen(sql), &stmt, NULL);
     iSpalten = sqlite3_column_count(stmt);
 
     clear();
+
     while(sqlite3_step(stmt) == SQLITE_ROW)
     {
         for(iSpalte = 0; iSpalte < iSpalten; iSpalte++)
@@ -55,13 +54,10 @@ int Einloggen(char *cNickname, char *cPasswort)
             { 
                 iRueckgabe = 0;
             }
-            else
-            {
-                iRueckgabe = -1;
-            }
+        
         }
-        refresh();
 
+        refresh();
     }
 
     sqlite3_finalize(stmt);
@@ -129,11 +125,12 @@ int feldPlausi(char * cUeberprüfungsText,int iMin,int iMax)
     entferneLeerzeichen(cUeberprüfungsText);
 
     if(strlen(cUeberprüfungsText) == 0 ||
-      (strlen(cUeberprüfungsText) < iMin && strlen(cUeberprüfungsText) > iMax))
+        (strlen(cUeberprüfungsText) < iMin && strlen(cUeberprüfungsText) > iMax))
     {
         return 1;
     }
     return 0;
+
 }
 
 

@@ -55,13 +55,13 @@ void LoggInmenue(void)
  
      
         iRueckgabe = Einloggen(cNickname, cPasswort); 
-        getch();
+
     
 
 
     if(iRueckgabe == 0)
     {
-        Spielmenue();
+        Spielmenue(cNickname);
     }
     else
     {
@@ -187,7 +187,7 @@ Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           Erstellt das Menue für die 3 Schwierigkeitsstufen.
 *******************************************************************************/
-void SchwierigkeitsStufenMenue(void)
+void SchwierigkeitsStufenMenue(char *Nickname)
 {
     char cEingabe = -1, cFalscheEingabe = TRUE;
 
@@ -238,7 +238,7 @@ Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           Erstellt das Spielmenue.
 *******************************************************************************/
-void Spielmenue(void)
+void Spielmenue(char *Nickname)
 {
     char cEingabe = -1;
 
@@ -267,7 +267,7 @@ void Spielmenue(void)
         {
         case 'N': 
         case 'n':
-            SchwierigkeitsStufenMenue();
+            SchwierigkeitsStufenMenue(Nickname);
             break;
         case 'R': 
         case 'r':
@@ -323,7 +323,7 @@ void StartMenue(void)
             break;
         case 'N':
         case 'n':
-            Spielmenue();
+            Spielmenue("");
             break;
         case 'R':
         case 'r':
