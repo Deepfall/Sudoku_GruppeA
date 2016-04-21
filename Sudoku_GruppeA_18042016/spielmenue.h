@@ -1,3 +1,5 @@
+#ifndef SPIELMENUE_H
+#define SPIELMENUE_H
 /*
 Autor(en)               : Jennifer Hermanns
 Klasse                  : FA11
@@ -29,8 +31,10 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-void StartMenue(void);
-void Spielmenue(char *Nickname);
-void SchwierigkeitsStufenMenue(char *Nickname);
-void LoggInmenue(void);
+void Startmenue(void);
+void Spielmenue(const char Nickname[]);
+void Schwierigkeitsstufenmenue(const char ccNickname[]);
+void Loginmenue(void);
 void Registrierungsmenue(void);
+
+#endif

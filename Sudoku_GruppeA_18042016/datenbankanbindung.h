@@ -1,3 +1,5 @@
+#ifndef DATENBANKANBINDUNG_H
+#define DATENBANKANBINDUNG_H
 /*
 Autor(en)               : Jennifer Hermanns
 Klasse                  : FA11
@@ -21,23 +23,16 @@ Praeprozessoranweisungen
 #include "spielfeld.h"
 
 #define TEXTLAENGE                 20
-
-// Datenbank
 #define DATENBANK_SUDOKU  "Sudoku.db"
 
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-int Registrieren(char *cNachname, char *cVorname,
-                 char *cNickname, char *cPasswort);
 int Einloggen(char *cNickname, char *Passwort);
-int loginDatenGefuellt(char *cNickname, char *cPasswort);
-int felderGefuellt(char *cNachname, char *cVorname,
-                   char *cNickname, char *cPasswort);
-int highscoreEintragen(int iSchwierigkeit,char* cNickname,char* cZeit);
-int SudokuBereitstellen(char *cSudoku, char *cLoesung, int iSchwierigkeit);
+int Registrieren(char cNachname[], char cVorname[],
+                 char cNickname[], char cPasswort[]);
+int SudokuBereitstellen(char cSudoku[], char cLoesung[], int iSchwierigkeit);
+int HighscoreAusgeben(int iSchwierigkeit);
+int HighscoreEintragen(int iSchwierigkeit, char cNickname[], char cZeit[]);
 
-/*******************************************************************************
-Globale Variablen
-*******************************************************************************/
-sqlite3 *db_handle;
+#endif

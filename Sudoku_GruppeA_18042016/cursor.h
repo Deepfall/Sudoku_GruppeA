@@ -22,6 +22,9 @@ Praeprozessoranweisungen
 #define CURSOR_START_ZEILE                  1
 #define CURSOR_START_SPALTE                 1
 
+/*******************************************************************************
+Typdefinitionen
+*******************************************************************************/
 typedef struct
 {
     int iX;

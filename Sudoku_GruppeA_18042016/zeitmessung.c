@@ -15,11 +15,11 @@ Praeprozessoranweisungen
 
 /*******************************************************************************
 Funktion BerechneVerstricheneZeit()
-Uebergabe Parameter:    cVerstricheneZeit[]
+Uebergabe Parameter:    cVerstricheneZeit[], Startzeit, iStrafSekunden
 Rueckgabe:              cVerstricheneZeit[]
 Beschreibung:           Berechnet die Differenz zwischen der aktuellen Zeit und
-                        der Startzeit und speichert diese formatiert in 
-                        cVerstricheneZeit[].
+                        der Startzeit und addiert anschliessend die Strafzeit.
+                        Speichert diese formatiert in cVerstricheneZeit[].
 *******************************************************************************/
 void BerechneVerstricheneZeit(char cVerstricheneZeit[], time_t Startzeit,
                               int iStrafSekunden)

@@ -14,8 +14,8 @@ Praeprozessoranweisungen
 *******************************************************************************/
 #define _CRT_SECURE_NO_DEPRECATE    1
 
+#include <stdlib.h>
 #include <curses.h>
-#include "spielmenue.h"
 #include "allgemeineDefines.h"
 
 /*******************************************************************************
@@ -35,13 +35,13 @@ int main(void)
     cbreak(); // evtl noch rauspacken
     noecho(); // evtl noch rauspacken
 
-    // Aktiviere Tasten wie "Entf" und F-Tasten
+    // Aktiviere Tasten wie "Esc", "Entf" und F-Tasten
     keypad(stdscr, TRUE);
 
     // Initiales aktualisieren des Outputs
     refresh();
 
-    StartMenue();
+    Startmenue();
 
     // Aufraeumen der curses.h Fenster
     endwin();

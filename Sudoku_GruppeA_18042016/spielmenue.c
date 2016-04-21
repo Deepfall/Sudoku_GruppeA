@@ -16,17 +16,16 @@ Praeprozessoranweisungen
 #include "spielmenue.h"
 
 /*******************************************************************************
-Funktion LoggInmenue()
+Funktion Loginmenue()
 Uebergabe Parameter:    -
 Rueckgabe:              -
-Beschreibung:           Erstellt das Menue für das Einloggen eines Benutzers, 
-dafür muessen der cNickname und das Passwort eingegeben 
-werden. 
+Beschreibung:           Erstellt das Menue fuer das Einloggen eines Benutzers.
+                        Dafuer muessen der Nickname und das Passwort eingegeben
+                        werden. 
 *******************************************************************************/
-void LoggInmenue(void)
+void Loginmenue(void)
 {
-    char cNickname[TEXTLAENGE] = "";
-    char cPasswort[TEXTLAENGE] = "";
+    char cNickname[TEXTLAENGE] = "", cPasswort[TEXTLAENGE] = "";
     int iRueckgabe = -1, iKorrekt = -1;
 
     curs_set(1); // Cursor sichtbar machen
@@ -36,6 +35,7 @@ void LoggInmenue(void)
     while(iKorrekt != 0)
     {
 		clear(); // Bildschirm leeren
+
 		printw("\n");
 		printw("\t\t\t\tEinloggen\n\n");
 		printw("\t\t============================================\n\n");
@@ -64,20 +64,17 @@ void LoggInmenue(void)
 	}
 
     // Weitergabe an die Datenbankanbindung
- 
 	iRueckgabe = Einloggen(cNickname, cPasswort);  
 
     if(iRueckgabe == 0)
     {
 		printf("\nErfolgreich eingeloggt.\n\n");
-        timeout(50000);
         Spielmenue(cNickname);
     }
     else
     {
 		printf("\nLog In ist fehlgeschlagen.\n\n");
-        timeout(5000);
-        StartMenue();
+        Startmenue();
     }
 }
 
@@ -85,9 +82,9 @@ void LoggInmenue(void)
 Funktion Registrierungsmenue()
 Uebergabe Parameter:    -
 Rueckgabe:              -
-Beschreibung:           Erstellt das Menue für die Registrierung eines neuen
-Benutzers. Fuer die Registrierung werden Nachname, 
-Vorname, cNickname und ein Passwort benötigt.
+Beschreibung:           Erstellt das Menue fuer die Registrierung eines neuen
+                        Benutzers. Fuer die Registrierung werden ein Nachname, 
+                        Vorname, Nickname und ein Passwort benoetigt.
 *******************************************************************************/
 void Registrierungsmenue(void)
 {
@@ -151,26 +148,22 @@ void Registrierungsmenue(void)
     if (Registrieren(cNachname, cVorname, cNickname, cPasswort) == 0)
     {
         printw("\t\t\tDie Registrierung war erfolgreich.");
-        timeout(3000);
-        getch();
-        StartMenue();
+        Startmenue();
     }
     else
     {
         printw("\t\t\tDie Registrierung ist fehlgeschlagen.");
-        timeout(3000);
-        getch();
-        StartMenue();
+        Startmenue();
     }
 }
 
 /*******************************************************************************
 Funktion Schwierigkeitsstufenmenue()
-Uebergabe Parameter:    -
+Uebergabe Parameter:    ccNickname[]
 Rueckgabe:              -
-Beschreibung:           Erstellt das Menue für die 3 Schwierigkeitsstufen.
+Beschreibung:           Erstellt das Menue fuer die 3 Schwierigkeitsstufen.
 *******************************************************************************/
-void SchwierigkeitsStufenMenue(char *cNickname)
+void Schwierigkeitsstufenmenue(const char ccNickname[])
 {
     char cEingabe = -1, cFalscheEingabe = TRUE;
 
@@ -180,7 +173,7 @@ void SchwierigkeitsStufenMenue(char *cNickname)
         curs_set(0); // Cursor unsichtbar machen
         clear();
 
-        // Ausgabe des Menues für die Schwierigkeitsstufen
+        // Ausgabe des Menues fuer die Schwierigkeitsstufen
         printw("\n");
         printw("\t\t\t\tSchwierigkeitsstufe\n\n");
         printw("\t\t============================================\n\n");
@@ -195,32 +188,32 @@ void SchwierigkeitsStufenMenue(char *cNickname)
 
         switch(cEingabe)
         {
-        case 'L':
-        case 'l':
-            NeuesSpiel(1, cNickname);
-            cFalscheEingabe = FALSE;
-            break;
-        case 'M':
-        case 'm':
-            NeuesSpiel(2, cNickname);
-            cFalscheEingabe = FALSE;
-            break;
-        case 'S':
-        case 's':
-            NeuesSpiel(3, cNickname);
-            cFalscheEingabe = FALSE;
-            break;
+            case 'L':
+            case 'l':
+                NeuesSpiel(1, ccNickname);
+                cFalscheEingabe = FALSE;
+                break;
+            case 'M':
+            case 'm':
+                NeuesSpiel(2, ccNickname);
+                cFalscheEingabe = FALSE;
+                break;
+            case 'S':
+            case 's':
+                NeuesSpiel(3, ccNickname);
+                cFalscheEingabe = FALSE;
+                break;
         }
     }
 }
 
 /*******************************************************************************
 Funktion Spielmenue()
-Uebergabe Parameter:    -
+Uebergabe Parameter:    ccNickname
 Rueckgabe:              -
 Beschreibung:           Erstellt das Spielmenue.
 *******************************************************************************/
-void Spielmenue(char *cNickname)
+void Spielmenue(const char ccNickname[])
 {
     char cEingabe = -1;
 
@@ -246,33 +239,32 @@ void Spielmenue(char *cNickname)
 
         switch(cEingabe)
         {
-        case 'N': 
-        case 'n':
-            SchwierigkeitsStufenMenue(cNickname);
-            break;
-        case 'R':
-        case 'r':
-            SpielregelnAnzeigen();
-            break;
-        case 'B': 
-        case 'b':
-            break;
-        case 'L':
-        case 'l':
-            // Schleife bricht ab
-            break;
+            case 'N': 
+            case 'n':
+                Schwierigkeitsstufenmenue(ccNickname);
+                break;
+            case 'R':
+            case 'r':
+                SpielregelnAnzeigen();
+                break;
+            case 'B': 
+            case 'b':
+                break;
+            case 'L':
+            case 'l':
+                // Schleife bricht ab
+                break;
         }
     }
-
 }
 
 /*******************************************************************************
-Funktion StartMenue()
+Funktion Startmenue()
 Uebergabe Parameter:    -
 Rueckgabe:              -
-Beschreibung:           Erstellt das Startmenü.
+Beschreibung:           Erstellt das Startmenue.
 *******************************************************************************/
-void StartMenue(void)
+void Startmenue(void)
 {
     char cEingabe = -1;
 
@@ -299,22 +291,22 @@ void StartMenue(void)
 
         switch(cEingabe)
         {
-        case 'E':
-        case 'e':
-            LoggInmenue();
-            break;
-        case 'N':
-        case 'n':
-            Spielmenue("");
-            break;
-        case 'R':
-        case 'r':
-            Registrierungsmenue();
-            break;
-        case 'X':
-        case 'x':
-            // Schleife bricht ab
-            break;
+            case 'E':
+            case 'e':
+                Loginmenue();
+                break;
+            case 'N':
+            case 'n':
+                Spielmenue("");
+                break;
+            case 'R':
+            case 'r':
+                Registrierungsmenue();
+                break;
+            case 'X':
+            case 'x':
+                // Schleife bricht ab
+                break;
         }
     }
 }

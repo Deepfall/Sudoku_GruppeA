@@ -13,6 +13,14 @@ Praeprozessoranweisungen
 *******************************************************************************/
 #include "spielfeld.h"
 
+/*******************************************************************************
+Funktion BefuelleSpielfelder()
+Uebergabe Parameter:    spielfelder[], iSchwierigkeit
+Rueckgabe:              spielfelder[]
+Beschreibung:           Befuellt die Spielfelder mit Werten aus der Datenbank
+                        und speichert die Loesungen und Vorbelegungen in der
+                        Struktur.
+*******************************************************************************/
 void BefuelleSpielfelder(SUDOKUFELD spielfelder[], int iSchwierigkeit)
 {
     char cSudoku[1000], cLoesung[1000], *cSudokuWert, *cLoesungWert;
@@ -53,29 +61,47 @@ void BefuelleSpielfelder(SUDOKUFELD spielfelder[], int iSchwierigkeit)
     }
 }
 
-void SchreibeZahlInFeld(SUDOKUFELD sudokufeld, CURSOR cursor, int iZahl)
+/*******************************************************************************
+Funktion SchreibeZahlInFeld()
+Uebergabe Parameter:    *sudokufeld
+Rueckgabe:              *sudokufeld
+Beschreibung:           Schreibt eine Zahl an die aktuelle Cursorpostition und
+                        speichert diese im Feld.
+*******************************************************************************/
+void SchreibeZahlInFeld(SUDOKUFELD *sudokufeld, CURSOR cursor, int iZahl)
 {
-    if(!sudokufeld.iIstVorbefuellt)
+    if(!sudokufeld->iIstVorbefuellt)
     {
-        sudokufeld.iWert = iZahl;
+        sudokufeld->iWert = iZahl;
         mvprintw(cursor.iY, cursor.iX, "%i", iZahl);
     }
 }
 
-void LoescheZahlAusFeld(SUDOKUFELD sudokufeld, CURSOR cursor)
+/*******************************************************************************
+Funktion ()
+Uebergabe Parameter:    *sudokufeld, cursor
+Rueckgabe:              *sudokufeld
+Beschreibung:           Loescht die Zahl an der aktuellen Cursorposition und
+                        setzt das Feld auf 0.
+*******************************************************************************/
+void LoescheZahlAusFeld(SUDOKUFELD *sudokufeld, CURSOR cursor)
 {
-    if(!sudokufeld.iIstVorbefuellt)
+    if(!sudokufeld->iIstVorbefuellt)
     {
-        sudokufeld.iWert = 0;
+        sudokufeld->iWert = 0;
         mvprintw(cursor.iY, cursor.iX, " ");
     }
 }
 
 /*******************************************************************************
 Funktion HilfeBenutzen()
-Uebergabe Parameter:    cursor, sudokufelder[], *iStrafSekunden
-Rueckgabe:              -
-Beschreibung:           
+Uebergabe Parameter:    cursor, sudokufelder[],
+                        *iStrafSekunden, *iAnzahlHilfeGenutzt
+Rueckgabe:              sudokufelder[], *iStrafSekunden, *iAnzahlHilfeGenutzt
+Beschreibung:           Fuellt das Feld an der aktuellen Cursorposítion mit dem
+                        Loesungwert, addiert die definierte Anzahl von
+                        Strafsekunden auf das Konto des Benutzers und blockiert
+                        die Eingabe fuer dieses Feld.
 *******************************************************************************/
 void HilfeBenutzen(CURSOR cursor, SUDOKUFELD sudokufelder[],
                    int *iStrafSekunden, int *iAnzahlHilfeGenutzt)
@@ -85,7 +111,7 @@ void HilfeBenutzen(CURSOR cursor, SUDOKUFELD sudokufelder[],
 
     if(!sudokufelder[iFeld].iIstVorbefuellt)
     {
-        SchreibeZahlInFeld(sudokufelder[iFeld], cursor,
+        SchreibeZahlInFeld(&sudokufelder[iFeld], cursor,
                            sudokufelder[iFeld].iLoesung);
 
         *iStrafSekunden += HILFE_STRAFZEIT;

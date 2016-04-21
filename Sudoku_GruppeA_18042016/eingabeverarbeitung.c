@@ -15,9 +15,11 @@ Praeprozessoranweisungen
 
 /*******************************************************************************
 Funktion VerarbeiteEingabe()
-Uebergabe Parameter:    sudokufeld[]
-Rueckgabe:              -
-Beschreibung:           
+Uebergabe Parameter:    sudokufelder[], *iStrafSekunden, *iAnzahlHilfeGenutzt
+Rueckgabe:              iGedrueckteTaste, sudokufelder,
+                        *iStrafSekunden, *iAnzahlHilfeGenutzt
+Beschreibung:           Verarbeitet die allgemeine Benutzereingabe im Spiel.
+                        Kapsellung weiterer Methoden der Benutzereingabe.
 *******************************************************************************/
 int VerarbeiteEingabe(SUDOKUFELD sudokufelder[], int *iStrafSekunden,
                       int *iAnzahlHilfeGenutzt)
@@ -26,21 +28,22 @@ int VerarbeiteEingabe(SUDOKUFELD sudokufelder[], int *iStrafSekunden,
                              CURSOR_START_POSITION_ZEILE,
                              CURSOR_START_ZEILE, CURSOR_START_SPALTE };
 
-    int gedrueckteTaste = getch();
+    int iGedrueckteTaste = getch();
 
-    VerarbeiteCursorBewegung(gedrueckteTaste, &cursor);
-    VerarbeiteFeldEingabe(gedrueckteTaste, cursor, sudokufelder);
-    VerarbeiteKommandos(gedrueckteTaste, cursor, sudokufelder, iStrafSekunden,
+    VerarbeiteCursorBewegung(iGedrueckteTaste, &cursor);
+    VerarbeiteFeldEingabe(iGedrueckteTaste, cursor, sudokufelder);
+    VerarbeiteKommandos(iGedrueckteTaste, cursor, sudokufelder, iStrafSekunden,
                         iAnzahlHilfeGenutzt);
 
-    return gedrueckteTaste;
+    return iGedrueckteTaste;
 }
 
 /*******************************************************************************
 Funktion VerarbeiteCursorBewegung()
-Uebergabe Parameter:    iGedrueckteTaste, cursor
-Rueckgabe:              -
-Beschreibung:           
+Uebergabe Parameter:    iGedrueckteTaste, *cursor
+Rueckgabe:              *cursor
+Beschreibung:           Verarbeitet die Cursorbewegung mit den
+                        Pfeiltasten im Spiel.
 *******************************************************************************/
 void VerarbeiteCursorBewegung(int iGedrueckteTaste, CURSOR *cursor)
 {
@@ -63,12 +66,13 @@ void VerarbeiteCursorBewegung(int iGedrueckteTaste, CURSOR *cursor)
 
 /*******************************************************************************
 Funktion VerarbeiteFeldEingabe()
-Uebergabe Parameter:    iGedrueckteTaste, *cursor, sudokufeld[]
-Rueckgabe:              -
+Uebergabe Parameter:    iGedrueckteTaste, cursor, sudokufelder[]
+Rueckgabe:              sudokufelder[]
 Beschreibung:           Prueft ob eine Taste von 1 bis 9 gedrueckt wurde und
                         schreibt diese an die aktuelle Cursorposition.
-                        Prueft ob die "Entf"-Taste gedrueckt wurde und loescht
-                        den Wert an der aktuellen Cursorpostition.
+                        Prueft ob die "Entf"-Taste oder die "Backspace"-Taste
+                        gedrueckt wurde und loescht den Wert an der aktuellen
+                        Cursorpostition.
 *******************************************************************************/
 void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR cursor,
                            SUDOKUFELD sudokufelder[])
@@ -89,18 +93,20 @@ void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR cursor,
         case '8':
         case '9':
             iZahl = iGedrueckteTaste - 48;
-            SchreibeZahlInFeld(sudokufelder[iFeld], cursor, iZahl);
+            SchreibeZahlInFeld(&sudokufelder[iFeld], cursor, iZahl);
             break;
         case KEY_DC:
-            LoescheZahlAusFeld(sudokufelder[iFeld], cursor);
+        case KEY_BACKSPACE:
+            LoescheZahlAusFeld(&sudokufelder[iFeld], cursor);
             break;
     }
 }
 
 /*******************************************************************************
 Funktion VerarbeiteKommandos()
-Uebergabe Parameter:    iGedrueckteTaste
-Rueckgabe:              -
+Uebergabe Parameter:    iGedrueckteTaste, cursor, sudokufelder[],
+                        *iStrafSekunden, *iAnzahlHilfeGenutzt
+Rueckgabe:              sudokufelder[], *iStrafSekunden, *iAnzahlHilfeGenutzt
 Beschreibung:           Prüft ob eine Kommandotaste im Spiel gedrueckt wurde und
                         delegiert an die entsprechende Funktion.
 *******************************************************************************/

@@ -15,11 +15,14 @@ Praeprozessoranweisungen
 
 /*******************************************************************************
 Funktion NeuesSpiel()
-Uebergabe Parameter:    iSchwierigkeit
+Uebergabe Parameter:    iSchwierigkeit, ccNickname[]
 Rueckgabe:              -
-Beschreibung:           
+Beschreibung:           Startet ein neues Spiel und initialisiert die dafuer
+                        notwendigen Komponenten.
+                        Verarbeitet in einer dauerschleife die Benutzereingaben.
+                        Verwaltet die Spielelemente.
 *******************************************************************************/
-void NeuesSpiel(int iSchwierigkeit)
+void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
 {
     WINDOW *spielfeldFenster, *infoFenster, *kommandoFenster;
     SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER];
@@ -63,6 +66,12 @@ void NeuesSpiel(int iSchwierigkeit)
     delwin(kommandoFenster);
 }
 
+/*******************************************************************************
+Funktion ErstelleNeuesSpielfeldFenster()
+Uebergabe Parameter:    -
+Rueckgabe:              *spielfeldFenster
+Beschreibung:           Erstellt ein neues Fenster fuer das Spielfeld.
+*******************************************************************************/
 WINDOW *ErstelleNeuesSpielfeldFenster(void)
 {
     int iHoehe = 38, iBreite = 78, iPositionY = 1, iPositionX = 1;
@@ -71,6 +80,12 @@ WINDOW *ErstelleNeuesSpielfeldFenster(void)
     return spielfeldFenster;
 }
 
+/*******************************************************************************
+Funktion ErstelleNeuesInfoFenster()
+Uebergabe Parameter:    -
+Rueckgabe:              *infoFenster
+Beschreibung:           Erstellt ein neues Fenster fuer das Spielfeld.
+*******************************************************************************/
 WINDOW *ErstelleNeuesInfoFenster(void)
 {
     int iHoehe = 2, iBreite = 24, iPositionY = 1, iPositionX = 85;
@@ -79,6 +94,12 @@ WINDOW *ErstelleNeuesInfoFenster(void)
     return infoFenster;
 }
 
+/*******************************************************************************
+Funktion ErstelleNeuesKommandoFenster()
+Uebergabe Parameter:    -
+Rueckgabe:              *kommandoFenster
+Beschreibung:           Erstellt ein neues Fenster fuer das Spielfeld.
+*******************************************************************************/
 WINDOW *ErstelleNeuesKommandoFenster(void)
 {
     int iHoehe = 4, iBreite = 24, iPositionY = 4, iPositionX = 85;
@@ -87,6 +108,12 @@ WINDOW *ErstelleNeuesKommandoFenster(void)
     return kommandoFenster;
 }
 
+/*******************************************************************************
+Funktion ZeichneSpielfeld()
+Uebergabe Parameter:    *spielfeldFenster
+Rueckgabe:              *spielfeldFenster
+Beschreibung:           Gibt das Spielfeld im uebergebenen Fenster aus.
+*******************************************************************************/
 void ZeichneSpielfeld(WINDOW *spielfeldFenster)
 {
     wclear(spielfeldFenster);
@@ -133,14 +160,20 @@ void ZeichneSpielfeld(WINDOW *spielfeldFenster)
     wnoutrefresh(spielfeldFenster);
 }
 
-void ZeichneSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER])
+/*******************************************************************************
+Funktion ZeichneSpielfelder()
+Uebergabe Parameter:    *spielfeldFenster, spielfelder[]
+Rueckgabe:              *spielfeldFenster, spielfelder[]
+Beschreibung:           Gibt die Spielfelder im uebergebenen Fenster aus.
+*******************************************************************************/
+void ZeichneSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
 {
     int i = 0, x = START_POSITION_SPALTE, y = START_POSITION_ZEILE;
     char cSpielfeldWertString[11];
 
     wattron(spielfeldFenster, A_BOLD);
 
-    for(i = 0; i <= ANZAHL_SPIELFELDER; i++)
+    for(i = 0; i < ANZAHL_SPIELFELDER; i++)
     {
         if(i > 0)
         {
@@ -176,12 +209,19 @@ void ZeichneSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_
     wnoutrefresh(spielfeldFenster);
 }
 
-void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER])
+/*******************************************************************************
+Funktion ZeichneLoesung()
+Uebergabe Parameter:    *spielfeldFenster, spielfelder[]
+Rueckgabe:              *spielfeldFenster, spielfelder[]
+Beschreibung:           Gibt die Loesung der Spielfelder im uebergebenen 
+                        Fenster aus.
+*******************************************************************************/
+void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
 {
     int i = 0, x = START_POSITION_SPALTE, y = START_POSITION_ZEILE;
     char cSpielfeldWertString[11];
 
-    for(i = 0; i <= ANZAHL_SPIELFELDER; i++)
+    for(i = 0; i < ANZAHL_SPIELFELDER; i++)
     {
         if(i > 0)
         {
@@ -210,6 +250,13 @@ void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIE
     wnoutrefresh(spielfeldFenster);
 }
 
+/*******************************************************************************
+Funktion ZeichneInfo()
+Uebergabe Parameter:    *infoFenster
+Rueckgabe:              *infoFenster
+Beschreibung:           Gibt die Informationen zum Spiel im uebergebenen
+                        Fenster aus.
+*******************************************************************************/
 void ZeichneInfo(WINDOW *infoFenster)
 {
     wclear(infoFenster);
@@ -220,6 +267,13 @@ void ZeichneInfo(WINDOW *infoFenster)
     wnoutrefresh(infoFenster);
 }
 
+/*******************************************************************************
+Funktion ZeichneKommandos()
+Uebergabe Parameter:    *kommandoFenster
+Rueckgabe:              *kommandoFenster
+Beschreibung:           Gibt die waehrend des Spiels verfuegbaren Kommandos 
+                        im uebergebenen Fenster aus.
+*******************************************************************************/
 void ZeichneKommandos(WINDOW *kommandoFenster)
 {
     wclear(kommandoFenster);
@@ -232,6 +286,13 @@ void ZeichneKommandos(WINDOW *kommandoFenster)
     wnoutrefresh(kommandoFenster);
 }
 
+/*******************************************************************************
+Funktion ZeichneVerstricheneZeit()
+Uebergabe Parameter:    *infoFenster, Startzeit, iStrafSekunden
+Rueckgabe:              *infoFenster
+Beschreibung:           Gibt die waehrend des Spiels verstrichene Zeit im
+                        uebergebenen Fenster aus.
+*******************************************************************************/
 void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit, int iStrafSekunden)
 {
     char cformatierteVerstricheneZeit[9];
@@ -243,6 +304,13 @@ void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit, int iStrafSe
     wnoutrefresh(infoFenster);
 }
 
+/*******************************************************************************
+Funktion ZeichneAnzahlGenutzterHilfe()
+Uebergabe Parameter:    *infoFenster, iAnzahlGenutzterHilfe
+Rueckgabe:              *infoFenster
+Beschreibung:           Gibt die Anzahl der waehrend des Spiels genutzte Hilfe
+                        im uebergebenen Fenster aus.
+*******************************************************************************/
 void ZeichneAnzahlGenutzterHilfe(WINDOW *infoFenster, int iAnzahlGenutzterHilfe)
 {
     mvwprintw(infoFenster, 1, 15, "%i", iAnzahlGenutzterHilfe);

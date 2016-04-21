@@ -32,7 +32,7 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-void NeuesSpiel(int iSchwierigkeit,char *cNickname);
+void NeuesSpiel(int iSchwierigkeit, const char ccNickname[]);
 WINDOW *ErstelleNeuesInfoFenster(void);
 WINDOW *ErstelleNeuesSpielfeldFenster(void);
 WINDOW *ErstelleNeuesKommandoFenster(void);
@@ -41,7 +41,7 @@ void ZeichneSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_
 void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER]);
 void ZeichneInfo(WINDOW *infoFenster);
 void ZeichneKommandos(WINDOW *kommandoFenster);
-void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit);
+void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit, int iStrafSekunden);
 void ZeichneAnzahlGenutzterHilfe(WINDOW *infoFenster, int iAnzahlGenutzterHilfe);
 
 #endif
