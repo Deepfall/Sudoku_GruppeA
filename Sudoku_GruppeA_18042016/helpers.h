@@ -20,5 +20,6 @@ int generiereZufallsZahl(int min_n, int max_n);
 int generiereSudokuId(int iSchwierigkeit);
 void entferneLeerzeichen(char* source);
 int isValid(char * cUeberprüfungsText,int iMin,int iMax);
+void Fehlermeldung(int iFehlerID, char *cFeldname);
 
 #endif

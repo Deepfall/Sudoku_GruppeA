@@ -106,26 +106,7 @@ int Registrieren(char *cNachname, char *cVorname,
     }
 
 }
-/*******************************************************************************
-Funktion feldPlausi()
-Uebergabe Parameter:    ueberprüfungsText
-Rueckgabe:              0 - Felder sind gefüllt und Länge in Ordnung
-1 - Felder sind leer
-2 - Felder sind zu lang
-Beschreibung:           
-*******************************************************************************/
-int feldPlausi(char *cUeberprüfungsText, int iMin, int iMax)
-{
-    entferneLeerzeichen(cUeberprüfungsText);
 
-    if(strlen(cUeberprüfungsText) == 0  || (strlen(cUeberprüfungsText) < iMin
-        && strlen(cUeberprüfungsText) > iMax))
-    {
-        return 1;
-    }
-
-    return 0;
-}
 
 
 /*******************************************************************************

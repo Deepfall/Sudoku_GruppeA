@@ -57,8 +57,8 @@ Funktion felderGefuellt()
 Uebergabe Parameter:    ueberprüfungsText
 
 Rueckgabe:              0 - Feld is ok
-                        1 - Feld ist zu lang
-                        2 - Feld ist zu kurz
+                        -2 - Feld ist zu lang
+                        -3 - Feld ist zu kurz
 						-1 - Feld ist nicht ok
 Beschreibung:           
 *******************************************************************************/
@@ -67,16 +67,63 @@ int isValid(char * cUeberprüfungsText,int iMin,int iMax)
     entferneLeerzeichen(cUeberprüfungsText);
 	
 	if(strlen(cUeberprüfungsText) > iMax) {
-		return 1;
+		return -2;
 	}
 
 	if(strlen(cUeberprüfungsText) < iMin) {
-		return 2;
+		return -3;
 	}
 
-	if(strlen(cUeberprüfungsText) > iMin && strlen(cUeberprüfungsText) < iMax) {
+	if(strlen(cUeberprüfungsText) >= iMin && strlen(cUeberprüfungsText) < iMax) {
 		return 0;
 	}
 
 	return -1;
+}
+
+/*******************************************************************************
+Funktion feldPlausi()
+Uebergabe Parameter:    ueberprüfungsText
+Rueckgabe:              0 - Felder sind gefüllt und Länge in Ordnung
+1 - Felder sind leer
+2 - Felder sind zu lang
+Beschreibung:           
+*******************************************************************************/
+int feldPlausi(char *cUeberprüfungsText, int iMin, int iMax)
+{
+    entferneLeerzeichen(cUeberprüfungsText);
+
+    if(strlen(cUeberprüfungsText) == 0  || (strlen(cUeberprüfungsText) < iMin
+        && strlen(cUeberprüfungsText) > iMax))
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+/*******************************************************************************
+Funktion Fehlermeldung()
+Uebergabe Parameter:    FehlerID
+Rueckgabe:              0 - Felder sind gefüllt und Länge in Ordnung
+1 - Felder sind leer
+2 - Felder sind zu lang
+Beschreibung:           
+*******************************************************************************/
+void Fehlermeldung(int iFehlerID, char *cFeldname)
+{
+    switch(iFehlerID)
+	{
+	case -3:
+		printw("\n\t\t\t%s ist zu kurz!", cFeldname);
+		break;
+	case -2:
+		printw("\n\t\t\t%s ist zu lang!", cFeldname);
+		break;
+	case -1:
+		printw("\n\t\t\t%s ist falsch!", cFeldname);
+		break;
+	case 0:
+		break;
+	}
 }

@@ -30,8 +30,8 @@ werden.
 *******************************************************************************/
 void LoggInmenue(void)
 {
-    char cNickname[TEXTLAENGE] = "";
-    char cPasswort[TEXTLAENGE] = "";
+    char cNickname[TEXTLAENGE];
+    char cPasswort[TEXTLAENGE];
 
     int iRueckgabe=-1, iKorrekt = -1;
 
@@ -47,7 +47,7 @@ void LoggInmenue(void)
 		printw("\t\t============================================\n\n");
 		printw("\t\t\tBitte geben Sie ihre Daten ein,\n"
 			"\t\t\tum sich erfolgreich anzumelden.\n\n");
-		printw("\t\t\tNickname: %s", cNickname);
+		printw("\t\t\tNickname: ");
 		getstr(cNickname);
 		printw("\t\t\tPasswort: ");
 		getstr(cPasswort);
@@ -64,10 +64,14 @@ void LoggInmenue(void)
 
     if(iRueckgabe == 0)
     {
+		printf("\nErfolgreich eingeloggt.\n\n");
+        timeout(50000);
         Spielmenue(cNickname);
     }
     else
     {
+		printf("\nLog In ist fehlgeschlagen.\n\n");
+        timeout(5000);
         StartMenue();
     }
 
@@ -89,8 +93,9 @@ void Registrierungsmenue(void)
     char cNickname[TEXTLAENGE];
     char cPasswort[TEXTLAENGE];
 
-    int iRueckgabe=-1;
-    int iRichtig = 1;
+	int iKorrekt = -1;
+    int iRueckgabe= -1;
+    int iRichtig = -10;
 
     curs_set(1); // Cursor sichtbar machen
     echo(); // Eingabe anzeigen lassen 
@@ -98,57 +103,57 @@ void Registrierungsmenue(void)
 
     // Ausgabe des Registrierungsmenues
     
-    clear();
-    printw("\n");
-    printw("\t\t\t\tS U D O K U\n\n");
-    printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
-    printw("\t\t============================================\n\n");
-    printw("\t\t\tBitte fuellen Sie die folgenden Felder aus.\n");    
-    printw("\n\t\t\tNachname (max. 20 Zeichen): ");
-    while(iRichtig == 1)
-    {
-        getstr(cNachname);
-        iRichtig = feldPlausi(cNachname,1,20);
-        if(iRichtig==1)
-        {
-            printw("\n\t\t\tNachname falsch!");
-        }
-    }
-    iRichtig = 1;
-    while(iRichtig == 1)
-    {
-        printw("\n\t\t\tVorname  (max. 20 Zeichen): ");
-        getstr(cVorname);
-        iRichtig = feldPlausi(cVorname,1,20);
-        if(iRichtig==1)
-        {
-            printw("\n\t\t\tVorname falsch!");
-        }
-     }
-    iRichtig = 1;
-    while(iRichtig == 1)
-    {
-        printw("\n\t\t\tNickname (max. 20 Zeichen): ");
-        getstr(cNickname);
-        iRichtig = feldPlausi(cNickname,1,20);
-        if(iRichtig==1)
-        {
-            printw("\n\t\t\tNickname falsch!");
-        }
-    }
-    iRichtig = 1;
-    //curs_set(0); // Cursor unsichtbar machen
-    while(iRichtig == 1)
-    {
-        printw("\n\t\t\tPasswort  (min. 6 Zeichen): ");
-        getstr(cPasswort);
-        iRichtig = feldPlausi(cPasswort,6,20);
-        if(iRichtig==1)
-        {
-            printw("\n\t\t\tPasswort falsch!");
-        }
-        
-    }
+	while (iKorrekt != 0) 
+	{
+		clear();
+		printw("\n");
+		printw("\t\t\t\tS U D O K U\n\n");
+		printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+		printw("\t\t============================================\n\n");
+		printw("\t\t\tBitte fuellen Sie die folgenden Felder aus.\n");    
+		printw("\n\t\t\tNachname (max. 20 Zeichen): ");
+		while(iRichtig != 0)
+		{
+			if (iRichtig != -10)
+			{
+				printw("\n\t\t\tNachname (max. 20 Zeichen): ");
+			}
+			getstr(cNachname);
+			iRichtig = isValid(cNachname,1,20);
+			Fehlermeldung(iRichtig, NACHNAME);
+		}
+		iRichtig = -10;
+		while(iRichtig != 0)
+		{
+			printw("\n\t\t\tVorname  (max. 20 Zeichen): ");
+			getstr(cVorname);
+			iRichtig = isValid(cVorname,1,20);
+			Fehlermeldung(iRichtig, VORNAME);
+		 }
+		iRichtig = -10;
+		while(iRichtig != 0)
+		{
+			printw("\n\t\t\tNickname (max. 20 Zeichen): ");
+			getstr(cNickname);
+			iRichtig = isValid(cNickname,1,20);
+			Fehlermeldung(iRichtig, NICKNAME);
+		}
+		iRichtig = -10;
+		//curs_set(0); // Cursor unsichtbar machen
+		while(iRichtig != 0)
+		{
+			printw("\n\t\t\tPasswort  (min. 6 Zeichen): ");
+			getstr(cPasswort);
+			iRichtig = isValid(cPasswort,6,20);
+			Fehlermeldung(iRichtig, PASSWORT);
+		}
+		if(isValid(cNachname, 1, 20) == 0 && isValid(cVorname, 1, 20) == 0 &&
+			isValid(cNickname, 1, 20) == 0 && isValid(cPasswort, 6, 20) == 0) 
+		{
+			iKorrekt = 0;
+		}	
+	}
+
     printw("\n\n\t\t============================================\n\n");
     // Weitergabe an die Datenbankanbindung
  

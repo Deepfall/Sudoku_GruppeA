@@ -20,6 +20,10 @@ Praeprozessoranweisungen
 #include "allgemeineDefines.h"
 
 #define TEXTLAENGE                 20
+#define NACHNAME				"Nachname"
+#define VORNAME				    "Vorname"
+#define NICKNAME				"Nickname"
+#define PASSWORT				"Passwort"
 
 /*******************************************************************************
 Funktionsprototypen
