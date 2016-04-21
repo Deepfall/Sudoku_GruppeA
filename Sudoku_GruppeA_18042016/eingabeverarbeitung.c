@@ -15,16 +15,20 @@ Praeprozessoranweisungen
 
 /*******************************************************************************
 Funktion VerarbeiteEingabe()
-Uebergabe Parameter:    -
-Rueckgabe:              void
+Uebergabe Parameter:    sudokufeld[]
+Rueckgabe:              -
 Beschreibung:           
 *******************************************************************************/
-int VerarbeiteEingabe(CURSOR *cursor, SUDOKUFELD sudokufeld[81])
+int VerarbeiteEingabe(SUDOKUFELD sudokufelder[])
 {
+    static CURSOR cursor = { CURSOR_START_POSITION_SPALTE,
+                             CURSOR_START_POSITION_ZEILE,
+                             CURSOR_START_ZEILE, CURSOR_START_SPALTE };
+
     int gedrueckteTaste = getch();
 
-    VerarbeiteCursorBewegung(gedrueckteTaste, cursor);
-    VerarbeiteFeldEingabe(gedrueckteTaste, cursor, sudokufeld);
+    VerarbeiteCursorBewegung(gedrueckteTaste, &cursor);
+    VerarbeiteFeldEingabe(gedrueckteTaste, &cursor, sudokufelder);
     VerarbeiteKommandos(gedrueckteTaste);
 
     return gedrueckteTaste;
@@ -32,13 +36,13 @@ int VerarbeiteEingabe(CURSOR *cursor, SUDOKUFELD sudokufeld[81])
 
 /*******************************************************************************
 Funktion VerarbeiteCursorBewegung()
-Uebergabe Parameter:    -
-Rueckgabe:              void
+Uebergabe Parameter:    iGedrueckteTaste, cursor
+Rueckgabe:              -
 Beschreibung:           
 *******************************************************************************/
-void VerarbeiteCursorBewegung(int gedrueckteTaste, CURSOR *cursor)
+void VerarbeiteCursorBewegung(int iGedrueckteTaste, CURSOR *cursor)
 {
-    switch(gedrueckteTaste)
+    switch(iGedrueckteTaste)
     {
         case KEY_LEFT:
             BewegeCursorLinks(cursor);
@@ -59,52 +63,68 @@ void VerarbeiteCursorBewegung(int gedrueckteTaste, CURSOR *cursor)
 
 /*******************************************************************************
 Funktion VerarbeiteFeldEingabe()
-Uebergabe Parameter:    -
-Rueckgabe:              void
-Beschreibung:           
+Uebergabe Parameter:    iGedrueckteTaste, *cursor, sudokufeld[]
+Rueckgabe:              -
+Beschreibung:           Prueft ob eine Taste von 1 bis 9 gedrueckt wurde und
+                        schreibt diese an die aktuelle Cursorposition.
+                        Prueft ob die "Entf"-Taste gedrueckt wurde und loescht
+                        den Wert an der aktuellen Cursorpostition.
 *******************************************************************************/
-void VerarbeiteFeldEingabe(int gedrueckteTaste, CURSOR *cursor, SUDOKUFELD sudokufeld[81])
+void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR *cursor,
+                           SUDOKUFELD sudokufeld[])
 {
-    int iFeld;
+    int iFeld = cursor->iAktuelleSpielfeldSpalte
+                + ((cursor->iAktuelleSpielfeldZeile - 1) * 9) - 1;
 
-    switch(gedrueckteTaste)
+    switch(iGedrueckteTaste)
     {
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-        iFeld = cursor->iAktuelleSpielfeldSpalte + ((cursor->iAktuelleSpielfeldZeile - 1) * 9) - 1;
-
-        if(!sudokufeld[iFeld].iIstVorbefuellt)
-        {
-            sudokufeld[iFeld].iWert = gedrueckteTaste - 48;
-            mvprintw(cursor->iY, cursor->iX, "%c", gedrueckteTaste);
-        }
-        break;
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            if(!sudokufeld[iFeld].iIstVorbefuellt)
+            {
+                sudokufeld[iFeld].iWert = iGedrueckteTaste - 48;
+                mvprintw(cursor->iY, cursor->iX, "%c", iGedrueckteTaste);
+            }
+            break;
+        case KEY_DC:
+            if(!sudokufeld[iFeld].iIstVorbefuellt)
+            {
+                sudokufeld[iFeld].iWert = 0;
+                mvprintw(cursor->iY, cursor->iX, " ");
+            }
+            break;
     }
 }
 /*******************************************************************************
 Funktion VerarbeiteKommandos()
-Uebergabe Parameter:    -
+Uebergabe Parameter:    iGedrueckteTaste
 Rueckgabe:              -
-Beschreibung:           Erstellt das Menue für die 3 Schwierigkeitsstufen.
+Beschreibung:           Prüft ob eine Kommandotaste im Spiel gedrueckt wurde und
+                        delegiert an die entsprechende Funktion.
 *******************************************************************************/
-void VerarbeiteKommandos(int gedrueckteTaste)
+void VerarbeiteKommandos(int iGedrueckteTaste)
 {
-    switch(gedrueckteTaste)
+    switch(iGedrueckteTaste)
     {
         case 'H':
-        case 'h': break;
-        case 'K': 
-        case 'k': break;
+        case 'h':
+            break;
+        case 'K':
+        case 'k':
+            break;
         case 'L':
-        case 'l': break;
-        case 'R': 
-        case 'r': SpielregelnAnzeigen(); break;
+        case 'l':
+            break;
+        case 'R':
+        case 'r':
+            SpielregelnAnzeigen();
+            break;
     }
 }

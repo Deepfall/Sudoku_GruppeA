@@ -18,6 +18,8 @@ Praeprozessoranweisungen
 #include "datenbankanbindung.h"
 
 
+
+
 /*******************************************************************************
 Funktion LoggInmenue()
 Uebergabe Parameter:    -
@@ -58,11 +60,11 @@ void LoggInmenue(void)
 
     // Weitergabe an die Datenbankanbindung
  
-	iRueckgabe = Einloggen(cNickname, cPasswort); 
+	iRueckgabe = Einloggen(cNickname, cPasswort);  
 
     if(iRueckgabe == 0)
     {
-        Spielmenue();
+        Spielmenue(cNickname);
     }
     else
     {
@@ -105,33 +107,49 @@ void Registrierungsmenue(void)
     printw("\n\t\t\tNachname (max. 20 Zeichen): ");
     while(iRichtig == 1)
     {
-    getstr(cNachname);
-    iRichtig = feldPlausi(cNachname,1,20);
+        getstr(cNachname);
+        iRichtig = feldPlausi(cNachname,1,20);
+        if(iRichtig==1)
+        {
+            printw("\n\t\t\tNachname falsch!");
+        }
     }
     iRichtig = 1;
-     while(iRichtig == 1)
+    while(iRichtig == 1)
     {
-    printw("\n\t\t\tVorname  (max. 20 Zeichen): ");
-    getstr(cVorname);
-    iRichtig = feldPlausi(cVorname,1,20);
+        printw("\n\t\t\tVorname  (max. 20 Zeichen): ");
+        getstr(cVorname);
+        iRichtig = feldPlausi(cVorname,1,20);
+        if(iRichtig==1)
+        {
+            printw("\n\t\t\tVorname falsch!");
+        }
      }
-     iRichtig = 1;
-     while(iRichtig == 1)
+    iRichtig = 1;
+    while(iRichtig == 1)
     {
-    printw("\n\t\t\tNickname (max. 20 Zeichen): ");
-    getstr(cNickname);
-    iRichtig = feldPlausi(cNickname,1,20);
-     }
-     iRichtig = 1;
-    //curs_set(0); // Cursor unsichtbar machen
-     while(iRichtig == 1)
-    {
-    printw("\n\t\t\tPasswort  (min. 6 Zeichen): ");
-    getstr(cPasswort);
-    iRichtig = feldPlausi(cPasswort,6,20);
-    printw("\n\n\t\t============================================\n\n");
+        printw("\n\t\t\tNickname (max. 20 Zeichen): ");
+        getstr(cNickname);
+        iRichtig = feldPlausi(cNickname,1,20);
+        if(iRichtig==1)
+        {
+            printw("\n\t\t\tNickname falsch!");
+        }
     }
-
+    iRichtig = 1;
+    //curs_set(0); // Cursor unsichtbar machen
+    while(iRichtig == 1)
+    {
+        printw("\n\t\t\tPasswort  (min. 6 Zeichen): ");
+        getstr(cPasswort);
+        iRichtig = feldPlausi(cPasswort,6,20);
+        if(iRichtig==1)
+        {
+            printw("\n\t\t\tPasswort falsch!");
+        }
+        
+    }
+    printw("\n\n\t\t============================================\n\n");
     // Weitergabe an die Datenbankanbindung
  
    iRueckgabe = Registrieren(cNachname, cVorname, cNickname, cPasswort);
@@ -172,7 +190,7 @@ Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           Erstellt das Menue für die 3 Schwierigkeitsstufen.
 *******************************************************************************/
-void SchwierigkeitsStufenMenue(void)
+void SchwierigkeitsStufenMenue(char *Nickname)
 {
     char cEingabe = -1, cFalscheEingabe = TRUE;
 
@@ -200,17 +218,17 @@ void SchwierigkeitsStufenMenue(void)
         {
         case 'L':
         case 'l':
-            NeuesSpiel();
+            NeuesSpiel(1);
             cFalscheEingabe = FALSE;
             break;
         case 'M':
         case 'm':
-            NeuesSpiel();
+            NeuesSpiel(2);
             cFalscheEingabe = FALSE;
             break;
         case 'S':
         case 's':
-            NeuesSpiel();
+            NeuesSpiel(3);
             cFalscheEingabe = FALSE;
             break;
         }
@@ -223,7 +241,7 @@ Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           Erstellt das Spielmenue.
 *******************************************************************************/
-void Spielmenue(void)
+void Spielmenue(char *Nickname)
 {
     char cEingabe = -1;
 
@@ -252,7 +270,7 @@ void Spielmenue(void)
         {
         case 'N': 
         case 'n':
-            SchwierigkeitsStufenMenue();
+            SchwierigkeitsStufenMenue(Nickname);
             break;
         case 'R': 
         case 'r':
@@ -308,7 +326,7 @@ void StartMenue(void)
             break;
         case 'N':
         case 'n':
-            Spielmenue();
+            Spielmenue("");
             break;
         case 'R':
         case 'r':
@@ -329,5 +347,16 @@ enth\204lt.
 *******************************************************************************/
 void SpielregelnAnzeigen(void)
 {
-    system("start firefox.exe file://W:/LF06/Wissemann/Projekt_GruppeA/Regeln.html");
+    char cPfad[_MAX_PATH];
+    strcpy(cPfad, "start firefox.exe file://");
+    strcat(cPfad, PrintFullPath("Regeln.html"));
+    system(cPfad);
+}
+char *PrintFullPath(char * partialPath)
+{
+    char pfad[_MAX_PATH];
+   
+    _fullpath( pfad, partialPath, _MAX_PATH);
+    return pfad;
+    
 }

@@ -13,7 +13,7 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
-#include <stdio.h>
+#define ANZAHL_SPIELFELDER                 81
 
 typedef struct
 {
@@ -26,6 +26,6 @@ SUDOKUFELD;
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-void getformatierteZeit(char cformatierteZeit[9], int ivergangeneSekunden);
+
 
 #endif
