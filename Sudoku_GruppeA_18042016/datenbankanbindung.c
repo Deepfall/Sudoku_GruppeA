@@ -128,7 +128,7 @@ int feldPlausi(char * cUeberprüfungsText,int iMin,int iMax)
     entferneLeerzeichen(cUeberprüfungsText);
 
     if(strlen(cUeberprüfungsText) == 0 ||
-      (strlen(cUeberprüfungsText) > iMin && strlen(cUeberprüfungsText) < iMax))
+      (strlen(cUeberprüfungsText) < iMin && strlen(cUeberprüfungsText) > iMax))
     {
         return 1;
     }

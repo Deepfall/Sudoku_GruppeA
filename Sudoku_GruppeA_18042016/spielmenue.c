@@ -104,33 +104,49 @@ void Registrierungsmenue(void)
     printw("\n\t\t\tNachname (max. 20 Zeichen): ");
     while(iRichtig == 1)
     {
-    getstr(cNachname);
-    iRichtig = feldPlausi(cNachname,1,20);
+        getstr(cNachname);
+        iRichtig = feldPlausi(cNachname,1,20);
+        if(iRichtig==1)
+        {
+            printw("\n\t\t\tNachname falsch!");
+        }
     }
     iRichtig = 1;
-     while(iRichtig == 1)
+    while(iRichtig == 1)
     {
-    printw("\n\t\t\tVorname  (max. 20 Zeichen): ");
-    getstr(cVorname);
-    iRichtig = feldPlausi(cVorname,1,20);
+        printw("\n\t\t\tVorname  (max. 20 Zeichen): ");
+        getstr(cVorname);
+        iRichtig = feldPlausi(cVorname,1,20);
+        if(iRichtig==1)
+        {
+            printw("\n\t\t\tVorname falsch!");
+        }
      }
-     iRichtig = 1;
-     while(iRichtig == 1)
+    iRichtig = 1;
+    while(iRichtig == 1)
     {
-    printw("\n\t\t\tNickname (max. 20 Zeichen): ");
-    getstr(cNickname);
-    iRichtig = feldPlausi(cNickname,1,20);
-     }
-     iRichtig = 1;
-    //curs_set(0); // Cursor unsichtbar machen
-     while(iRichtig == 1)
-    {
-    printw("\n\t\t\tPasswort  (min. 6 Zeichen): ");
-    getstr(cPasswort);
-    iRichtig = feldPlausi(cPasswort,6,20);
-    printw("\n\n\t\t============================================\n\n");
+        printw("\n\t\t\tNickname (max. 20 Zeichen): ");
+        getstr(cNickname);
+        iRichtig = feldPlausi(cNickname,1,20);
+        if(iRichtig==1)
+        {
+            printw("\n\t\t\tNickname falsch!");
+        }
     }
-
+    iRichtig = 1;
+    //curs_set(0); // Cursor unsichtbar machen
+    while(iRichtig == 1)
+    {
+        printw("\n\t\t\tPasswort  (min. 6 Zeichen): ");
+        getstr(cPasswort);
+        iRichtig = feldPlausi(cPasswort,6,20);
+        if(iRichtig==1)
+        {
+            printw("\n\t\t\tPasswort falsch!");
+        }
+        
+    }
+    printw("\n\n\t\t============================================\n\n");
     // Weitergabe an die Datenbankanbindung
  
    iRueckgabe = Registrieren(cNachname, cVorname, cNickname, cPasswort);
