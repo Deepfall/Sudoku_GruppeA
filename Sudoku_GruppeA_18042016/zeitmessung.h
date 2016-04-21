@@ -1,10 +1,10 @@
-#ifndef EINGABEVERARBEITUNG_H
-#define EINGABEVERARBEITUNG_H
+#ifndef ZEITMESSUNG_H
+#define ZEITMESSUNG_H
 /*
 Autor(en)               : David Fischer
 Klasse                  : FA11
-Programmname            : eingabeverarbeitung.h
-Datum                   : 19.04.2016
+Programmname            : zeitmessung.h
+Datum                   : 21.04.2016
 Beschreibung            : 
 Version                 : 1.0
 Compiler                : Visual Studio 2012
@@ -13,17 +13,14 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
-#include <curses.h>
-#include "cursor.h"
-#include "spielfeld.h"
-#include "spielmenue.h"
+#include <stdio.h>
+#include <time.h>
 
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-int VerarbeiteEingabe(SUDOKUFELD sudokufelder[]);
-void VerarbeiteCursorBewegung(int iGedrueckteTaste, CURSOR *cursor);
-void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR *cursor, SUDOKUFELD sudokufelder[]);
-void VerarbeiteKommandos(int iGedrueckteTaste);
+void BerechneVerstricheneZeit(char cVerstricheneZeit[], time_t Startzeit);
+void SchreibeFormatierteZeit(char cFormatierteZeit[], 
+                             int iVerstricheneSekunden);
 
 #endif

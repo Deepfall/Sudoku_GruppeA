@@ -74,6 +74,7 @@
     <ClCompile Include="spielmenue.c" />
     <ClCompile Include="sqlite3.c" />
     <ClCompile Include="sudoku.c" />
+    <ClCompile Include="zeitmessung.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="allgemeineDefines.h" />
@@ -86,6 +87,7 @@
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="sqlite3ext.h" />
     <ClInclude Include="sudoku.h" />
+    <ClInclude Include="zeitmessung.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Sudoku.db" />

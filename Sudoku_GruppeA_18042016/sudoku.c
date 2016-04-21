@@ -19,16 +19,14 @@ Uebergabe Parameter:    -
 Rueckgabe:              void
 Beschreibung:           
 *******************************************************************************/
-void NeuesSpiel(void)
+void NeuesSpiel(int iSchwierigkeit)
 {
     WINDOW *spielfeldFenster, *infoFenster, *kommandoFenster;
-    CURSOR cursor = { CURSOR_START_POSITION_SPALTE, CURSOR_START_POSITION_ZEILE, 
-        START_ZEILE, START_SPALTE };
     SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER];
-    int iVergangeneSekunden, iGedrueckteTaste = -1, i;
-    char cformatierteVergangeneZeit[9];
-    time_t Startzeit, aktuelleZeit;
-
+    time_t Startzeit;
+    int iGedrueckteTaste = -1, i, iWert;
+    char cformatierteVerstricheneZeit[9], cDaten[1000], *cToken;
+    const char *ccTrenner = ";";
 
     curs_set(1);
     timeout(33);
@@ -37,11 +35,15 @@ void NeuesSpiel(void)
     infoFenster = ErstelleNeuesInfoFenster();
     kommandoFenster = ErstelleNeuesKommandoFenster();
 
+    SudokuBereitstellen(cDaten, iSchwierigkeit);
+    cToken = strtok(cDaten, ccTrenner);
+
     for(i = 0; i < ANZAHL_SPIELFELDER; i++)
     {
-        if(i % 10 == 0)
+        if(cToken != NULL && cToken[0] >= '1' && cToken[0] <= '9')
         {
-            spielfelder[i].iWert = 1;
+            iWert = (int) cToken[0] - 48;
+            spielfelder[i].iWert = iWert;
             spielfelder[i].iIstVorbefuellt = TRUE;
         }
         else
@@ -49,24 +51,22 @@ void NeuesSpiel(void)
             spielfelder[i].iWert = 0;
             spielfelder[i].iIstVorbefuellt = FALSE;
         }
+
+        cToken = strtok(NULL, ccTrenner);
     }
 
     ZeicheSpielfeld(spielfeldFenster);
     ZeicheSpielfelder(spielfeldFenster, spielfelder);
+    ZeichneInfo(infoFenster);
     ZeicheKommandos(kommandoFenster);
 
     time(&Startzeit);
 
     while(iGedrueckteTaste != 'L' && iGedrueckteTaste != 'l')
     {
-        iGedrueckteTaste = VerarbeiteEingabe(&cursor, spielfelder);
+        iGedrueckteTaste = VerarbeiteEingabe(spielfelder);
 
-        time(&aktuelleZeit);
-        iVergangeneSekunden = (int) difftime(aktuelleZeit, Startzeit);
-        getformatierteZeit(cformatierteVergangeneZeit, iVergangeneSekunden);
-
-        ZeichneInfo(infoFenster, cformatierteVergangeneZeit);
-        ZeicheSpielfeld(spielfeldFenster);
+        BerechneVerstricheneZeit(cformatierteVerstricheneZeit, Startzeit);
 
         doupdate();
     }
@@ -186,11 +186,11 @@ void ZeicheSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_S
     wnoutrefresh(spielfeldFenster);
 }
 
-void ZeichneInfo(WINDOW *infoFenster, char cformatierteVergangeneZeit[9])
+void ZeichneInfo(WINDOW *infoFenster)
 {
     wclear(infoFenster);
 
-    wprintw(infoFenster, "Zeit:          %s\n", cformatierteVergangeneZeit);
+    wprintw(infoFenster, "Zeit:          \n");
     wprintw(infoFenster, "Hilfe genutzt: 0");
 
     wnoutrefresh(infoFenster);

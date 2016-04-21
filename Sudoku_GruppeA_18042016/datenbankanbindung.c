@@ -17,39 +17,40 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktion Einloggen()
 Uebergabe Parameter:    cNickname
-                        cPasswort
+cPasswort
 Rueckgabe:              0 - Einloggen war erfolgreich
-                        1 - Einloggen ist fehlgeschlagen
+1 - Einloggen ist fehlgeschlagen
 Beschreibung:           
 *******************************************************************************/
 int Einloggen(char *cNickname, char *cPasswort)
 {
-    int iRueckgabe, cols, col;
+    int iRueckgabe, iSpalten, iSpalte;
     char sql[1000];
     const char *data;
     sqlite3_stmt *stmt;
+    sqlite3 *db_handle;
 
     iRueckgabe = sqlite3_open(DATENBANK_SUDOKU, &db_handle);
 
     if (iRueckgabe != SQLITE_OK)
     {
-        exit(iRueckgabe);
+        exit(SQLITE_CANTOPEN);
     }
 
     sprintf(sql, "SELECT Passwort "
-                 "FROM Benutzer WHERE Nickname = '%s'", cNickname);
+        "FROM Benutzer WHERE Nickname = '%s'", cNickname);
 
 
     iRueckgabe = sqlite3_prepare_v2(db_handle, sql, strlen(sql), &stmt, NULL);
-    cols = sqlite3_column_count(stmt);
+    iSpalten = sqlite3_column_count(stmt);
 
     clear();
     while(sqlite3_step(stmt) == SQLITE_ROW)
     {
-        for(col = 0; col < cols; col++)
+        for(iSpalte = 0; iSpalte < iSpalten; iSpalte++)
         {
-            data = (const char *) sqlite3_column_text(stmt, col);
-            printw("%s", data);
+            data = (const char *) sqlite3_column_text(stmt, iSpalte);
+
             if(strcmp(data,cPasswort) == 0)
             { 
                 iRueckgabe = 0;
@@ -60,24 +61,24 @@ int Einloggen(char *cNickname, char *cPasswort)
             }
         }
         refresh();
-        
+
     }
 
     sqlite3_finalize(stmt);
     sqlite3_close(db_handle);
 
     return iRueckgabe;
-    
+
 }
 
 /*******************************************************************************
 Funktion Registrieren()
 Uebergabe Parameter:    cNachname
-                        cVorname
-                        cNickname
-                        cPasswort
+cVorname
+cNickname
+cPasswort
 Rueckgabe:              0 - Registrierung war erfolgreich
-                        1 - Registrierung ist fehlgeschlagen
+1 - Registrierung ist fehlgeschlagen
 Beschreibung:           
 *******************************************************************************/
 int Registrieren(char *cNachname, char *cVorname,
@@ -85,12 +86,13 @@ int Registrieren(char *cNachname, char *cVorname,
 {
     int iRueckgabe;
     char *sql, *cErrMsg;
+    sqlite3 *db_handle;
 
     iRueckgabe = sqlite3_open(DATENBANK_SUDOKU, &db_handle);
 
     if (iRueckgabe != SQLITE_OK)
     {
-        exit(iRueckgabe);
+        exit(SQLITE_CANTOPEN);
     }
 
     sql = sqlite3_mprintf("INSERT INTO Benutzer (Name, Vorname, "
@@ -112,15 +114,14 @@ int Registrieren(char *cNachname, char *cVorname,
         printf("%s", cErrMsg);
         return -1;
     }
-    
+
 }
 /*******************************************************************************
 Funktion felderGefuellt()
 Uebergabe Parameter:    ueberprüfungsText
-
 Rueckgabe:              0 - Felder sind gefüllt und Länge in Ordnung
-                        1 - Felder sind leer
-                        2 - Felder sind zu lang
+1 - Felder sind leer
+2 - Felder sind zu lang
 Beschreibung:           
 *******************************************************************************/
 int feldPlausi(char * cUeberprüfungsText,int iMin,int iMax)
@@ -133,8 +134,6 @@ int feldPlausi(char * cUeberprüfungsText,int iMin,int iMax)
         return 1;
     }
     return 0;
-    
-    
 }
 
 
@@ -144,6 +143,36 @@ Uebergabe Parameter:    -
 Rueckgabe:              void
 Beschreibung:           
 *******************************************************************************/
+int SudokuBereitstellen(char *cDaten, int iSchwierigkeit)
+{
+    int iRueckgabe, iSudokuId;
+    char sql[1000];
+    sqlite3_stmt *stmt;
+    sqlite3 *db_handle;
+
+    iRueckgabe = sqlite3_open(DATENBANK_SUDOKU, &db_handle);
+
+    if (iRueckgabe != SQLITE_OK)
+    {
+        exit(SQLITE_CANTOPEN);
+    }
+
+    iSudokuId = generiereSudokuId(iSchwierigkeit);
+    sprintf(sql, "SELECT Gefuellt "
+                 "FROM Sudoku WHERE Sudoku_ID = '%i' LIMIT 1", iSudokuId);
+
+    iRueckgabe = sqlite3_prepare_v2(db_handle, sql, strlen(sql), &stmt, NULL);
+
+    if(sqlite3_step(stmt) == SQLITE_ROW)
+    {
+        strcpy(cDaten, (const char *) sqlite3_column_text(stmt, 0));
+    }
+
+    sqlite3_finalize(stmt);
+    sqlite3_close(db_handle);
+
+    return iRueckgabe;
+}
 
 /*******************************************************************************
 Funktion LoesungsBereitstellen()

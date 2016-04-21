@@ -17,6 +17,8 @@ Praeprozessoranweisungen
 #include <time.h>
 #include <curses.h>
 #include "sqlite3.h"
+#include "helpers.h"
+#include "spielfeld.h"
 
 #define TEXTLAENGE                 20
 
@@ -31,6 +33,9 @@ int Registrieren(char *cNachname, char *cVorname,
 int Einloggen(char *cNickname, char *Passwort);
 int feldPlausi(char * ueberprüfungsText,int min,int max);
 int loginDatenGefuellt(char *cNickname, char *cPasswort);
+int felderGefuellt(char *cNachname, char *cVorname,
+                   char *cNickname, char *cPasswort);
+int SudokuBereitstellen(char *cDaten, int iSchwierigkeit);
 
 /*******************************************************************************
 Globale Variablen

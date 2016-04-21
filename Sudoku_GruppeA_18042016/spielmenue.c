@@ -215,18 +215,17 @@ void SchwierigkeitsStufenMenue(void)
         {
         case 'L':
         case 'l':
-
-            NeuesSpiel();
+            NeuesSpiel(1);
             cFalscheEingabe = FALSE;
             break;
         case 'M':
         case 'm':
-            NeuesSpiel();
+            NeuesSpiel(2);
             cFalscheEingabe = FALSE;
             break;
         case 'S':
         case 's':
-            NeuesSpiel();
+            NeuesSpiel(3);
             cFalscheEingabe = FALSE;
             break;
         }

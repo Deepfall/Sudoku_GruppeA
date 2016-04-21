@@ -42,6 +42,9 @@
     <ClCompile Include="helpers.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="zeitmessung.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sudoku.h">
@@ -69,9 +72,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="allgemeineDefines.h">
-	<Filter>Headerdateien</Filter>
+      <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="helpers.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="zeitmessung.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

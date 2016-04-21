@@ -17,7 +17,7 @@ Compiler                : Visual Studio 2012
 Funktionsprototypen
 *******************************************************************************/
 int generiereZufallsZahl(int min_n, int max_n);
-int generiereSudokuId(int stufe);
+int generiereSudokuId(int iSchwierigkeit);
 void entferneLeerzeichen(char* source);
 
 #endif
