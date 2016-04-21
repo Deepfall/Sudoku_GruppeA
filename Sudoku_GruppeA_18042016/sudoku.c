@@ -222,3 +222,4 @@ void ZeicheVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit)
 
     wnoutrefresh(infoFenster);
 }
+

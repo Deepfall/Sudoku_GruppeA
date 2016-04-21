@@ -21,5 +21,9 @@ int generiereSudokuId(int iSchwierigkeit);
 void entferneLeerzeichen(char* source);
 int isValid(char * cUeberprüfungsText,int iMin,int iMax);
 void Fehlermeldung(int iFehlerID, char *cFeldname);
+void AusgabeAbsoulterPfad(char cZielPfad[],char cDateiname[]);
+void anpassenDateipfad(char cangepassterPfad[], char cQuellpfad[]);
+void SpielregelnAnzeigen(void);
+
 
 #endif

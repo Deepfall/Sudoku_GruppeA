@@ -109,3 +109,64 @@ void Fehlermeldung(int iFehlerID, char *cFeldname)
 		break;
 	}
 }
+/*******************************************************************************
+Funktion SpielregelnAnzeigen()
+Uebergabe Parameter:    -
+Rueckgabe:              -
+Beschreibung:           Oeffnen der HTML-Datei, die die Regeln zu dem Spiel
+                        enthaelt.
+*******************************************************************************/
+void SpielregelnAnzeigen(void)
+{
+    char cKommando[_MAX_PATH], cPfad[_MAX_PATH] = "";
+    
+    // Erstellen des Kommandos, um die Regeln.html zu oeffnen
+    strcpy(cKommando, "start firefox.exe file://");
+    AusgabeAbsoulterPfad(cPfad, "Regeln.html");
+    strcat(cKommando, cPfad);
+    system(cKommando);
+}
+/*******************************************************************************
+Funktion AusgabeAbsoulterPfad()
+Uebergabe Parameter:    Namen der Datei
+Rueckgabe:              -
+Beschreibung:           Ausgeben des absoulten Dateipfades der Regeln.html
+                        Datei, um zu gewaehrleisten, dass diese von jedem 
+                        Speicherort aus geoeffnet werden kann.
+*******************************************************************************/
+void AusgabeAbsoulterPfad(char cZielPfad[],char cDateiname[])
+{
+    char cPfad[_MAX_PATH];
+   
+    _fullpath(cPfad, cDateiname, _MAX_PATH);
+    anpassenDateipfad(cZielPfad, cPfad); 
+}
+
+/*******************************************************************************
+Funktion AusgabeAbsoulterPfad()
+Uebergabe Parameter:    cangepassterPfad
+Rueckgabe:              -
+Beschreibung:           Ersetzen aller Leerzeichen durch "%20" in einem 
+                        Dateipfad, um die problemloses oefnnen der Datei zu
+                        gewaehrleisten.
+*******************************************************************************/
+void anpassenDateipfad(char cangepassterPfad[], char cQuellpfad[])
+{
+    const char *ccTrenner = " ";
+    char *cToken;
+    
+    // Trennen Dateipfades bei einem Leerzeichen
+    cToken = strtok(cQuellpfad, ccTrenner);
+
+    // Ersetzen aller Leerzeichen durch "%20"
+    while(cToken != NULL)
+    {
+        strcat(cangepassterPfad, cToken);
+        cToken = strtok(NULL, ccTrenner);
+        if(cToken != NULL)
+        {
+         strcat(cangepassterPfad, "%20");
+        }
+    }
+}
+

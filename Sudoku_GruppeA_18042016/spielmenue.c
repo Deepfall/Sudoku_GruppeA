@@ -338,34 +338,3 @@ void StartMenue(void)
         }
     }
 }
-
-/*******************************************************************************
-Funktion SpielregelnAnzeigen()
-Uebergabe Parameter:    -
-Rueckgabe:              -
-Beschreibung:           Oeffnen der HTML-Datei, die die Sudokuregeln enthaelt.
-*******************************************************************************/
-void SpielregelnAnzeigen(void)
-{
-    char cKommando[_MAX_PATH];
-
-    strcpy(cKommando, "start firefox.exe file://");
-    strcat(cKommando, PrintFullPath("Regeln.html"));
-
-    system(cKommando);
-}
-
-/*******************************************************************************
-Funktion GibVollenDateiPfad()
-Uebergabe Parameter:    cDatei[]
-Rueckgabe:              cPfad[]
-Beschreibung:           
-*******************************************************************************/
-char *PrintFullPath(char cDatei[])
-{
-    char cPfad[_MAX_PATH];
-   
-    _fullpath(cPfad, cDatei, _MAX_PATH);
-
-    return cPfad;
-}
