@@ -22,6 +22,7 @@ Praeprozessoranweisungen
 #include "allgemeineDefines.h"
 #include "datenbankanbindung.h"
 #include "zeitmessung.h"
+#include "cursor.h"
 
 #define START_POSITION_SPALTE               6
 #define START_POSITION_ZEILE                3
@@ -39,5 +40,6 @@ void ZeicheSpielfeld(WINDOW *spielfeldFenster);
 void ZeicheSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER]);
 void ZeichneInfo(WINDOW *infoFenster);
 void ZeicheKommandos(WINDOW *kommandoFenster);
+void ZeicheVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit);
 
 #endif

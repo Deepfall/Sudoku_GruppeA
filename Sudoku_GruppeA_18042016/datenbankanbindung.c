@@ -36,13 +36,10 @@ int Einloggen(char *cNickname, char *cPasswort)
     }
 
     sprintf(sql, "SELECT Passwort "
-        "FROM Benutzer WHERE Nickname = '%s';", cNickname);
-
+                 "FROM Benutzer WHERE Nickname = '%s';", cNickname);
 
     sqlite3_prepare_v2(db_handle, sql, strlen(sql), &stmt, NULL);
     iSpalten = sqlite3_column_count(stmt);
-
-    clear();
 
     while(sqlite3_step(stmt) == SQLITE_ROW)
     {
@@ -54,10 +51,7 @@ int Einloggen(char *cNickname, char *cPasswort)
             { 
                 iRueckgabe = 0;
             }
-        
         }
-
-        refresh();
     }
 
     sqlite3_finalize(stmt);
@@ -92,9 +86,9 @@ int Registrieren(char *cNachname, char *cVorname,
     }
 
     sql = sqlite3_mprintf("INSERT INTO Benutzer (Name, Vorname, "
-        "Nickname, Passwort) "
-        "VALUES ('%s', '%s', '%s', '%s')",
-        cNachname, cVorname, cNickname, cPasswort);
+                          "Nickname, Passwort) "
+                          "VALUES ('%s', '%s', '%s', '%s')",
+                          cNachname, cVorname, cNickname, cPasswort);
 
     iRueckgabe = sqlite3_exec(db_handle, sql, NULL, NULL, &cErrMsg);
 
@@ -113,24 +107,24 @@ int Registrieren(char *cNachname, char *cVorname,
 
 }
 /*******************************************************************************
-Funktion felderGefuellt()
+Funktion feldPlausi()
 Uebergabe Parameter:    ueberprüfungsText
 Rueckgabe:              0 - Felder sind gefüllt und Länge in Ordnung
 1 - Felder sind leer
 2 - Felder sind zu lang
 Beschreibung:           
 *******************************************************************************/
-int feldPlausi(char * cUeberprüfungsText,int iMin,int iMax)
+int feldPlausi(char *cUeberprüfungsText, int iMin, int iMax)
 {
     entferneLeerzeichen(cUeberprüfungsText);
 
-    if(strlen(cUeberprüfungsText) == 0 ||
-        (strlen(cUeberprüfungsText) < iMin && strlen(cUeberprüfungsText) > iMax))
+    if(strlen(cUeberprüfungsText) == 0  || (strlen(cUeberprüfungsText) < iMin
+        && strlen(cUeberprüfungsText) > iMax))
     {
         return 1;
     }
-    return 0;
 
+    return 0;
 }
 
 

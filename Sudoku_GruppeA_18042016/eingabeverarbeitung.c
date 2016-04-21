@@ -57,8 +57,6 @@ void VerarbeiteCursorBewegung(int iGedrueckteTaste, CURSOR *cursor)
             BewegeCursorRunter(cursor);
             break;
     }
-
-    move(cursor->iY, cursor->iX);
 }
 
 /*******************************************************************************
@@ -71,10 +69,11 @@ Beschreibung:           Prueft ob eine Taste von 1 bis 9 gedrueckt wurde und
                         den Wert an der aktuellen Cursorpostition.
 *******************************************************************************/
 void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR *cursor,
-                           SUDOKUFELD sudokufeld[])
+                           SUDOKUFELD sudokufelder[])
 {
     int iFeld = cursor->iAktuelleSpielfeldSpalte
                 + ((cursor->iAktuelleSpielfeldZeile - 1) * 9) - 1;
+    int iZahl;
 
     switch(iGedrueckteTaste)
     {
@@ -87,18 +86,11 @@ void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR *cursor,
         case '7':
         case '8':
         case '9':
-            if(!sudokufeld[iFeld].iIstVorbefuellt)
-            {
-                sudokufeld[iFeld].iWert = iGedrueckteTaste - 48;
-                mvprintw(cursor->iY, cursor->iX, "%c", iGedrueckteTaste);
-            }
+            iZahl = iGedrueckteTaste - 48;
+            SchreibeZahlInFeld(sudokufelder[iFeld], cursor, iZahl);
             break;
         case KEY_DC:
-            if(!sudokufeld[iFeld].iIstVorbefuellt)
-            {
-                sudokufeld[iFeld].iWert = 0;
-                mvprintw(cursor->iY, cursor->iX, " ");
-            }
+            LoescheZahlAusFeld(sudokufelder[iFeld], cursor);
             break;
     }
 }

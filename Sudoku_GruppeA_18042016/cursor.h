@@ -13,6 +13,8 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
+#include <curses.h>
+
 #define CURSOR_START_POSITION_SPALTE        7
 #define CURSOR_START_POSITION_ZEILE         4
 #define CURSOR_OFFSET_SPALTE                8
@@ -32,6 +34,7 @@ CURSOR;
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
+void InitialisiereCursor();
 void BewegeCursorLinks(CURSOR *cursor);
 void BewegeCursorRechts(CURSOR *cursor);
 void BewegeCursorHoch(CURSOR *cursor);

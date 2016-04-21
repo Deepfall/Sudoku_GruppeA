@@ -13,6 +13,12 @@ Praeprozessoranweisungen
 *******************************************************************************/
 #include "cursor.h"
 
+void InitialisiereCursor()
+{
+    curs_set(2);
+    move(CURSOR_START_POSITION_ZEILE, CURSOR_START_POSITION_SPALTE);
+}
+
 /*******************************************************************************
 Funktion BewegeCursorLinks()
 Uebergabe Parameter:    *cursor
@@ -31,6 +37,8 @@ void BewegeCursorLinks(CURSOR *cursor)
         }
 
         cursor->iAktuelleSpielfeldSpalte--;
+
+        move(cursor->iY, cursor->iX);
     }
 }
 
@@ -52,6 +60,8 @@ void BewegeCursorRechts(CURSOR *cursor)
         }
 
         cursor->iAktuelleSpielfeldSpalte++;
+
+        move(cursor->iY, cursor->iX);
     }
 }
 
@@ -67,6 +77,8 @@ void BewegeCursorHoch(CURSOR *cursor)
     {
         cursor->iY -= CURSOR_OFFSET_ZEILE;
         cursor->iAktuelleSpielfeldZeile--;
+
+        move(cursor->iY, cursor->iX);
     }
 }
 
@@ -82,5 +94,7 @@ void BewegeCursorRunter(CURSOR *cursor)
     {
         cursor->iY += CURSOR_OFFSET_ZEILE;
         cursor->iAktuelleSpielfeldZeile++;
+
+        move(cursor->iY, cursor->iX);
     }
 }

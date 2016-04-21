@@ -13,6 +13,8 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
+#include <curses.h>
+#include "cursor.h"
 #define ANZAHL_SPIELFELDER                 81
 
 typedef struct
@@ -26,6 +28,7 @@ SUDOKUFELD;
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-
+void SchreibeZahlInFeld(SUDOKUFELD sudokufeld, CURSOR *cursor, int iZahl);
+void LoescheZahlAusFeld(SUDOKUFELD sudokufeld, CURSOR *cursor);
 
 #endif

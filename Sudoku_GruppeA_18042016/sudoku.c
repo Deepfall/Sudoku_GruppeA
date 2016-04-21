@@ -15,8 +15,8 @@ Praeprozessoranweisungen
 
 /*******************************************************************************
 Funktion NeuesSpiel()
-Uebergabe Parameter:    -
-Rueckgabe:              void
+Uebergabe Parameter:    iSchwierigkeit
+Rueckgabe:              -
 Beschreibung:           
 *******************************************************************************/
 void NeuesSpiel(int iSchwierigkeit)
@@ -25,10 +25,9 @@ void NeuesSpiel(int iSchwierigkeit)
     SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER];
     time_t Startzeit;
     int iGedrueckteTaste = -1, i, iWert;
-    char cformatierteVerstricheneZeit[9], cDaten[1000], *cToken;
+    char cDaten[1000], *cToken;
     const char *ccTrenner = ";";
 
-    curs_set(1);
     timeout(33);
 
     spielfeldFenster = ErstelleNeuesSpielfeldFenster();
@@ -55,6 +54,7 @@ void NeuesSpiel(int iSchwierigkeit)
         cToken = strtok(NULL, ccTrenner);
     }
 
+    InitialisiereCursor();
     ZeicheSpielfeld(spielfeldFenster);
     ZeicheSpielfelder(spielfeldFenster, spielfelder);
     ZeichneInfo(infoFenster);
@@ -66,7 +66,7 @@ void NeuesSpiel(int iSchwierigkeit)
     {
         iGedrueckteTaste = VerarbeiteEingabe(spielfelder);
 
-        BerechneVerstricheneZeit(cformatierteVerstricheneZeit, Startzeit);
+        ZeicheVerstricheneZeit(infoFenster, Startzeit);
 
         doupdate();
     }
@@ -206,4 +206,15 @@ void ZeicheKommandos(WINDOW *kommandoFenster)
     wprintw(kommandoFenster, "[R] Spielregeln\n");
 
     wnoutrefresh(kommandoFenster);
+}
+
+void ZeicheVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit)
+{
+    char cformatierteVerstricheneZeit[9];
+
+    BerechneVerstricheneZeit(cformatierteVerstricheneZeit, Startzeit);
+
+    mvwprintw(infoFenster, 0, 15, cformatierteVerstricheneZeit);
+
+    wnoutrefresh(infoFenster);
 }
