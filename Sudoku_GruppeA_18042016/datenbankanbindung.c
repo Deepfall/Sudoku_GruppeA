@@ -127,7 +127,7 @@ int SudokuBereitstellen(char *cSudoku, char *cLoesung, int iSchwierigkeit)
         exit(SQLITE_CANTOPEN);
     }
 
-    iSudokuId = generiereSudokuId(iSchwierigkeit);
+    iSudokuId = GeneriereSudokuId(iSchwierigkeit);
     sprintf(sql, "SELECT Gefuellt, Loesung "
                  "FROM Sudoku WHERE Sudoku_ID = '%i' LIMIT 1", iSudokuId);
 

@@ -3,47 +3,78 @@ Autor(en)               : Robin grahl, Dustin Welz
 Klasse                  : FA11
 Programmname            : helpers.c
 Datum                   : 20.04.2016
-Beschreibung            : 
+Beschreibung            :
 Version                 : 1.0
 Compiler                : Visual Studio 2012
 */
 
+/*******************************************************************************
+Praeprozessoranweisungen
+*******************************************************************************/
 #include "helpers.h"
-#include <string.h>
-#include <stdio.h>
-#include <curses.h>
 
-int generiereSudokuId(int stufe) {
-    int sudokuId = -1;
+/*******************************************************************************
+Funktion GeneriereSudokuId()
+Uebergabe Parameter:    iSchwierigkeit
+Rueckgabe:              iSudokuId
+Beschreibung:           Erzeugt eine Sudoku ID fuer eine Datenbankabfrage
+                        anhand der Schwierigkeit des Sudokus.
+*******************************************************************************/
+int GeneriereSudokuId(int iSchwierigkeit)
+{
+    int iSudokuId = -1;
 
-    switch(stufe) {
-    case 1: sudokuId = generiereZufallsZahl(1, 10);
+    switch (iSchwierigkeit)
+    {
+    case 1:
+        iSudokuId = GeneriereZufallszahlReichweite(1, 10);
         break;
-    case 2: sudokuId = generiereZufallsZahl(11, 20);
+    case 2:
+        iSudokuId = GeneriereZufallszahlReichweite(11, 20);
         break;
-    case 3: sudokuId = generiereZufallsZahl(21, 30);
+    case 3:
+        iSudokuId = GeneriereZufallszahlReichweite(21, 30);
         break;
     }
 
-    return sudokuId;
+    return iSudokuId;
 }
 
-int generiereZufallsZahl(int min_n, int max_n)
+/*******************************************************************************
+Funktion GeneriereZufallszahlReichweite()
+Uebergabe Parameter:    iMinimum, iMaximum
+Rueckgabe:              iZufallszahl
+Beschreibung:           Erzeugt eine Zufallszahl von {iMinimum} bis {iMaximum}.
+*******************************************************************************/
+int GeneriereZufallszahlReichweite(int iMinimum, int iMaximum)
 {
+    int iZufallszahl;
+
+    // Salz streuen
     srand(time(NULL));
-    return rand() % (max_n - min_n + 1) + min_n;
+
+    // Berechnen einer Zufallszahl zwischen iMinimum und iMaximum
+    iZufallszahl = rand() % (iMaximum - iMinimum + 1) + iMinimum;
+
+    return iZufallszahl;
 }
 
-void entferneLeerzeichen(char* source)
+/*******************************************************************************
+Funktion EntferneLeerzeichenAusString()
+Uebergabe Parameter:    cString[]
+Rueckgabe:              cString[]
+Beschreibung:           Entfernt alle Leerzeichen aus dem uebergebenen String.
+*******************************************************************************/
+void EntferneLeerzeichenAusString(char cString[])
 {
-    char* i = source;
-    char* j = source;
+    char *i = cString;
+    char *j = cString;
 
-    while(*j != 0)
+    while (*j != 0)
     {
         *i = *j++;
 
-        if(*i != ' ')
+        if (*i != ' ')
         {
             i++;
         }
@@ -53,62 +84,61 @@ void entferneLeerzeichen(char* source)
 }
 
 /*******************************************************************************
-Funktion felderGefuellt()
-Uebergabe Parameter:    ueberprüfungsText
-
-Rueckgabe:              0 - Feld is ok
-                        -2 - Feld ist zu lang
-                        -3 - Feld ist zu kurz
-						-1 - Feld ist nicht ok
-Beschreibung:           
+Funktion PruefeAufValideStringlaenge()
+Uebergabe Parameter:    cString[], uiMindestLaenge, uiMaximalLaenge
+Rueckgabe:               0 - Text hat eine valide Laenge
+                        -2 - Text ist zu lang
+                        -3 - Text ist zu kurz
+                        -1 - Text ist falsch
+Beschreibung:           Prueft einen String auf seine Laenge.
+                        Diese darf mindestens {uiMindestLaenge} und
+                        maximal {uiMaximalLaenge} sein.
 *******************************************************************************/
-int isValid(char * cUeberprüfungsText,int iMin,int iMax)
+int PruefeAufValideStringlaenge(char cString[], 
+                                unsigned int uiMindestLaenge, 
+                                unsigned int uiMaximalLaenge)
 {
-    int TextLaenge;
+    unsigned int iStringLaenge;
 
-    entferneLeerzeichen(cUeberprüfungsText);
-    TextLaenge = (int) strlen(cUeberprüfungsText);
+    EntferneLeerzeichenAusString(cString);
+    iStringLaenge = strlen(cString);
 
-	if(TextLaenge > iMax) {
-		return -2;
-	}
+    if (iStringLaenge > uiMaximalLaenge)
+    {
+        return -2;
+    }
 
-	if(TextLaenge < iMin) {
-		return -3;
-	}
-
-	if(TextLaenge >= iMin && TextLaenge < iMax) {
-		return 0;
-	}
-
-	return -1;
+    if (iStringLaenge < uiMindestLaenge)
+    {
+        return -3;
+    }
+    
+    return 0;
 }
 
 /*******************************************************************************
-Funktion Fehlermeldung()
-Uebergabe Parameter:    FehlerID
-Rueckgabe:              0 - Felder sind gefüllt und Länge in Ordnung
-1 - Felder sind leer
-2 - Felder sind zu lang
-Beschreibung:           
+Funktion AusgabeFehlermeldungValideTextlaenge()
+Uebergabe Parameter:    iFehlerId, ccFeldname[]
+Rueckgabe:              -
+Beschreibung:           Ausgabe einer Fehlermeldung anhand der {iFehlerId}.
 *******************************************************************************/
-void Fehlermeldung(int iFehlerID, char *cFeldname)
+void AusgabeFehlermeldungValideTextlaenge(int iFehlerId,
+                                          const char ccFeldname[])
 {
-    switch(iFehlerID)
-	{
-	case -3:
-		printw("\n\t\t\t%s ist zu kurz!", cFeldname);
-		break;
-	case -2:
-		printw("\n\t\t\t%s ist zu lang!", cFeldname);
-		break;
-	case -1:
-		printw("\n\t\t\t%s ist falsch!", cFeldname);
-		break;
-	case 0:
-		break;
-	}
+    switch (iFehlerId)
+    {
+        case -3:
+            printw("\n\t\t\t%s ist zu kurz!", ccFeldname);
+            break;
+        case -2:
+            printw("\n\t\t\t%s ist zu lang!", ccFeldname);
+            break;
+        case -1:
+            printw("\n\t\t\t%s ist falsch!", ccFeldname);
+            break;
+    }
 }
+
 /*******************************************************************************
 Funktion SpielregelnAnzeigen()
 Uebergabe Parameter:    -
@@ -118,55 +148,38 @@ Beschreibung:           Oeffnen der HTML-Datei, die die Regeln zu dem Spiel
 *******************************************************************************/
 void SpielregelnAnzeigen(void)
 {
-    char cKommando[_MAX_PATH], cPfad[_MAX_PATH] = "";
-    
+    /* Das Programm zum Oeffnen einer HTML-Datei muss fuer andere
+       Betriebssysteme angepasst werden */
+    char cKommando[_MAX_PATH] = "start iexplore.exe ";
+    char cPfad[_MAX_PATH] = "";
+
     // Erstellen des Kommandos, um die Regeln.html zu oeffnen
-    strcpy(cKommando, "start firefox.exe file://");
     AusgabeAbsoulterPfad(cPfad, "Regeln.html");
     strcat(cKommando, cPfad);
+
+    // Kommando ausfuehren
     system(cKommando);
 }
 /*******************************************************************************
 Funktion AusgabeAbsoulterPfad()
-Uebergabe Parameter:    Namen der Datei
-Rueckgabe:              -
-Beschreibung:           Ausgeben des absoulten Dateipfades der Regeln.html
-                        Datei, um zu gewaehrleisten, dass diese von jedem 
-                        Speicherort aus geoeffnet werden kann.
+Uebergabe Parameter:    cAusgabe[], ccDateiname[]
+Rueckgabe:              cAusgabe[]
+Beschreibung:           Ausgeben des absoulten Dateipfades einer Datei, um zu
+                        gewaehrleisten, dass diese relativ zur EXE-Datei aus
+                        geoeffnet werden kann.
 *******************************************************************************/
-void AusgabeAbsoulterPfad(char cZielPfad[],char cDateiname[])
+void AusgabeAbsoulterPfad(char cAusgabe[], const char ccDateiname[])
 {
-    char cPfad[_MAX_PATH];
-   
-    _fullpath(cPfad, cDateiname, _MAX_PATH);
-    anpassenDateipfad(cZielPfad, cPfad); 
+    char cPfad[_MAX_PATH] = "";
+
+    // Hole den aktuellen Pfad und haenge {ccDateiname} an
+    _fullpath(cAusgabe, ccDateiname, _MAX_PATH);
+
+    // Pfad in "" setzen, damit Leerzeichen keine Fehler verursachen
+    strcat(cPfad, "\"");
+    strcat(cPfad, cAusgabe);
+    strcat(cPfad, "\"");
+
+    // Fuer die Rueckgabe in {cAusgabe} kopieren
+    strcpy(cAusgabe, cPfad);
 }
-
-/*******************************************************************************
-Funktion AusgabeAbsoulterPfad()
-Uebergabe Parameter:    cangepassterPfad
-Rueckgabe:              -
-Beschreibung:           Ersetzen aller Leerzeichen durch "%20" in einem 
-                        Dateipfad, um die problemloses oefnnen der Datei zu
-                        gewaehrleisten.
-*******************************************************************************/
-void anpassenDateipfad(char cangepassterPfad[], char cQuellpfad[])
-{
-    const char *ccTrenner = " ";
-    char *cToken;
-    
-    // Trennen Dateipfades bei einem Leerzeichen
-    cToken = strtok(cQuellpfad, ccTrenner);
-
-    // Ersetzen aller Leerzeichen durch "%20"
-    while(cToken != NULL)
-    {
-        strcat(cangepassterPfad, cToken);
-        cToken = strtok(NULL, ccTrenner);
-        if(cToken != NULL)
-        {
-         strcat(cangepassterPfad, "%20");
-        }
-    }
-}
-

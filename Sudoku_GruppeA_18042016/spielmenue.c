@@ -25,32 +25,40 @@ werden.
 *******************************************************************************/
 void LoggInmenue(void)
 {
-
-
     char cNickname[TEXTLAENGE] = "";
     char cPasswort[TEXTLAENGE] = "";
-    int iRueckgabe=-1, iKorrekt = -1;
+    int iRueckgabe = -1, iKorrekt = -1;
 
     curs_set(1); // Cursor sichtbar machen
-    echo(); // Eingabe anzeigen lassen 
-    timeout(-1); //timeout deaktivieren
+    echo(); // Benutzereingabe anzeigen lassen 
+    timeout(-1); // Timeout deaktivieren
 
-
-    while(iKorrekt != 0) {
-		clear();
+    while(iKorrekt != 0)
+    {
+		clear(); // Bildschirm leeren
 		printw("\n");
-		printw("\t\t\t\tS U D O K U\n\n");
-		printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+		printw("\t\t\t\tEinloggen\n\n");
 		printw("\t\t============================================\n\n");
-		printw("\t\t\tBitte geben Sie ihre Daten ein,\n"
-			"\t\t\tum sich erfolgreich anzumelden.\n\n");
+        printw("\t\t\tBitte geben Sie ihre Daten ein,\n");
+	    printw("\t\t\tum sich erfolgreich anzumelden.\n\n");
+
+        // Einlesen des Nicknamen
 		printw("\t\t\tNickname: ");
 		getstr(cNickname);
+
+        /* Wir wollen das Passwort niemandem zeigen, also
+           Benutzereingabe verstecken */
+        noecho();
+
+        // Einlesen des Passwortes
 		printw("\t\t\tPasswort: ");
 		getstr(cPasswort);
-		printw("\t\t============================================\n\n");
 
-		if(isValid(cNickname, 1, 20) == 0 && isValid(cPasswort, 6, 20) == 0) {
+		printw("\n\t\t============================================\n\n");
+
+		if(PruefeAufValideStringlaenge(cNickname, 1, 20) == 0
+           && PruefeAufValideStringlaenge(cPasswort, 6, 20) == 0)
+        {
 			iKorrekt = 0;
 		}
 	}
@@ -71,8 +79,6 @@ void LoggInmenue(void)
         timeout(5000);
         StartMenue();
     }
-
-    noecho();
 }
 
 /*******************************************************************************
@@ -85,107 +91,77 @@ Vorname, cNickname und ein Passwort benötigt.
 *******************************************************************************/
 void Registrierungsmenue(void)
 {
-    char cNachname[TEXTLAENGE];
-    char cVorname[TEXTLAENGE];
-    char cNickname[TEXTLAENGE];
-    char cPasswort[TEXTLAENGE];
-
-	int iKorrekt = -1;
-    int iRueckgabe= -1;
-    int iRichtig = -10;
+    char cNachname[TEXTLAENGE], cVorname[TEXTLAENGE],
+         cNickname[TEXTLAENGE], cPasswort[TEXTLAENGE];
+    int iRichtig;
 
     curs_set(1); // Cursor sichtbar machen
-    echo(); // Eingabe anzeigen lassen 
-    timeout(-1); //timeout deaktivieren
+    echo(); // Benutzereingabe anzeigen lassen
+    timeout(-1); // Timeout deaktivieren
+    clear(); // Bildschirm leeren
 
     // Ausgabe des Registrierungsmenues
-    
+	printw("\n");
+	printw("\t\t\t               Registrierung                \n\n");
+	printw("\t\t\t============================================\n\n");
+	printw("\t\t\tBitte fuellen Sie die folgenden Felder aus. \n");
 
-	while (iKorrekt != 0) 
-	{
-		clear();
-		printw("\n");
-		printw("\t\t\t\tS U D O K U\n\n");
-		printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
-		printw("\t\t============================================\n\n");
-		printw("\t\t\tBitte fuellen Sie die folgenden Felder aus.\n");    
-		printw("\n\t\t\tNachname (max. 20 Zeichen): ");
-		while(iRichtig != 0)
-		{
-			if (iRichtig != -10)
-			{
-				printw("\n\t\t\tNachname (max. 20 Zeichen): ");
-			}
-			getstr(cNachname);
-			iRichtig = isValid(cNachname,1,20);
-			Fehlermeldung(iRichtig, NACHNAME);
-		}
-		iRichtig = -10;
-		while(iRichtig != 0)
-		{
-			printw("\n\t\t\tVorname  (max. 20 Zeichen): ");
-			getstr(cVorname);
-			iRichtig = isValid(cVorname,1,20);
-			Fehlermeldung(iRichtig, VORNAME);
-		 }
-		iRichtig = -10;
-		while(iRichtig != 0)
-		{
-			printw("\n\t\t\tNickname (max. 20 Zeichen): ");
-			getstr(cNickname);
-			iRichtig = isValid(cNickname,1,20);
-			Fehlermeldung(iRichtig, NICKNAME);
-		}
-		iRichtig = -10;
-		//curs_set(0); // Cursor unsichtbar machen
-		while(iRichtig != 0)
-		{
-			printw("\n\t\t\tPasswort  (min. 6 Zeichen): ");
-			getstr(cPasswort);
-			iRichtig = isValid(cPasswort,6,20);
-			Fehlermeldung(iRichtig, PASSWORT);
-		}
-		if(isValid(cNachname, 1, 20) == 0 && isValid(cVorname, 1, 20) == 0 &&
-			isValid(cNickname, 1, 20) == 0 && isValid(cPasswort, 6, 20) == 0) 
-		{
-			iKorrekt = 0;
-		}	
+    iRichtig = -10;
+	while(iRichtig != 0)
+    {
+        printw("\n\t\t\tNachname (max. 20 Zeichen): ");
+		getstr(cNachname);
+		iRichtig = PruefeAufValideStringlaenge(cNachname, 1, 20);
+		AusgabeFehlermeldungValideTextlaenge(iRichtig, NACHNAME);
 	}
 
+	iRichtig = -10;
+	while(iRichtig != 0)
+	{
+		printw("\n\t\t\tVorname  (max. 20 Zeichen): ");
+		getstr(cVorname);
+		iRichtig = PruefeAufValideStringlaenge(cVorname, 1, 20);
+		AusgabeFehlermeldungValideTextlaenge(iRichtig, VORNAME);
+	}
 
-    printw("\n\n\t\t============================================\n\n");
+	iRichtig = -10;
+	while(iRichtig != 0)
+	{
+		printw("\n\t\t\tNickname (max. 20 Zeichen): ");
+		getstr(cNickname);
+		iRichtig = PruefeAufValideStringlaenge(cNickname, 1, 20);
+		AusgabeFehlermeldungValideTextlaenge(iRichtig, NICKNAME);
+	}
+
+    // Wir wollen das Passwort niemandem zeigen, also Benutzereingabe verstecken
+    noecho();
+
+    iRichtig = -10;
+	while(iRichtig != 0)
+	{
+		printw("\n\t\t\tPasswort  (min. 6 Zeichen): ");
+		getstr(cPasswort);
+		iRichtig = PruefeAufValideStringlaenge(cPasswort, 6, 20);
+		AusgabeFehlermeldungValideTextlaenge(iRichtig, PASSWORT);
+	}
+
+    printw("\n\n\t\t\t=============================================\n\n");
+
     // Weitergabe an die Datenbankanbindung
- 
-   iRueckgabe = Registrieren(cNachname, cVorname, cNickname, cPasswort);
-  /* switch ()
-           {
-               case 0:
-                     
-                     printw("\n\t\t\tAlle Felder muessen ausgefuellt sein.");
-                   break;         
-               case 1:
-                   printw("\n\t\t\tAlle Felder muessen ausgefuellt sein.");
-                   break;
-               case 2:
-                   printw("\n\t\t\tDie Felder sind zu lang.");
-                   break;
-           }*/
-    getch();
-
-    if (iRueckgabe == 0)
+    if (Registrieren(cNachname, cVorname, cNickname, cPasswort) == 0)
     {
-        printf("\nDie Registrierung war erfolgreich.\n\n");
-        //timeout(10000);
+        printw("\t\t\tDie Registrierung war erfolgreich.");
+        timeout(3000);
+        getch();
         StartMenue();
     }
     else
     {
-        printf("\nDie Registrierung ist fehlgeschlagen.\n\n");
-        timeout(5000);
+        printw("\t\t\tDie Registrierung ist fehlgeschlagen.");
+        timeout(3000);
+        getch();
         StartMenue();
     }
-
-    noecho();
 }
 
 /*******************************************************************************
@@ -206,8 +182,7 @@ void SchwierigkeitsStufenMenue(char *cNickname)
 
         // Ausgabe des Menues für die Schwierigkeitsstufen
         printw("\n");
-        printw("\t\t\t\tS U D O K U\n\n");
-        printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+        printw("\t\t\t\tSchwierigkeitsstufe\n\n");
         printw("\t\t============================================\n\n");
         printw("\t\t\t[L]\tLeicht\n\n");
         printw("\t\t\t[M]\tMittel\n\n");
@@ -222,17 +197,17 @@ void SchwierigkeitsStufenMenue(char *cNickname)
         {
         case 'L':
         case 'l':
-            NeuesSpiel(1,cNickname);
+            NeuesSpiel(1, cNickname);
             cFalscheEingabe = FALSE;
             break;
         case 'M':
         case 'm':
-            NeuesSpiel(2,cNickname);
+            NeuesSpiel(2, cNickname);
             cFalscheEingabe = FALSE;
             break;
         case 'S':
         case 's':
-            NeuesSpiel(3,cNickname);
+            NeuesSpiel(3, cNickname);
             cFalscheEingabe = FALSE;
             break;
         }
@@ -257,8 +232,7 @@ void Spielmenue(char *cNickname)
 
         // Ausgabe des Spielmenues
         printw("\n");
-        printw("\t\t\t\tS U D O K U\n\n");
-        printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+        printw("\t\t\t\tSpielmenue\n\n");
         printw("\t\t============================================\n\n");
         printw("\t\t\t[N]\tNeues Spiel\n\n");
         printw("\t\t\t[R]\tSpielregeln\n\n");
@@ -276,15 +250,16 @@ void Spielmenue(char *cNickname)
         case 'n':
             SchwierigkeitsStufenMenue(cNickname);
             break;
-        case 'R': 
+        case 'R':
         case 'r':
             SpielregelnAnzeigen();
             break;
         case 'B': 
         case 'b':
             break;
-        case 'L': 
+        case 'L':
         case 'l':
+            // Schleife bricht ab
             break;
         }
     }
@@ -338,6 +313,7 @@ void StartMenue(void)
             break;
         case 'X':
         case 'x':
+            // Schleife bricht ab
             break;
         }
     }

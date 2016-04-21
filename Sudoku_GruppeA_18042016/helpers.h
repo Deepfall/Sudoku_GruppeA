@@ -10,20 +10,27 @@ Version                 : 1.0
 Compiler                : Visual Studio 2012
 */
 
-#include <time.h>
+/*******************************************************************************
+Praeprozessoranweisungen
+*******************************************************************************/
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <curses.h>
 
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-int generiereZufallsZahl(int min_n, int max_n);
-int generiereSudokuId(int iSchwierigkeit);
-void entferneLeerzeichen(char* source);
-int isValid(char * cUeberprüfungsText,int iMin,int iMax);
-void Fehlermeldung(int iFehlerID, char *cFeldname);
-void AusgabeAbsoulterPfad(char cZielPfad[],char cDateiname[]);
-void anpassenDateipfad(char cangepassterPfad[], char cQuellpfad[]);
+int GeneriereSudokuId(int iSchwierigkeit);
+int GeneriereZufallszahlReichweite(int iMinimum, int iMaximum);
+void EntferneLeerzeichenAusString(char cString[]);
+int PruefeAufValideStringlaenge(char cString[],
+                                unsigned int uiMindestLaenge,
+                                unsigned int uiMaximalLaenge);
+void AusgabeFehlermeldungValideTextlaenge(int iFehlerId,
+                                          const char ccFeldname[]);
 void SpielregelnAnzeigen(void);
-
+void AusgabeAbsoulterPfad(char cAusgabe[], const char ccDateiname[]);
 
 #endif
