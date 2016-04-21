@@ -107,8 +107,6 @@ int Registrieren(char *cNachname, char *cVorname,
 
 }
 
-
-
 /*******************************************************************************
 Funktion SudokuBereitstellen()
 Uebergabe Parameter:    -

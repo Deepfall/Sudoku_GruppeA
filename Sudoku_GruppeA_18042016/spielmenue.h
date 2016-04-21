@@ -18,6 +18,7 @@ Praeprozessoranweisungen
 #include "datenbankanbindung.h"
 #include "sudoku.h"
 #include "allgemeineDefines.h"
+#include "helpers.h"
 
 #define TEXTLAENGE                 20
 #define NACHNAME				"Nachname"
@@ -29,8 +30,8 @@ Praeprozessoranweisungen
 Funktionsprototypen
 *******************************************************************************/
 void StartMenue(void);
-void Spielmenue(void);
-void SchwierigkeitsStufenMenue(void);
+void Spielmenue(char *Nickname);
+void SchwierigkeitsStufenMenue(char *Nickname);
 void LoggInmenue(void);
 void Registrierungsmenue(void);
 void SpielregelnAnzeigen(void);

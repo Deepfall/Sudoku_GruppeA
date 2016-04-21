@@ -152,6 +152,8 @@ void ZeicheSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_S
     int i = 0, x = START_POSITION_SPALTE, y = START_POSITION_ZEILE;
     char cSpielfeldWertString[11];
 
+    wattron(spielfeldFenster, A_BOLD);
+
     for(i = 0; i <= ANZAHL_SPIELFELDER; i++)
     {
         if(i > 0)
@@ -182,6 +184,8 @@ void ZeicheSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_S
 
         mvwprintw(spielfeldFenster, y, x, cSpielfeldWertString);
     }
+
+    wattroff(spielfeldFenster, A_BOLD);
 
     wnoutrefresh(spielfeldFenster);
 }

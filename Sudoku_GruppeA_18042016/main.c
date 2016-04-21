@@ -1,6 +1,6 @@
 /*
 Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
-Jennifer Hermanns
+                          Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : main.c
 Datum                   : 18.04.2016
@@ -14,12 +14,7 @@ Praeprozessoranweisungen
 *******************************************************************************/
 #define _CRT_SECURE_NO_DEPRECATE    1
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <curses.h>
-#include <time.h>
-#include <string.h>
 #include "spielmenue.h"
 #include "allgemeineDefines.h"
 
@@ -28,17 +23,27 @@ Funktion main()
 *******************************************************************************/
 int main(void)
 {
-	unsigned int result = 0;
+    // Festsetzen der Groesse des Konsolenfensters
+    system("MODE CON: COLS=109 LINES=40");
+    
+    // Initialisiere curses.h
+    initscr();
 
-    system("MODE CON: COLS=109 LINES=40"); // Festsetzen der Groesse vom Konsolenfenster
-    initscr(); 
+    // Starte Farbmodus
+    start_color();
+
     cbreak(); // evtl noch rauspacken
     noecho(); // evtl noch rauspacken
+
+    // Aktiviere Tasten wie "Entf" und F-Tasten
     keypad(stdscr, TRUE);
+
+    // Initiales aktualisieren des Outputs
     refresh();
 
     StartMenue();
 
+    // Aufraeumen der curses.h Fenster
     endwin();
 
     return EXIT_SUCCESS;

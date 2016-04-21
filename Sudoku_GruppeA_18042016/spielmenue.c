@@ -14,11 +14,6 @@ Compiler                : Visual Studio 2012
 Praeprozessoranweisungen
 *******************************************************************************/
 #include "spielmenue.h"
-#include "helpers.h"
-#include "datenbankanbindung.h"
-
-
-
 
 /*******************************************************************************
 Funktion LoggInmenue()
@@ -343,25 +338,34 @@ void StartMenue(void)
         }
     }
 }
+
 /*******************************************************************************
 Funktion SpielregelnAnzeigen()
 Uebergabe Parameter:    -
 Rueckgabe:              -
-Beschreibung:           Oeffnen der HTML-Datei, die die Regeln zu dem Spiel
-enth\204lt.
+Beschreibung:           Oeffnen der HTML-Datei, die die Sudokuregeln enthaelt.
 *******************************************************************************/
 void SpielregelnAnzeigen(void)
 {
-    char cPfad[_MAX_PATH];
-    strcpy(cPfad, "start firefox.exe file://");
-    strcat(cPfad, PrintFullPath("Regeln.html"));
-    system(cPfad);
+    char cKommando[_MAX_PATH];
+
+    strcpy(cKommando, "start firefox.exe file://");
+    strcat(cKommando, PrintFullPath("Regeln.html"));
+
+    system(cKommando);
 }
-char *PrintFullPath(char * partialPath)
+
+/*******************************************************************************
+Funktion GibVollenDateiPfad()
+Uebergabe Parameter:    cDatei[]
+Rueckgabe:              cPfad[]
+Beschreibung:           
+*******************************************************************************/
+char *PrintFullPath(char cDatei[])
 {
-    char pfad[_MAX_PATH];
+    char cPfad[_MAX_PATH];
    
-    _fullpath( pfad, partialPath, _MAX_PATH);
-    return pfad;
-    
+    _fullpath(cPfad, cDatei, _MAX_PATH);
+
+    return cPfad;
 }

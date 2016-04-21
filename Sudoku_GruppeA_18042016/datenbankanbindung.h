@@ -31,7 +31,6 @@ Funktionsprototypen
 int Registrieren(char *cNachname, char *cVorname,
                  char *cNickname, char *cPasswort);
 int Einloggen(char *cNickname, char *Passwort);
-int feldPlausi(char * ueberprüfungsText,int min,int max);
 int loginDatenGefuellt(char *cNickname, char *cPasswort);
 int felderGefuellt(char *cNachname, char *cVorname,
                    char *cNickname, char *cPasswort);
