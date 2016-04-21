@@ -47,4 +47,31 @@ void entferneLeerzeichen(char* source)
   *i = 0;
 }
 
+/*******************************************************************************
+Funktion felderGefuellt()
+Uebergabe Parameter:    ueberprüfungsText
 
+Rueckgabe:              0 - Feld is ok
+                        1 - Feld ist zu lang
+                        2 - Feld ist zu kurz
+						-1 - Feld ist nicht ok
+Beschreibung:           
+*******************************************************************************/
+int isValid(char * cUeberprüfungsText,int iMin,int iMax)
+{
+    entferneLeerzeichen(cUeberprüfungsText);
+	
+	if(strlen(cUeberprüfungsText) > iMax) {
+		return 1;
+	}
+
+	if(strlen(cUeberprüfungsText) < iMin) {
+		return 2;
+	}
+
+	if(strlen(cUeberprüfungsText) > iMin && strlen(cUeberprüfungsText) < iMax) {
+		return 0;
+	}
+
+	return -1;
+}

@@ -19,5 +19,6 @@ Funktionsprototypen
 int generiereZufallsZahl(int min_n, int max_n);
 int generiereSudokuId(int stufe);
 void entferneLeerzeichen(char* source);
+int isValid(char * cUeberprüfungsText,int iMin,int iMax);
 
 #endif

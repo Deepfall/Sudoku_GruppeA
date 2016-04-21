@@ -14,6 +14,7 @@ Compiler                : Visual Studio 2012
 Praeprozessoranweisungen
 *******************************************************************************/
 #include "spielmenue.h"
+#include "helpers.h"
 #include "datenbankanbindung.h"
 
 
@@ -27,35 +28,37 @@ werden.
 *******************************************************************************/
 void LoggInmenue(void)
 {
-    char cNickname[TEXTLAENGE];
-    char cPasswort[TEXTLAENGE];
+    char cNickname[TEXTLAENGE] = "";
+    char cPasswort[TEXTLAENGE] = "";
 
-    int iRueckgabe=-1;
+    int iRueckgabe=-1, iKorrekt = -1;
 
     curs_set(1); // Cursor sichtbar machen
     echo(); // Eingabe anzeigen lassen 
     timeout(-1); //timeout deaktivieren
 
-    clear();
-    printw("\n");
-    printw("\t\t\t\tS U D O K U\n\n");
-    printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
-    printw("\t\t============================================\n\n");
-    printw("\t\t\tBitte geben Sie ihre Daten ein,\n"
-        "\t\t\tum sich erfolgreich anzumelden.\n\n");
-    printw("\t\t\tNickname: ");
-    getstr(cNickname);
-    printw("\t\t\tPasswort: ");
-    getstr(cPasswort);
-    printw("\t\t============================================\n\n");
+    while(iKorrekt != 0) {
+		clear();
+		printw("\n");
+		printw("\t\t\t\tS U D O K U\n\n");
+		printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+		printw("\t\t============================================\n\n");
+		printw("\t\t\tBitte geben Sie ihre Daten ein,\n"
+			"\t\t\tum sich erfolgreich anzumelden.\n\n");
+		printw("\t\t\tNickname: %s", cNickname);
+		getstr(cNickname);
+		printw("\t\t\tPasswort: ");
+		getstr(cPasswort);
+		printw("\t\t============================================\n\n");
+
+		if(isValid(cNickname, 1, 20) == 0 && isValid(cPasswort, 6, 20) == 0) {
+			iKorrekt = 0;
+		}
+	}
 
     // Weitergabe an die Datenbankanbindung
  
-     
-        iRueckgabe = Einloggen(cNickname, cPasswort); 
-        getch();
-    
-
+	iRueckgabe = Einloggen(cNickname, cPasswort); 
 
     if(iRueckgabe == 0)
     {
