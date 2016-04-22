@@ -206,7 +206,7 @@ void ZeichneSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
 
     wattroff(spielfeldFenster, A_BOLD);
 
-	pruefeFelderManuell(spielfelder);
+	PruefeFelderManuell(spielfelder);
 
     wnoutrefresh(spielfeldFenster);
 }

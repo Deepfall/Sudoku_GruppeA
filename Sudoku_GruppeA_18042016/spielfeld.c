@@ -120,12 +120,20 @@ void HilfeBenutzen(CURSOR cursor, SUDOKUFELD sudokufelder[],
     }
 }
 
-int pruefeFelderManuell(SUDOKUFELD spielfelder[]) 
+/*******************************************************************************
+Funktion PruefeFelderManuell()
+Uebergabe Parameter:    sudokufelder[]
+Rueckgabe:              sudokufelder[]
+Beschreibung:           
+*******************************************************************************/
+int PruefeFelderManuell(SUDOKUFELD sudokufelder[])
 {
 	int iFlag = 0, i;
 
-	for(i = 0; i < 81; i++) {
-		if(spielfelder[i].iWert != spielfelder[i].iLoesung) {
+	for(i = 0; i < 81; i++)
+    {
+		if(sudokufelder[i].iWert != sudokufelder[i].iLoesung)
+        {
 			iFlag = 1;
 		}
 	}
