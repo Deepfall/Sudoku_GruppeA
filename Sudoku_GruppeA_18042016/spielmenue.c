@@ -35,42 +35,55 @@ void Loginmenue(void)
 
 	printw("\nEinloggen\n\n");
 	printw("============================================\n\n");
-    printw("Bitte geben Sie ihre Daten ein.\n\n");
+    printw("Falls Sie sich nicht einloggen wollen,\n");
+	printw("druecken Sie [Q] um ins Hauptmenue\n");
+	printw("zurueckzukehren\n\n");
+	printw("Bitte geben Sie ihre Daten ein.\n\n");
 
     // Einlesen des Nicknamen
 	printw("Nickname: ");
 	getstr(cNickname);
 
-    /* Wir wollen das Passwort niemandem zeigen, also
-        Benutzereingabe verstecken */
-    noecho();
-
-    // Einlesen des Passwortes
-	printw("Passwort: ");
-	getstr(cPasswort);
-
-	printw("\n\n============================================");
-
-    // Weitergabe an die Datenbankanbindung
-	iRueckgabe = Einloggen(cNickname, cPasswort);  
-
-    if(iRueckgabe == 0)
-    {
-	    clear(); // Bildschirm leeren
-		printw("Erfolgreich eingeloggt.\n\n");
-		printw("Druecken Sie eine beliebige Taste...");
+	if (strcmp(cNickname,"Q") || strcmp(cNickname,"q"))
+	{
+		clear(); // Bildschirm leeren
+		printw("Sie kehren ins Startmenue zurueck\n\n");
         refresh();
         getch();
-        Spielmenue(cNickname);
-    }
-    else
-    {
-	    clear(); // Bildschirm leeren
-		printw("Einloggen ist fehlgeschlagen.\n\n");
-		printw("Druecken Sie eine beliebige Taste...");
-        refresh();
-        getch();
-    }
+	}
+	else
+	{
+		/* Wir wollen das Passwort niemandem zeigen, also
+			Benutzereingabe verstecken */
+		noecho();
+
+		// Einlesen des Passwortes
+		printw("Passwort: ");
+		getstr(cPasswort);
+
+		printw("\n\n============================================");
+
+		// Weitergabe an die Datenbankanbindung
+		iRueckgabe = Einloggen(cNickname, cPasswort);  
+
+		if(iRueckgabe == 0)
+		{
+			clear(); // Bildschirm leeren
+			printw("Erfolgreich eingeloggt.\n\n");
+			printw("Druecken Sie eine beliebige Taste...");
+			refresh();
+			getch();
+			Spielmenue(cNickname);
+		}
+		else
+		{
+			clear(); // Bildschirm leeren
+			printw("Einloggen ist fehlgeschlagen.\n\n");
+			printw("Druecken Sie eine beliebige Taste...");
+			refresh();
+			getch();
+		}
+	}
 }
 
 /*******************************************************************************
