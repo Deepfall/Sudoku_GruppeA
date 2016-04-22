@@ -30,7 +30,7 @@ int Einloggen(char *cNickname, char *cPasswort)
     char sql[1000]; 
     const char *data;
     sqlite3_stmt *stmt;
-    sqlite3 *db_handle = NULL;
+    sqlite3 *db_handle;
 
     DatenbankOeffnen(&db_handle);
 
@@ -48,7 +48,7 @@ int Einloggen(char *cNickname, char *cPasswort)
             data = (const char *) sqlite3_column_text(stmt, iSpalte);
 
             if(strcmp(data,cPasswort) == 0)
-            { 
+            {
                 iRueckgabe = 0;
             }
         }
@@ -56,10 +56,6 @@ int Einloggen(char *cNickname, char *cPasswort)
 
     sqlite3_finalize(stmt);
     sqlite3_close(db_handle);
-
-    HighscoreAusgeben(1);
-
-    getch();
 
     return iRueckgabe;
 }
@@ -78,7 +74,7 @@ int Registrieren(char cNachname[], char cVorname[],
 {
     int iRueckgabe;
     char *sql, *cErrMsg;
-    sqlite3 *db_handle = NULL;
+    sqlite3 *db_handle;
 
     DatenbankOeffnen(&db_handle);
 
@@ -99,7 +95,6 @@ int Registrieren(char cNachname[], char cVorname[],
     }
     else
     {
-        printf("%s", cErrMsg);
         return -1;
     }
 
@@ -116,7 +111,7 @@ int SudokuBereitstellen(char cSudoku[], char cLoesung[], int iSchwierigkeit)
     int iRueckgabe, iSudokuId;
     char sql[1000];
     sqlite3_stmt *stmt;
-    sqlite3 *db_handle = NULL;
+    sqlite3 *db_handle;
 
     DatenbankOeffnen(&db_handle);
 
@@ -151,7 +146,7 @@ int HighscoreEintragen(int iSchwierigkeit, char cNickname[], char cZeit[])
 {
     int iRueckgabe;
     char *sql, *cErrMsg, *cSchwierigkeit;
-    sqlite3 *db_handle = NULL;
+    sqlite3 *db_handle;
 
     DatenbankOeffnen(&db_handle);
 
@@ -184,7 +179,6 @@ int HighscoreEintragen(int iSchwierigkeit, char cNickname[], char cZeit[])
     }
     else
     {
-        printf("%s", cErrMsg);
         return -1;
     }
 
@@ -205,7 +199,7 @@ int HighscoreAusgeben(int iSchwierigkeit)
     char sql[1000], *cSchwierigkeit = "";
     const char *data;
     sqlite3_stmt *stmt;
-    sqlite3 *db_handle = NULL;
+    sqlite3 *db_handle;
 
     DatenbankOeffnen(&db_handle);
   

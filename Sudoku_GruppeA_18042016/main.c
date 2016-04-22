@@ -17,6 +17,7 @@ Praeprozessoranweisungen
 #include <stdlib.h>
 #include <curses.h>
 #include "allgemeineDefines.h"
+#include "spielmenue.h"
 
 /*******************************************************************************
 Funktion main()

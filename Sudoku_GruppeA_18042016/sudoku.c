@@ -133,7 +133,7 @@ Beschreibung:           Erstellt ein neues Fenster fuer das Spielfeld.
 *******************************************************************************/
 WINDOW *ErstelleNeuesKommandoFenster(void)
 {
-    int iHoehe = 7, iBreite = 24, iPositionY = 4, iPositionX = 85;
+    int iHoehe = 30, iBreite = 24, iPositionY = 4, iPositionX = 85;
     WINDOW *kommandoFenster = newwin(iHoehe, iBreite, iPositionY, iPositionX);
 
     return kommandoFenster;

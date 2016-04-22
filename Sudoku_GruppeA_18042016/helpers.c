@@ -122,19 +122,19 @@ Uebergabe Parameter:    iFehlerId, ccFeldname[]
 Rueckgabe:              -
 Beschreibung:           Ausgabe einer Fehlermeldung anhand der {iFehlerId}.
 *******************************************************************************/
-void AusgabeFehlermeldungValideTextlaenge(int iFehlerId,
+void AusgabeFehlermeldungValideTextlaenge(WINDOW *fenster, int iFehlerId,
                                           const char ccFeldname[])
 {
     switch (iFehlerId)
     {
         case -3:
-            printw("\n\t\t\t%s ist zu kurz!", ccFeldname);
+            wprintw(fenster, "%s ist zu kurz!\n", ccFeldname);
             break;
         case -2:
-            printw("\n\t\t\t%s ist zu lang!", ccFeldname);
+            wprintw(fenster, "%s ist zu lang!\n", ccFeldname);
             break;
         case -1:
-            printw("\n\t\t\t%s ist falsch!", ccFeldname);
+            wprintw(fenster, "%s ist falsch!\n", ccFeldname);
             break;
     }
 }

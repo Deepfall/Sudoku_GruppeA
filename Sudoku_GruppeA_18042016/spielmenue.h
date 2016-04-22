@@ -31,6 +31,7 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
+WINDOW *ErstelleNeuesMenueFenster(void);
 void Startmenue(void);
 void Spielmenue(const char Nickname[]);
 void Schwierigkeitsstufenmenue(const char ccNickname[]);
