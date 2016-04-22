@@ -32,10 +32,7 @@ int Einloggen(char *cNickname, char *cPasswort)
     sqlite3_stmt *stmt;
     sqlite3 *db_handle;
 
-    if (sqlite3_open(DATENBANK_SUDOKU, &db_handle) != SQLITE_OK)
-    {
-        exit(SQLITE_CANTOPEN);
-    }
+    DatenbankOeffnen(db_handle);
 
     sprintf(sql, "SELECT Passwort "
                  "FROM Benutzer WHERE Nickname = '%s';", cNickname);
@@ -83,12 +80,7 @@ int Registrieren(char cNachname[], char cVorname[],
     char *sql, *cErrMsg;
     sqlite3 *db_handle;
 
-    iRueckgabe = sqlite3_open(DATENBANK_SUDOKU, &db_handle);
-
-    if (iRueckgabe != SQLITE_OK)
-    {
-        exit(SQLITE_CANTOPEN);
-    }
+    DatenbankOeffnen(db_handle);
 
     // Ausfuehren des INSERT-Befehls
     sql = sqlite3_mprintf("INSERT INTO Benutzer (Name, Vorname, "
@@ -126,12 +118,7 @@ int SudokuBereitstellen(char cSudoku[], char cLoesung[], int iSchwierigkeit)
     sqlite3_stmt *stmt;
     sqlite3 *db_handle;
 
-    iRueckgabe = sqlite3_open(DATENBANK_SUDOKU, &db_handle);
-
-    if (iRueckgabe != SQLITE_OK)
-    {
-        exit(SQLITE_CANTOPEN);
-    }
+    DatenbankOeffnen(db_handle);
 
     iSudokuId = GeneriereSudokuId(iSchwierigkeit);
     sprintf(sql, "SELECT Gefuellt, Loesung "
@@ -166,12 +153,7 @@ int HighscoreEintragen(int iSchwierigkeit, char cNickname[], char cZeit[])
     char *sql, *cErrMsg, *cSchwierigkeit;
     sqlite3 *db_handle;
 
-    iRueckgabe = sqlite3_open(DATENBANK_SUDOKU, &db_handle);
-
-    if (iRueckgabe != SQLITE_OK)
-    {
-        exit(SQLITE_CANTOPEN);
-    }
+    DatenbankOeffnen(db_handle);
 
     switch(iSchwierigkeit)
     {
@@ -219,34 +201,26 @@ Beschreibung:           Die Highscores werden entsprechend der Schwierigkeits-
 ******************************************************************************/
 int HighscoreAusgeben(int iSchwierigkeit)
 {
-    int iRueckgabe = -1, iSpalten, iSpalte, iZaehler = 0;
-    char sql[1000], *cSchwierigkeit = "", *cText = "";
+    int iRueckgabe = -1, iSpalten, iSpalte, iZaehler = 1;
+    char sql[1000], *cSchwierigkeit = "";
     const char *data;
     sqlite3_stmt *stmt;
     sqlite3 *db_handle;
 
-    if (sqlite3_open(DATENBANK_SUDOKU, &db_handle) != SQLITE_OK)
-    {
-        exit(SQLITE_CANTOPEN);
-    }
+    DatenbankOeffnen(db_handle);
   
     switch(iSchwierigkeit)
     {
         case 1:
             cSchwierigkeit = "Leicht";
-            cText = "(Leicht)";
             break;
         case 2:
             cSchwierigkeit = "Mittel";
-            cText = "(Mittel)";
             break;
         case 3:
             cSchwierigkeit = "Schwer";
-            cText = "(Schwer)";
             break;
     }
-
-    getch();
 
     sprintf(sql, "SELECT Nickname, Zeit FROM Highscore "
                  "WHERE Schwierigkeit = '%s' " 
@@ -261,10 +235,10 @@ int HighscoreAusgeben(int iSchwierigkeit)
     printw("\n");
     printw("\t\t\t\tS U D O K U\n\n");
     printw("\t\t\t     H I G H S C O R E\n\n");
-    printw("\t\t%25s\n\n", cText);
+    printw("\t\t(%25s)\n\n", cSchwierigkeit);
     printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
     printw("\t\t============================================\n\n");
-    printw("\t\t%4s\t%-20s\t%-8s\n\n","Rang","Nickname","Zeit");
+    printw("\t\t%4s\t%-20s\t%-8s\n\n", "Rang", "Nickname", "Zeit");
 
     while(sqlite3_step(stmt) == SQLITE_ROW)
     {
@@ -274,21 +248,30 @@ int HighscoreAusgeben(int iSchwierigkeit)
 
             if(iSpalte % 2 == 0)
             {
-                printw("\t\t%4d\t%-20s", ++iZaehler, data);
+                printw("\t\t%4d\t%-20s", iZaehler++, data);
             }
             else
             {
                 printw("\t%-8s\n\n", data);
             }
         }
-        getch();
-        refresh();
     }
 
     printw("\t\t============================================\n\n");
     
+    getch();
+    refresh();
+
     sqlite3_finalize(stmt);
     sqlite3_close(db_handle);
 
     return iRueckgabe;
+}
+
+void DatenbankOeffnen(sqlite3 *db_handle)
+{
+    if (sqlite3_open(DATENBANK_SUDOKU, &db_handle) != SQLITE_OK)
+    {
+        exit(SQLITE_CANTOPEN);
+    }
 }
