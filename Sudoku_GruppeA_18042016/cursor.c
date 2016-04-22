@@ -1,9 +1,11 @@
 /*
-Autor(en)               : David Fischer
+Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
+                          Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : cursor.c
 Datum                   : 19.04.2016
-Beschreibung            : 
+Beschreibung            : Stellt den Cursor zur Verfuegung und fuert Operationen
+                          darauf aus.
 Version                 : 1.0
 Compiler                : Visual Studio 2012
 */

@@ -1,11 +1,12 @@
 #ifndef HELPERS_H
 #define HELPERS_H
 /*
-Autor(en)               : Robin Grahl
+Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
+                          Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : helpers.h
 Datum                   : 20.04.2016
-Beschreibung            : Hilfsfunktionen für das Sudokuprojekt
+Beschreibung            : Hilfsfunktionen für das Sudokuprojekt.
 Version                 : 1.0
 Compiler                : Visual Studio 2012
 */

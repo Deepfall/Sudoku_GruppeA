@@ -4,7 +4,8 @@ Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
 Klasse                  : FA11
 Programmname            : main.c
 Datum                   : 18.04.2016
-Beschreibung            : 
+Beschreibung            : Startet das Spielmenue fuer das Sudokuspiel und
+                          initialisiert die curses Biliothek.
 Version                 : 1.0
 Compiler                : Visual Studio 2012
 */

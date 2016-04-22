@@ -1,12 +1,12 @@
 /*
 Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
-Jennifer Hermanns
+                          Jennifer Hermanns
 Klasse                  : FA11
-Programmname            : .c
+Programmname            : spielmenue.c
 Datum                   : 18.04.2016
-Beschreibung            : 
-Version                 : 
-Aenderungen             : 
+Beschreibung            : Eine Sammlung der im Projekt verwendeteten
+                          Spielmenues.
+Version                 : 1.0
 Compiler                : Visual Studio 2012
 */
 

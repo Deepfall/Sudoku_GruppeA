@@ -1,7 +1,8 @@
 #ifndef ALLGEMEINEDEFINES_H
 #define ALLGEMEINEDEFINES_H
 /*
-Autor(en)               : David Fischer
+Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
+                          Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : allgemeineDefines.h
 Datum                   : 20.04.2016

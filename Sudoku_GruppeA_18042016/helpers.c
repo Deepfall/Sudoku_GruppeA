@@ -1,9 +1,10 @@
 /*
-Autor(en)               : Robin grahl, Dustin Welz
+Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
+                          Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : helpers.c
 Datum                   : 20.04.2016
-Beschreibung            :
+Beschreibung            : Hilfsfunktionen für das Sudokuprojekt.
 Version                 : 1.0
 Compiler                : Visual Studio 2012
 */

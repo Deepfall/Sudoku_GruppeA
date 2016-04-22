@@ -1,11 +1,13 @@
 #ifndef SPIELMENUE_H
 #define SPIELMENUE_H
 /*
-Autor(en)               : Jennifer Hermanns
+Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
+                          Jennifer Hermanns
 Klasse                  : FA11
-Programmname            : datenbankanbindung.h
+Programmname            : spielmenue.h
 Datum                   : 20.04.2016
-Beschreibung            : 
+Beschreibung            : Eine Sammlung der im Projekt verwendeteten
+                          Spielmenues.
 Version                 : 1.0
 Compiler                : Visual Studio 2012
 */

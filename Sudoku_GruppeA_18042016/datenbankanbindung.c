@@ -1,9 +1,11 @@
 /*
-Autor(en)               : Jennifer Hermanns
+Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
+                          Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : datenbankanbindung.c
 Datum                   : 18.04.2016
-Beschreibung            : 
+Beschreibung            : Beinhaltet alle Funktionen die mit der Datenbank
+                          kommunizieren.
 Version                 : 1.0
 Compiler                : Visual Studio 2012
 */

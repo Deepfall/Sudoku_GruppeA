@@ -1,11 +1,14 @@
 #ifndef EINGABEVERARBEITUNG_H
 #define EINGABEVERARBEITUNG_H
 /*
-Autor(en)               : David Fischer
+Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
+                          Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : eingabeverarbeitung.h
 Datum                   : 19.04.2016
-Beschreibung            : 
+Beschreibung            : Modul fuer die Eingabeverarbeitung im Spiel.
+                          Verarbeitet die Tastatureingabe und fuehrt Operationen
+                          aus.
 Version                 : 1.0
 Compiler                : Visual Studio 2012
 */

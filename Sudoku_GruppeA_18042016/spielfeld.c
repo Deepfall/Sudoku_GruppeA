@@ -1,9 +1,11 @@
 /*
-Autor(en)               : David Fischer
+Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
+                          Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : sudoku.c
 Datum                   : 18.04.2016
-Beschreibung            : 
+Beschreibung            : Dieses Modul enthaelt alle Funktionen die mit dem
+                          Spielfeld zu tun haben.
 Version                 : 1.0
 Compiler                : Visual Studio 2012
 */

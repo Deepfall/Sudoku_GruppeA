@@ -1,11 +1,13 @@
 #ifndef SUDOKU_H
 #define SUDOKU_H
 /*
-Autor(en)               : David Fischer
+Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
+                          Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : sudoku.h
 Datum                   : 18.04.2016
-Beschreibung            : 
+Beschreibung            : Das eigentliche Spiel wird hier gestartet und
+                          auf den Bildschirm ausgegeben.
 Version                 : 1.0
 Compiler                : Visual Studio 2012
 */
