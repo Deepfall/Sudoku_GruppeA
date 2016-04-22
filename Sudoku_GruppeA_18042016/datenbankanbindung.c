@@ -252,6 +252,7 @@ int HighscoreAusgeben(int iSchwierigkeit)
     }
 
     printw("\t\t============================================\n\n");
+    printw("\t<Zum Fortfahren eine beliebige Taste druecken>");
     
     getch();
     refresh();
