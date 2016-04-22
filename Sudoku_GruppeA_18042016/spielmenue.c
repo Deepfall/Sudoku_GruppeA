@@ -305,10 +305,48 @@ void Spielmenue(const char ccNickname[])
                 break;
             case 'L':
             case 'l':
+				ccNickname = NULL;
+				Startmenue();
                 // Schleife bricht ab
                 break;
         }
     }
+}
+
+/*******************************************************************************
+Funktion SpielGewonnenMenue()
+Uebergabe Parameter:    cZeit
+Rueckgabe:              -
+Beschreibung:           Erstellt das Spielmenue.
+*******************************************************************************/
+void SpielGewonnenMenue(char cZeit[])
+{
+	printw("\n");
+	printw("\t\t============================================\n\n");
+	printw("\n");
+	printw("\n\n");
+
+	noecho();
+
+	printw("                    ,---.o         |         |              \n");
+	printw("                    `---..,---.    |---.,---.|---.,---.,---.\n");
+	printw("                        |||---'    |   |,---||   ||---'|   |\n");
+	printw("                    `---'``---'    `   '`---^`---'`---'`   '\n");
+	printw("                                                            \n");
+	printw("                                                            \n");
+	printw("                                                            \n");
+	printw("                    ,---.,---.. . .,---.,---.,---.,---.,---.\n");
+	printw("                    |   ||---'| | ||   ||   ||   ||---'|   |\n");
+	printw("                    `---|`---'`-'-'`---'`   '`   '`---'`   '\n");
+	printw("                    `---'                                   \n");
+	printw("\n");
+	printw("\n");
+	printw("\n");
+	printw("\n");
+	printw("                        Deine Zeit betraegt : %s\n", cZeit);
+	printw("\t\t============================================\n\n");
+
+	getch();
 }
 
 /*******************************************************************************
@@ -358,8 +396,56 @@ void Startmenue(void)
                 break;
             case 'X':
             case 'x':
-                // Schleife bricht ab
+                exit(0);
                 break;
         }
     }
+}
+
+int InBestenlisteEintragenDialog(int iSchwierigkeit, const char ccNickname[], char cZeit[])
+{
+	char cEingabe = -1, cFalscheEingabe = TRUE;
+	int iAntwort = -1;
+	char cTest[20];
+
+	strcpy(cTest, ccNickname);
+
+    // Abfangen der unerwuenschten Buchstaben
+    while(cFalscheEingabe)
+    {
+        curs_set(0); // Cursor unsichtbar machen
+        clear();
+
+        // Ausgabe des Menues fuer die Schwierigkeitsstufen
+        printw("\n");
+        printw("\t\t\t\tS U D O K U\n\n");
+        printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+        printw("\t\t============================================\n\n");
+        printw("\t\tWollen Sie sich in die Bestenliste eintragen?\n\n");
+        printw("\t\t\t[J]\tJa\n\n");
+        printw("\t\t\t[N]\tNein\n\n");
+        printw("\t\t============================================\n\n");
+
+        refresh();
+
+        cEingabe = getch();
+
+        switch(cEingabe)
+        {
+        case 'J':
+        case 'j':
+			HighscoreEintragen(iSchwierigkeit, cTest, cZeit);
+            HighscoreAusgeben(1);
+            cFalscheEingabe = FALSE;
+            break;
+        case 'N':
+        case 'n':
+			Spielmenue(ccNickname);
+            cFalscheEingabe = FALSE;
+            break;
+        }
+    }
+
+
+	return 0;
 }

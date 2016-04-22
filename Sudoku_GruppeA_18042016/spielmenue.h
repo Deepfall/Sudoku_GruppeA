@@ -37,5 +37,7 @@ void Schwierigkeitsstufenmenue(const char ccNickname[]);
 void HighscoreSchwierigkeitsStufenMenue();
 void Loginmenue(void);
 void Registrierungsmenue(void);
+void SpielGewonnenMenue(char cZeit[]);
+InBestenlisteEintragenDialog(int iSchwierigkeit, const char ccNickname[], char cZeit[]);
 
 #endif

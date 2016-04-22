@@ -130,7 +130,7 @@ int PruefeFelderManuell(SUDOKUFELD sudokufelder[])
 {
 	int iFlag = 0, i;
 
-	for(i = 0; i < 81; i++)
+	for(i = 0; i < ANZAHL_SPIELFELDER; i++)
     {
 		if(sudokufelder[i].iWert != sudokufelder[i].iLoesung)
         {
@@ -139,4 +139,25 @@ int PruefeFelderManuell(SUDOKUFELD sudokufelder[])
 	}
 
 	return iFlag;
+}
+
+/*******************************************************************************
+Funktion AlleFelderGefuellt()
+Uebergabe Parameter:    sudokufelder[]
+Rueckgabe:              sudokufelder[]
+Beschreibung:           
+*******************************************************************************/
+int AlleFelderGefuellt(SUDOKUFELD sudokufelder[]) 
+{
+	int i;
+
+	for(i = 0; i < ANZAHL_SPIELFELDER; i++)
+	{
+		if(sudokufelder[i].iWert == 0)
+		{
+			return FALSE;
+		}
+	}
+
+	return TRUE;
 }

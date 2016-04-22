@@ -28,7 +28,8 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
     SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER];
     time_t Startzeit;
     int iGedrueckteTaste = -1, iStrafSekunden = 0, iAnzahlHilfeGenutzt = 0;
-
+	int i = 0;
+	char cZeit[20];
     timeout(33);
 
     spielfeldFenster = ErstelleNeuesSpielfeldFenster();
@@ -52,6 +53,36 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
 
         ZeichneVerstricheneZeit(infoFenster, Startzeit, iStrafSekunden);
         ZeichneAnzahlGenutzterHilfe(infoFenster, iAnzahlHilfeGenutzt);
+
+
+		if(AlleFelderGefuellt(spielfelder)) 
+		{
+			if(!PruefeFelderManuell(spielfelder))
+			{
+				timeout(-1);
+				clear();
+				BerechneVerstricheneZeit(cZeit, Startzeit, iStrafSekunden);
+				SpielGewonnenMenue(cZeit);
+
+				if(strlen(ccNickname) > 0)
+				{
+					InBestenlisteEintragenDialog(iSchwierigkeit, ccNickname, cZeit);
+					Spielmenue(ccNickname);
+				} 
+				else 
+				{
+					Spielmenue(ccNickname);
+				}
+
+				getch();
+			} 
+			else 
+			{ 
+				mvwprintw(kommandoFenster, 5, 0,"Im Sudoku befindet");
+				mvwprintw(kommandoFenster, 6, 0, "sich ein Fehler!");
+				wnoutrefresh(kommandoFenster);
+			}
+		}
 
         doupdate();
     }
@@ -102,7 +133,7 @@ Beschreibung:           Erstellt ein neues Fenster fuer das Spielfeld.
 *******************************************************************************/
 WINDOW *ErstelleNeuesKommandoFenster(void)
 {
-    int iHoehe = 4, iBreite = 24, iPositionY = 4, iPositionX = 85;
+    int iHoehe = 7, iBreite = 24, iPositionY = 4, iPositionX = 85;
     WINDOW *kommandoFenster = newwin(iHoehe, iBreite, iPositionY, iPositionX);
 
     return kommandoFenster;
@@ -206,8 +237,6 @@ void ZeichneSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
 
     wattroff(spielfeldFenster, A_BOLD);
 
-	PruefeFelderManuell(spielfelder);
-
     wnoutrefresh(spielfeldFenster);
 }
 
@@ -281,6 +310,7 @@ void ZeichneKommandos(WINDOW *kommandoFenster)
     wclear(kommandoFenster);
 
     wprintw(kommandoFenster, "[H] Hilfe (Feld füllen)\n");
+    wprintw(kommandoFenster, "[K] Kandidaten anzeigen\n");
     wprintw(kommandoFenster, "[L] Lösung\n");
     wprintw(kommandoFenster, "[R] Spielregeln\n");
 

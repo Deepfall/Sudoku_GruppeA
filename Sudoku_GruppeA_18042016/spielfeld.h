@@ -42,5 +42,6 @@ void LoescheZahlAusFeld(SUDOKUFELD *sudokufeld, CURSOR cursor);
 void HilfeBenutzen(CURSOR cursor, SUDOKUFELD sudokufelder[],
                    int *iStrafSekunden, int *iAnzahlHilfeGenutzt);
 int PruefeFelderManuell(SUDOKUFELD sudokufelder[]);
+int AlleFelderGefuellt(SUDOKUFELD sudokufelder[]);
 
 #endif
