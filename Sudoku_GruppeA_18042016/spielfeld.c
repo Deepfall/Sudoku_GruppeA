@@ -36,7 +36,8 @@ void BefuelleSpielfelder(SUDOKUFELD spielfelder[], int iSchwierigkeit)
         spielfelder[i].iWert = 0;
         spielfelder[i].iIstVorbefuellt = FALSE;
 
-        if(cSudokuWert != NULL && cSudokuWert[0] >= '1' && cSudokuWert[0] <= '9')
+        if(cSudokuWert != NULL && cSudokuWert[0] >= '1'
+           && cSudokuWert[0] <= '9')
         {
             iWert = (int) cSudokuWert[0] - 48;
             spielfelder[i].iWert = iWert;
@@ -52,7 +53,8 @@ void BefuelleSpielfelder(SUDOKUFELD spielfelder[], int iSchwierigkeit)
     {
         spielfelder[i].iLoesung = 0;
 
-        if(cLoesungWert != NULL && cLoesungWert[0] >= '1' && cLoesungWert[0] <= '9')
+        if(cLoesungWert != NULL && cLoesungWert[0] >= '1'
+           && cLoesungWert[0] <= '9')
         {
             spielfelder[i].iLoesung = (int) cLoesungWert[0] - 48;
         }
@@ -128,17 +130,17 @@ Beschreibung:
 *******************************************************************************/
 int PruefeFelderManuell(SUDOKUFELD sudokufelder[])
 {
-	int iFlag = 0, i;
+    int iFlag = 0, i;
 
-	for(i = 0; i < ANZAHL_SPIELFELDER; i++)
+    for(i = 0; i < ANZAHL_SPIELFELDER; i++)
     {
-		if(sudokufelder[i].iWert != sudokufelder[i].iLoesung)
+        if(sudokufelder[i].iWert != sudokufelder[i].iLoesung)
         {
-			iFlag = 1;
-		}
-	}
+            iFlag = 1;
+        }
+    }
 
-	return iFlag;
+    return iFlag;
 }
 
 /*******************************************************************************
@@ -149,15 +151,15 @@ Beschreibung:
 *******************************************************************************/
 int AlleFelderGefuellt(SUDOKUFELD sudokufelder[]) 
 {
-	int i;
+    int i;
 
-	for(i = 0; i < ANZAHL_SPIELFELDER; i++)
-	{
-		if(sudokufelder[i].iWert == 0)
-		{
-			return FALSE;
-		}
-	}
+    for(i = 0; i < ANZAHL_SPIELFELDER; i++)
+    {
+        if(sudokufelder[i].iWert == 0)
+        {
+            return FALSE;
+        }
+    }
 
-	return TRUE;
+    return TRUE;
 }

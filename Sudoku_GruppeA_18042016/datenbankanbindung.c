@@ -142,7 +142,8 @@ Beschreibung:           Es wird mit der Schwierigkeitsstufe des Sudokus, dem
                         Nicknamen und der gemessenen Zeit ein neuer Highscore
                         in die Highscore-Tabelle gemacht.
 *******************************************************************************/
-int HighscoreEintragen(int iSchwierigkeit, const char ccNickname[], char cZeit[])
+int HighscoreEintragen(int iSchwierigkeit, const char ccNickname[],
+                       char cZeit[])
 {
     int iRueckgabe;
     char *sql, *cErrMsg, *cSchwierigkeit;

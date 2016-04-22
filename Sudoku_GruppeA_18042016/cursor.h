@@ -15,8 +15,8 @@ Praeprozessoranweisungen
 *******************************************************************************/
 #include <curses.h>
 
-#define CURSOR_START_POSITION_SPALTE        7
-#define CURSOR_START_POSITION_ZEILE         4
+#define CURSOR_START_POSITION_SPALTE        5
+#define CURSOR_START_POSITION_ZEILE         3
 #define CURSOR_OFFSET_SPALTE                8
 #define CURSOR_OFFSET_ZEILE                 4
 #define CURSOR_START_ZEILE                  1

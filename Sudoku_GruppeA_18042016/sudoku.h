@@ -24,8 +24,8 @@ Praeprozessoranweisungen
 #include "zeitmessung.h"
 #include "cursor.h"
 
-#define START_POSITION_SPALTE               6
-#define START_POSITION_ZEILE                3
+#define START_POSITION_SPALTE               4
+#define START_POSITION_ZEILE                2
 #define OFFSET_SPALTE                       8
 #define OFFSET_ZEILE                        4
 
@@ -37,11 +37,13 @@ WINDOW *ErstelleNeuesInfoFenster(void);
 WINDOW *ErstelleNeuesSpielfeldFenster(void);
 WINDOW *ErstelleNeuesKommandoFenster(void);
 void ZeichneSpielfeld(WINDOW *spielfeldFenster);
-void ZeichneSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER]);
-void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER]);
+void ZeichneSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[]);
+void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[]);
 void ZeichneInfo(WINDOW *infoFenster);
 void ZeichneKommandos(WINDOW *kommandoFenster);
-void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit, int iStrafSekunden);
-void ZeichneAnzahlGenutzterHilfe(WINDOW *infoFenster, int iAnzahlGenutzterHilfe);
+void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit,
+                             int iStrafSekunden);
+void ZeichneAnzahlGenutzterHilfe(WINDOW *infoFenster,
+                                 int iAnzahlGenutzterHilfe);
 
 #endif

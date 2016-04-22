@@ -44,9 +44,9 @@ Beschreibung:           Formatiert Sekunden in das Format HH:MM:SS und speichert
 *******************************************************************************/
 void SchreibeFormatierteZeit(char cFormatierteZeit[], int iVerstricheneSekunden)
 {
-	int iStunden = iVerstricheneSekunden/ 3600;
-	int iMinuten = (iVerstricheneSekunden / 60) % 60;
-	int iSekunden = iVerstricheneSekunden % 60;
-	
-	sprintf(cFormatierteZeit, "%02d:%02d:%02d", iStunden, iMinuten, iSekunden);
+    int iStunden = iVerstricheneSekunden / 3600;
+    int iMinuten = (iVerstricheneSekunden / 60) % 60;
+    int iSekunden = iVerstricheneSekunden % 60;
+    
+    sprintf(cFormatierteZeit, "%02d:%02d:%02d", iStunden, iMinuten, iSekunden);
 }

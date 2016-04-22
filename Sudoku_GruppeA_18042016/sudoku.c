@@ -28,8 +28,8 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
     SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER];
     time_t Startzeit;
     int iGedrueckteTaste = -1, iStrafSekunden = 0, iAnzahlHilfeGenutzt = 0;
-	int i = 0, iSpielGeloest = FALSE;
-	char cZeit[20];
+    int i = 0, iSpielGeloest = FALSE;
+    char cZeit[20];
     timeout(33);
 
     spielfeldFenster = ErstelleNeuesSpielfeldFenster();
@@ -46,37 +46,39 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
 
     time(&Startzeit);
 
-    while(!iSpielGeloest && (iGedrueckteTaste != 'L' && iGedrueckteTaste != 'l'))
+    while(!iSpielGeloest
+          && (iGedrueckteTaste != 'L' && iGedrueckteTaste != 'l'))
     {
         iGedrueckteTaste = VerarbeiteEingabe(spielfelder, &iStrafSekunden,
-                                             &iAnzahlHilfeGenutzt);
+                           &iAnzahlHilfeGenutzt);
 
         ZeichneVerstricheneZeit(infoFenster, Startzeit, iStrafSekunden);
         ZeichneAnzahlGenutzterHilfe(infoFenster, iAnzahlHilfeGenutzt);
 
         doupdate();
 
-		if(AlleFelderGefuellt(spielfelder))
-		{
-			if(!PruefeFelderManuell(spielfelder))
-			{
-				BerechneVerstricheneZeit(cZeit, Startzeit, iStrafSekunden);
-				SpielGewonnenMenue(cZeit);
+        if(AlleFelderGefuellt(spielfelder))
+        {
+            if(!PruefeFelderManuell(spielfelder))
+            {
+                BerechneVerstricheneZeit(cZeit, Startzeit, iStrafSekunden);
+                SpielGewonnenMenue(cZeit);
 
-				if(strlen(ccNickname) > 0)
-				{
-					InBestenlisteEintragenDialog(iSchwierigkeit, ccNickname, cZeit);
-				}
+                if(strlen(ccNickname) > 0)
+                {
+                    InBestenlisteEintragenDialog(iSchwierigkeit,
+                                                 ccNickname, cZeit);
+                }
 
                 iSpielGeloest = TRUE;
-			}
-			else
-			{
-				mvwprintw(kommandoFenster, 5, 0,"Im Sudoku befindet");
-				mvwprintw(kommandoFenster, 6, 0, "sich ein Fehler!");
-				wnoutrefresh(kommandoFenster);
-			}
-		}
+            }
+            else
+            {
+                mvwprintw(kommandoFenster, 5, 0,"Im Sudoku befindet");
+                mvwprintw(kommandoFenster, 6, 0, "sich ein Fehler!");
+                wnoutrefresh(kommandoFenster);
+            }
+        }
     }
 
     timeout(-1);
@@ -144,44 +146,80 @@ void ZeichneSpielfeld(WINDOW *spielfeldFenster)
 {
     wclear(spielfeldFenster);
 
-    wprintw(spielfeldFenster, "      A       B       C        D       E       F        G       H      I\n");
-    wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "1 |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "2 |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "3 |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  |=========================================================================|\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "4 |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "5 |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "6 |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  |=========================================================================|\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "7 |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "8 |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "9 |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  |       |       |       ||       |       |       ||       |       |       |\n");
-    wprintw(spielfeldFenster, "  +-------+-------+-------++-------+-------+-------++-------+-------+-------+\n");
+    wprintw(spielfeldFenster, "+-------+-------+-------++-------+-------+------"
+                              "-++-------+-------+-------+\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "+-------+-------+-------++-------+-------+------"
+                              "-++-------+-------+-------+\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "+-------+-------+-------++-------+-------+------"
+                              "-++-------+-------+-------+\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|==============================================="
+                              "==========================|\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "+-------+-------+-------++-------+-------+------"
+                              "-++-------+-------+-------+\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "+-------+-------+-------++-------+-------+------"
+                              "-++-------+-------+-------+\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|==============================================="
+                              "==========================|\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "+-------+-------+-------++-------+-------+------"
+                              "-++-------+-------+-------+\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "+-------+-------+-------++-------+-------+------"
+                              "-++-------+-------+-------+\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "|       |       |       ||       |       |      "
+                              " ||       |       |       |\n");
+    wprintw(spielfeldFenster, "+-------+-------+-------++-------+-------+------"
+                              "-++-------+-------+-------+\n");
 
     wnoutrefresh(spielfeldFenster);
 }
@@ -240,7 +278,7 @@ Funktion ZeichneLoesung()
 Uebergabe Parameter:    *spielfeldFenster, spielfelder[]
 Rueckgabe:              *spielfeldFenster, spielfelder[]
 Beschreibung:           Gibt die Loesung der Spielfelder im uebergebenen 
-                        Fenster aus.
+Fenster aus.
 *******************************************************************************/
 void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
 {
@@ -265,7 +303,7 @@ void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
                 x += OFFSET_SPALTE;
             }
         }
-        
+
         if(!spielfelder[i].iIstVorbefuellt)
         {
             sprintf(cSpielfeldWertString, "%i", spielfelder[i].iLoesung);
@@ -320,11 +358,13 @@ Rueckgabe:              *infoFenster
 Beschreibung:           Gibt die waehrend des Spiels verstrichene Zeit im
                         uebergebenen Fenster aus.
 *******************************************************************************/
-void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit, int iStrafSekunden)
+void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit,
+                             int iStrafSekunden)
 {
     char cformatierteVerstricheneZeit[9];
 
-    BerechneVerstricheneZeit(cformatierteVerstricheneZeit, Startzeit, iStrafSekunden);
+    BerechneVerstricheneZeit(cformatierteVerstricheneZeit, Startzeit,
+                             iStrafSekunden);
 
     mvwprintw(infoFenster, 0, 15, cformatierteVerstricheneZeit);
 
