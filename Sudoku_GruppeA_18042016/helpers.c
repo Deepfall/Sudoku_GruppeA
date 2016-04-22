@@ -128,13 +128,13 @@ void AusgabeFehlermeldungValideTextlaenge(int iFehlerId,
     switch (iFehlerId)
     {
         case -3:
-            printw("%s ist zu kurz!\n", ccFeldname);
+            printw("\n%s ist zu kurz!\n", ccFeldname);
             break;
         case -2:
-            printw("%s ist zu lang!\n", ccFeldname);
+            printw("\n%s ist zu lang!\n", ccFeldname);
             break;
         case -1:
-            printw("%s ist falsch!\n", ccFeldname);
+            printw("\n%s ist falsch!\n", ccFeldname);
             break;
     }
 }

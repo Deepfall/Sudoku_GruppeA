@@ -28,7 +28,7 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
     SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER];
     time_t Startzeit;
     int iGedrueckteTaste = -1, iStrafSekunden = 0, iAnzahlHilfeGenutzt = 0;
-	int i = 0;
+	int i = 0, iSpielGeloest = FALSE;
 	char cZeit[20];
     timeout(33);
 
@@ -46,7 +46,7 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
 
     time(&Startzeit);
 
-    while(iGedrueckteTaste != 'L' && iGedrueckteTaste != 'l')
+    while(!iSpielGeloest && (iGedrueckteTaste != 'L' && iGedrueckteTaste != 'l'))
     {
         iGedrueckteTaste = VerarbeiteEingabe(spielfelder, &iStrafSekunden,
                                              &iAnzahlHilfeGenutzt);
@@ -54,13 +54,12 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
         ZeichneVerstricheneZeit(infoFenster, Startzeit, iStrafSekunden);
         ZeichneAnzahlGenutzterHilfe(infoFenster, iAnzahlHilfeGenutzt);
 
+        doupdate();
 
-		if(AlleFelderGefuellt(spielfelder)) 
+		if(AlleFelderGefuellt(spielfelder))
 		{
 			if(!PruefeFelderManuell(spielfelder))
 			{
-				timeout(-1);
-				clear();
 				BerechneVerstricheneZeit(cZeit, Startzeit, iStrafSekunden);
 				SpielGewonnenMenue(cZeit);
 
@@ -69,23 +68,23 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
 					InBestenlisteEintragenDialog(iSchwierigkeit, ccNickname, cZeit);
 				}
 
-				getch();
-			} 
-			else 
-			{ 
+                iSpielGeloest = TRUE;
+			}
+			else
+			{
 				mvwprintw(kommandoFenster, 5, 0,"Im Sudoku befindet");
 				mvwprintw(kommandoFenster, 6, 0, "sich ein Fehler!");
 				wnoutrefresh(kommandoFenster);
 			}
 		}
-
-        doupdate();
     }
 
-    ZeichneLoesung(spielfeldFenster, spielfelder);
-
     timeout(-1);
-    getch();
+
+    if(!iSpielGeloest)
+    {
+        ZeichneLoesung(spielfeldFenster, spielfelder);
+    }
 
     delwin(infoFenster);
     delwin(spielfeldFenster);
@@ -275,6 +274,8 @@ void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
     }
 
     wnoutrefresh(spielfeldFenster);
+
+    getch();
 }
 
 /*******************************************************************************

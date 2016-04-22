@@ -34,7 +34,7 @@ void Loginmenue(void)
 	clear(); // Bildschirm leeren
 
 	printw("\nEinloggen\n\n");
-	printw("============================================\n");
+	printw("============================================\n\n");
     printw("Bitte geben Sie ihre Daten ein.\n\n");
 
     // Einlesen des Nicknamen
@@ -66,7 +66,7 @@ void Loginmenue(void)
     else
     {
 	    clear(); // Bildschirm leeren
-		printw("Log In ist fehlgeschlagen.\n\n");
+		printw("Einloggen ist fehlgeschlagen.\n\n");
 		printw("Druecken Sie eine beliebige Taste...");
         refresh();
         getch();
@@ -92,36 +92,52 @@ void Registrierungsmenue(void)
     timeout(-1); // Timeout deaktivieren
     clear(); // Bildschirm leeren
 
-    // Ausgabe des Registrierungsmenues
-	printw("\nRegistrierung\n\n");
-	printw("============================================\n");
-	printw("Bitte fuellen Sie die folgenden Felder aus.\n");
-
     iRichtig = -10;
 	while(iRichtig != 0)
     {
+        clear(); // Bildschirm leeren
+
+        // Ausgabe des Registrierungsmenues
+	    printw("\nRegistrierung\n\n");
+	    printw("============================================\n\n");
+	    printw("Bitte fuellen Sie die folgenden Felder aus.\n");
+
+		AusgabeFehlermeldungValideTextlaenge(iRichtig, NACHNAME);
         printw("\nNachname (max. 20 Zeichen): ");
 		getstr(cNachname);
 		iRichtig = PruefeAufValideStringlaenge(cNachname, 1, 20);
-		AusgabeFehlermeldungValideTextlaenge(iRichtig, NACHNAME);
 	}
 
 	iRichtig = -10;
 	while(iRichtig != 0)
 	{
-		printw("\nVorname  (max. 20 Zeichen): ");
+		clear(); // Bildschirm leeren
+
+        // Ausgabe des Registrierungsmenues
+	    printw("\nRegistrierung\n\n");
+	    printw("============================================\n\n");
+	    printw("Bitte fuellen Sie die folgenden Felder aus.\n");
+        
+		AusgabeFehlermeldungValideTextlaenge(iRichtig, VORNAME);
+        printw("\nVorname  (max. 20 Zeichen): ");
 		getstr(cVorname);
 		iRichtig = PruefeAufValideStringlaenge(cVorname, 1, 20);
-		AusgabeFehlermeldungValideTextlaenge(iRichtig, VORNAME);
 	}
 
 	iRichtig = -10;
 	while(iRichtig != 0)
 	{
-		printw("\nNickname (max. 20 Zeichen): ");
+		clear(); // Bildschirm leeren
+		
+        // Ausgabe des Registrierungsmenues
+	    printw("\nRegistrierung\n\n");
+	    printw("============================================\n\n");
+	    printw("Bitte fuellen Sie die folgenden Felder aus.\n");
+        
+		AusgabeFehlermeldungValideTextlaenge(iRichtig, NICKNAME);
+        printw("\nNickname (max. 20 Zeichen): ");
 		getstr(cNickname);
 		iRichtig = PruefeAufValideStringlaenge(cNickname, 1, 20);
-		AusgabeFehlermeldungValideTextlaenge(iRichtig, NICKNAME);
 	}
 
     // Wir wollen das Passwort niemandem zeigen, also Benutzereingabe verstecken
@@ -130,11 +146,18 @@ void Registrierungsmenue(void)
     iRichtig = -10;
 	while(iRichtig != 0)
 	{
+		clear(); // Bildschirm leeren
+        
+        // Ausgabe des Registrierungsmenues
+	    printw("\nRegistrierung\n\n");
+	    printw("============================================\n\n");
+	    printw("Bitte fuellen Sie die folgenden Felder aus.\n");
+
+		AusgabeFehlermeldungValideTextlaenge(iRichtig, PASSWORT);
 		printw("\nPasswort  (min. 6 Zeichen): ");
 		getstr(cPasswort);
 		printw("\n");
 		iRichtig = PruefeAufValideStringlaenge(cPasswort, 6, 20);
-		AusgabeFehlermeldungValideTextlaenge(iRichtig, PASSWORT);
 	}
 
     printw("\n\n=============================================\n\n");
@@ -171,16 +194,15 @@ void Schwierigkeitsstufenmenue(const char ccNickname[])
 {
     char cEingabe = -1, cFalscheEingabe = TRUE;
 
-    curs_set(0); // Cursor unsichtbar machen
-
     // Abfangen der unerwuenschten Buchstaben
     while(cFalscheEingabe)
     {
-        clear();
+        curs_set(0); // Cursor unsichtbar machen
+        clear(); // Bildschirm leeren
 
         // Ausgabe des Menues fuer die Schwierigkeitsstufen
         printw("\nSchwierigkeitsstufe\n\n");
-        printw("============================================\n");
+        printw("============================================\n\n");
         printw("[L] Leicht\n\n");
         printw("[M] Mittel\n\n");
         printw("[S] Schwer\n\n");
@@ -222,12 +244,11 @@ void HighscoreSchwierigkeitsStufenMenue()
 {
     char cEingabe = -1, cFalscheEingabe = TRUE;
 
-    curs_set(0); // Cursor unsichtbar machen
-
     // Abfangen der unerwuenschten Buchstaben
     while(cFalscheEingabe)
     {
-        clear();
+        curs_set(0); // Cursor unsichtbar machen
+        clear(); // Bildschirm leeren
 
         // Ausgabe des Menues fuer die Schwierigkeitsstufen
         printw("\nS U D O K U\n\n");
@@ -244,21 +265,21 @@ void HighscoreSchwierigkeitsStufenMenue()
 
         switch(cEingabe)
         {
-        case 'L':
-        case 'l':
-            HighscoreAusgeben(1);
-            cFalscheEingabe = FALSE;
-            break;
-        case 'M':
-        case 'm':
-            HighscoreAusgeben(2);
-            cFalscheEingabe = FALSE;
-            break;
-        case 'S':
-        case 's':
-            HighscoreAusgeben(3);
-            cFalscheEingabe = FALSE;
-            break;
+            case 'L':
+            case 'l':
+                HighscoreAusgeben(1);
+                cFalscheEingabe = FALSE;
+                break;
+            case 'M':
+            case 'm':
+                HighscoreAusgeben(2);
+                cFalscheEingabe = FALSE;
+                break;
+            case 'S':
+            case 's':
+                HighscoreAusgeben(3);
+                cFalscheEingabe = FALSE;
+                break;
         }
     }
 }
@@ -273,16 +294,16 @@ void Spielmenue(char cNickname[])
 {
     char cEingabe = -1;
 
-    curs_set(0); // Cursor unsichtbar machen
-
     // Abfangen der unerwuenschten Buchstaben
     while(cEingabe != 'L' && cEingabe != 'l')
     {
-        clear();
+	    noecho(); // Benutzereingabe versetecken
+        curs_set(0); // Cursor unsichtbar machen
+        clear(); // Bildschirm leeren
 
         // Ausgabe des Spielmenues
         printw("\nSpielmenue\n\n");
-        printw("============================================\n");
+        printw("============================================\n\n");
         printw("[N] Neues Spiel\n\n");
         printw("[R] Spielregeln\n\n");
         printw("[B] Bestenliste\n\n");
@@ -310,7 +331,6 @@ void Spielmenue(char cNickname[])
             case 'L':
             case 'l':
 				cNickname = NULL;
-				Startmenue();
                 // Schleife bricht ab
                 break;
         }
@@ -325,8 +345,10 @@ Beschreibung:           Erstellt das Spielmenue.
 *******************************************************************************/
 void SpielGewonnenMenue(char cZeit[])
 {
-    clear();
-	noecho();
+	noecho(); // Benutzereingabe versetecken
+    curs_set(0); // Cursor unsichtbar machen
+	timeout(-1);
+    clear(); // Bildschirm leeren
 
 	printw("\n\t\t============================================\n\n");
 	printw("\n");
@@ -362,25 +384,25 @@ void Startmenue(void)
 {
     char cEingabe = -1;
 
-    curs_set(0); // Cursor unsichtbar machen
-
-    clear();
-
-    // Ausgabe des Startmenues
-    printw("\nS U D O K U\n\n");
-    printw("(C) HHBK Tendo Research Center\n\n");
-    printw("============================================\n");
-    printw("[E] Einloggen\n\n");
-    printw("[N] Nicht einloggen\n\n");
-    printw("[R] Registrieren\n\n");
-    printw("[X] Beenden\n\n");
-    printw("============================================");
-
-    refresh();
-
     // Abfangen der unerwuenschten Buchstaben
     while(cEingabe != 'X' && cEingabe != 'x')
     {
+        noecho(); // Benutzereingabe versetecken
+        curs_set(0); // Cursor unsichtbar machen
+        clear(); // Bildschirm leeren
+
+        // Ausgabe des Startmenues
+        printw("\nS U D O K U\n\n");
+        printw("(C) HHBK Tendo Research Center\n\n");
+        printw("============================================\n\n");
+        printw("[E] Einloggen\n\n");
+        printw("[N] Nicht einloggen\n\n");
+        printw("[R] Registrieren\n\n");
+        printw("[X] Beenden\n\n");
+        printw("============================================");
+
+        refresh();
+
         cEingabe = getch();
 
         switch(cEingabe)
@@ -417,9 +439,9 @@ void InBestenlisteEintragenDialog(int iSchwierigkeit, const char ccNickname[],
 	char cEingabe = -1, cFalscheEingabe = TRUE;
 	int iAntwort = -1;
     
+	noecho(); // Benutzereingabe versetecken
     curs_set(0); // Cursor unsichtbar machen
-
-    clear();
+    clear(); // Bildschirm leeren
 
     // Ausgabe des Menues fuer die Schwierigkeitsstufen
     printw("\nS U D O K U\n\n");
