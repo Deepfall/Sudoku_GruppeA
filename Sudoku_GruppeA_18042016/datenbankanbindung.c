@@ -135,14 +135,14 @@ int SudokuBereitstellen(char cSudoku[], char cLoesung[], int iSchwierigkeit)
 
 /*******************************************************************************
 Funktion HighscoreEintragen()
-Uebergabe Parameter:    iSchwierigkeit, cNickname[], cZeit[]
+Uebergabe Parameter:    iSchwierigkeit, ccNickname[], cZeit[]
 Rueckgabe:              0 - Eintragen war erfolgreich
                         1 - Eintragen ist fehlgeschlagen
 Beschreibung:           Es wird mit der Schwierigkeitsstufe des Sudokus, dem
                         Nicknamen und der gemessenen Zeit ein neuer Highscore
                         in die Highscore-Tabelle gemacht.
 *******************************************************************************/
-int HighscoreEintragen(int iSchwierigkeit, char cNickname[], char cZeit[])
+int HighscoreEintragen(int iSchwierigkeit, const char ccNickname[], char cZeit[])
 {
     int iRueckgabe;
     char *sql, *cErrMsg, *cSchwierigkeit;
@@ -166,7 +166,7 @@ int HighscoreEintragen(int iSchwierigkeit, char cNickname[], char cZeit[])
     sql = sqlite3_mprintf("INSERT INTO Highscore "
                           "(Nickname, Schwierigkeit, Zeit)"
                           "VALUES ('%s', '%s', '%s')",
-                          cNickname, cSchwierigkeit, cZeit);
+                          ccNickname, cSchwierigkeit, cZeit);
 
     iRueckgabe = sqlite3_exec(db_handle, sql, NULL, NULL, &cErrMsg);
 

@@ -67,11 +67,6 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
 				if(strlen(ccNickname) > 0)
 				{
 					InBestenlisteEintragenDialog(iSchwierigkeit, ccNickname, cZeit);
-					Spielmenue(ccNickname);
-				} 
-				else 
-				{
-					Spielmenue(ccNickname);
 				}
 
 				getch();
@@ -95,6 +90,7 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
     delwin(infoFenster);
     delwin(spielfeldFenster);
     delwin(kommandoFenster);
+    clear();
 }
 
 /*******************************************************************************
@@ -310,7 +306,6 @@ void ZeichneKommandos(WINDOW *kommandoFenster)
     wclear(kommandoFenster);
 
     wprintw(kommandoFenster, "[H] Hilfe (Feld füllen)\n");
-    wprintw(kommandoFenster, "[K] Kandidaten anzeigen\n");
     wprintw(kommandoFenster, "[L] Lösung\n");
     wprintw(kommandoFenster, "[R] Spielregeln\n");
 

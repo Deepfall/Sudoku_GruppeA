@@ -28,7 +28,7 @@ void EntferneLeerzeichenAusString(char cString[]);
 int PruefeAufValideStringlaenge(char cString[],
                                 unsigned int uiMindestLaenge,
                                 unsigned int uiMaximalLaenge);
-void AusgabeFehlermeldungValideTextlaenge(WINDOW *fenster, int iFehlerId,
+void AusgabeFehlermeldungValideTextlaenge(int iFehlerId,
                                           const char ccFeldname[]);
 void SpielregelnAnzeigen(void);
 void AusgabeAbsoulterPfad(char cAusgabe[], const char ccDateiname[]);

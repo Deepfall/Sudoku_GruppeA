@@ -16,21 +16,6 @@ Praeprozessoranweisungen
 #include "spielmenue.h"
 
 /*******************************************************************************
-Funktion ErstelleNeuesMenueFenster()
-Uebergabe Parameter:    -
-Rueckgabe:              *menueFenster
-Beschreibung:           Erstellt ein neues Fenster fuer ein Menue.
-*******************************************************************************/
-WINDOW *ErstelleNeuesMenueFenster(void)
-{
-    int iHoehe = 30, iBreite = 44;
-    int iPositionY = 10, iPositionX = (COLS - iBreite) / 2;
-    WINDOW *menueFenster = newwin(iHoehe, iBreite, iPositionY, iPositionX);
-
-    return menueFenster;
-}
-
-/*******************************************************************************
 Funktion Loginmenue()
 Uebergabe Parameter:    -
 Rueckgabe:              -
@@ -40,53 +25,51 @@ Beschreibung:           Erstellt das Menue fuer das Einloggen eines Benutzers.
 *******************************************************************************/
 void Loginmenue(void)
 {
-    WINDOW *menueFenster = ErstelleNeuesMenueFenster();
     char cNickname[TEXTLAENGE] = "", cPasswort[TEXTLAENGE] = "";
     int iRueckgabe = -1, iKorrekt = -1;
 
     curs_set(1); // Cursor sichtbar machen
     echo(); // Benutzereingabe anzeigen lassen 
     timeout(-1); // Timeout deaktivieren
-	wclear(menueFenster); // Bildschirm leeren
+	clear(); // Bildschirm leeren
 
-	wprintw(menueFenster, "Einloggen\n\n");
-	wprintw(menueFenster, "============================================\n");
-    wprintw(menueFenster, "Bitte geben Sie ihre Daten ein.\n\n");
+	printw("\nEinloggen\n\n");
+	printw("============================================\n");
+    printw("Bitte geben Sie ihre Daten ein.\n\n");
 
     // Einlesen des Nicknamen
-	wprintw(menueFenster, "Nickname: ");
-	wgetstr(menueFenster, cNickname);
+	printw("Nickname: ");
+	getstr(cNickname);
 
     /* Wir wollen das Passwort niemandem zeigen, also
         Benutzereingabe verstecken */
     noecho();
 
     // Einlesen des Passwortes
-	wprintw(menueFenster, "Passwort: ");
-	wgetstr(menueFenster, cPasswort);
+	printw("Passwort: ");
+	getstr(cPasswort);
 
-	wprintw(menueFenster, "\n\n============================================");
+	printw("\n\n============================================");
 
     // Weitergabe an die Datenbankanbindung
 	iRueckgabe = Einloggen(cNickname, cPasswort);  
 
     if(iRueckgabe == 0)
     {
-	    wclear(menueFenster); // Bildschirm leeren
-		wprintw(menueFenster, "Erfolgreich eingeloggt.\n\n");
-		wprintw(menueFenster, "Druecken Sie eine beliebige Taste...");
-        wrefresh(menueFenster);
+	    clear(); // Bildschirm leeren
+		printw("Erfolgreich eingeloggt.\n\n");
+		printw("Druecken Sie eine beliebige Taste...");
+        refresh();
         getch();
         Spielmenue(cNickname);
     }
     else
     {
-	    wclear(menueFenster); // Bildschirm leeren
-		wprintw(menueFenster, "Log In ist fehlgeschlagen.\n\n");
-		wprintw(menueFenster, "Druecken Sie eine beliebige Taste...");
-        wrefresh(menueFenster);
+	    clear(); // Bildschirm leeren
+		printw("Log In ist fehlgeschlagen.\n\n");
+		printw("Druecken Sie eine beliebige Taste...");
+        refresh();
         getch();
-        Startmenue();
     }
 }
 
@@ -100,7 +83,6 @@ Beschreibung:           Erstellt das Menue fuer die Registrierung eines neuen
 *******************************************************************************/
 void Registrierungsmenue(void)
 {
-    WINDOW *menueFenster;
     char cNachname[TEXTLAENGE], cVorname[TEXTLAENGE],
          cNickname[TEXTLAENGE], cPasswort[TEXTLAENGE];
     int iRichtig;
@@ -108,39 +90,38 @@ void Registrierungsmenue(void)
     curs_set(1); // Cursor sichtbar machen
     echo(); // Benutzereingabe anzeigen lassen
     timeout(-1); // Timeout deaktivieren
-    menueFenster = ErstelleNeuesMenueFenster();
-    wclear(menueFenster); // Bildschirm leeren
+    clear(); // Bildschirm leeren
 
     // Ausgabe des Registrierungsmenues
-	wprintw(menueFenster, "Registrierung\n\n");
-	wprintw(menueFenster, "============================================\n");
-	wprintw(menueFenster, "Bitte fuellen Sie die folgenden Felder aus.\n");
+	printw("\nRegistrierung\n\n");
+	printw("============================================\n");
+	printw("Bitte fuellen Sie die folgenden Felder aus.\n");
 
     iRichtig = -10;
 	while(iRichtig != 0)
     {
-        wprintw(menueFenster, "\nNachname (max. 20 Zeichen): ");
-		wgetstr(menueFenster, cNachname);
+        printw("\nNachname (max. 20 Zeichen): ");
+		getstr(cNachname);
 		iRichtig = PruefeAufValideStringlaenge(cNachname, 1, 20);
-		AusgabeFehlermeldungValideTextlaenge(menueFenster, iRichtig, NACHNAME);
+		AusgabeFehlermeldungValideTextlaenge(iRichtig, NACHNAME);
 	}
 
 	iRichtig = -10;
 	while(iRichtig != 0)
 	{
-		wprintw(menueFenster, "\nVorname  (max. 20 Zeichen): ");
-		wgetstr(menueFenster, cVorname);
+		printw("\nVorname  (max. 20 Zeichen): ");
+		getstr(cVorname);
 		iRichtig = PruefeAufValideStringlaenge(cVorname, 1, 20);
-		AusgabeFehlermeldungValideTextlaenge(menueFenster, iRichtig, VORNAME);
+		AusgabeFehlermeldungValideTextlaenge(iRichtig, VORNAME);
 	}
 
 	iRichtig = -10;
 	while(iRichtig != 0)
 	{
-		wprintw(menueFenster, "\nNickname (max. 20 Zeichen): ");
-		wgetstr(menueFenster, cNickname);
+		printw("\nNickname (max. 20 Zeichen): ");
+		getstr(cNickname);
 		iRichtig = PruefeAufValideStringlaenge(cNickname, 1, 20);
-		AusgabeFehlermeldungValideTextlaenge(menueFenster, iRichtig, NICKNAME);
+		AusgabeFehlermeldungValideTextlaenge(iRichtig, NICKNAME);
 	}
 
     // Wir wollen das Passwort niemandem zeigen, also Benutzereingabe verstecken
@@ -149,32 +130,32 @@ void Registrierungsmenue(void)
     iRichtig = -10;
 	while(iRichtig != 0)
 	{
-		wprintw(menueFenster, "\nPasswort  (min. 6 Zeichen): ");
-		wgetstr(menueFenster, cPasswort);
-		wprintw(menueFenster, "\n");
+		printw("\nPasswort  (min. 6 Zeichen): ");
+		getstr(cPasswort);
+		printw("\n");
 		iRichtig = PruefeAufValideStringlaenge(cPasswort, 6, 20);
-		AusgabeFehlermeldungValideTextlaenge(menueFenster, iRichtig, PASSWORT);
+		AusgabeFehlermeldungValideTextlaenge(iRichtig, PASSWORT);
 	}
 
-    wprintw(menueFenster, "\n\n=============================================\n\n");
+    printw("\n\n=============================================\n\n");
 
     // Weitergabe an die Datenbankanbindung
     if (Registrieren(cNachname, cVorname, cNickname, cPasswort) == 0)
     {
-        wclear(menueFenster); // Bildschirm leeren
-        wprintw(menueFenster, "Die Registrierung war erfolgreich.\n\n");
-		wprintw(menueFenster, "Druecken Sie eine beliebige Taste...");
-        wrefresh(menueFenster);
+        clear(); // Bildschirm leeren
+        printw("Die Registrierung war erfolgreich.\n\n");
+		printw("Druecken Sie eine beliebige Taste...");
+        refresh();
         getch();
         Startmenue();
     }
     else
     {
-        wclear(menueFenster); // Bildschirm leeren
-        wprintw(menueFenster, "Die Registrierung ist fehlgeschlagen.\n");
-        wprintw(menueFenster, "Der Nickname ist bereits vergeben.\n\n");
-		wprintw(menueFenster, "Druecken Sie eine beliebige Taste...");
-        wrefresh(menueFenster);
+        clear(); // Bildschirm leeren
+        printw("Die Registrierung ist fehlgeschlagen.\n");
+        printw("Der Nickname ist bereits vergeben.\n\n");
+		printw("Druecken Sie eine beliebige Taste...");
+        refresh();
         getch();
         Startmenue();
     }
@@ -188,26 +169,24 @@ Beschreibung:           Erstellt das Menue fuer die 3 Schwierigkeitsstufen.
 *******************************************************************************/
 void Schwierigkeitsstufenmenue(const char ccNickname[])
 {
-    WINDOW *menueFenster;
     char cEingabe = -1, cFalscheEingabe = TRUE;
 
     curs_set(0); // Cursor unsichtbar machen
-    menueFenster = ErstelleNeuesMenueFenster();
 
     // Abfangen der unerwuenschten Buchstaben
     while(cFalscheEingabe)
     {
-        wclear(menueFenster);
+        clear();
 
         // Ausgabe des Menues fuer die Schwierigkeitsstufen
-        wprintw(menueFenster, "Schwierigkeitsstufe\n\n");
-        wprintw(menueFenster, "============================================\n");
-        wprintw(menueFenster, "[L] Leicht\n\n");
-        wprintw(menueFenster, "[M] Mittel\n\n");
-        wprintw(menueFenster, "[S] Schwer\n\n");
-        wprintw(menueFenster, "============================================");
+        printw("\nSchwierigkeitsstufe\n\n");
+        printw("============================================\n");
+        printw("[L] Leicht\n\n");
+        printw("[M] Mittel\n\n");
+        printw("[S] Schwer\n\n");
+        printw("============================================");
 
-        wrefresh(menueFenster);
+        refresh();
 
         cEingabe = getch();
 
@@ -241,27 +220,25 @@ Beschreibung:           Erstellt das Menue fuer die 3 Schwierigkeitsstufen zur
 *******************************************************************************/
 void HighscoreSchwierigkeitsStufenMenue()
 {
-    WINDOW *menueFenster;
     char cEingabe = -1, cFalscheEingabe = TRUE;
 
     curs_set(0); // Cursor unsichtbar machen
-    menueFenster = ErstelleNeuesMenueFenster();
 
     // Abfangen der unerwuenschten Buchstaben
     while(cFalscheEingabe)
     {
-        wclear(menueFenster);
+        clear();
 
         // Ausgabe des Menues fuer die Schwierigkeitsstufen
-        wprintw(menueFenster, "S U D O K U\n\n");
-        wprintw(menueFenster, "(C) HHBK Tendo Research Center\n\n");
-        wprintw(menueFenster, "============================================\n");
-        wprintw(menueFenster, "[L] Leicht\n\n");
-        wprintw(menueFenster, "[M] Mittel\n\n");
-        wprintw(menueFenster, "[S] Schwer\n\n");
-        wprintw(menueFenster, "============================================");
+        printw("\nS U D O K U\n\n");
+        printw("(C) HHBK Tendo Research Center\n\n");
+        printw("============================================\n\n");
+        printw("[L] Leicht\n\n");
+        printw("[M] Mittel\n\n");
+        printw("[S] Schwer\n\n");
+        printw("============================================");
 
-        wrefresh(menueFenster);
+        refresh();
 
         cEingabe = getch();
 
@@ -288,33 +265,31 @@ void HighscoreSchwierigkeitsStufenMenue()
 
 /*******************************************************************************
 Funktion Spielmenue()
-Uebergabe Parameter:    ccNickname
+Uebergabe Parameter:    cNickname
 Rueckgabe:              -
 Beschreibung:           Erstellt das Spielmenue.
 *******************************************************************************/
-void Spielmenue(const char ccNickname[])
+void Spielmenue(char cNickname[])
 {
-    WINDOW *menueFenster;
     char cEingabe = -1;
 
     curs_set(0); // Cursor unsichtbar machen
-    menueFenster = ErstelleNeuesMenueFenster();
 
     // Abfangen der unerwuenschten Buchstaben
     while(cEingabe != 'L' && cEingabe != 'l')
     {
-        wclear(menueFenster);
+        clear();
 
         // Ausgabe des Spielmenues
-        wprintw(menueFenster, "Spielmenue\n\n");
-        wprintw(menueFenster, "============================================\n");
-        wprintw(menueFenster, "[N] Neues Spiel\n\n");
-        wprintw(menueFenster, "[R] Spielregeln\n\n");
-        wprintw(menueFenster, "[B] Bestenliste\n\n");
-        wprintw(menueFenster, "[L] Logout\n\n");
-        wprintw(menueFenster, "============================================");
+        printw("\nSpielmenue\n\n");
+        printw("============================================\n");
+        printw("[N] Neues Spiel\n\n");
+        printw("[R] Spielregeln\n\n");
+        printw("[B] Bestenliste\n\n");
+        printw("[L] Logout\n\n");
+        printw("============================================");
 
-        wrefresh(menueFenster);
+        refresh();
 
         cEingabe = getch();
 
@@ -322,7 +297,7 @@ void Spielmenue(const char ccNickname[])
         {
             case 'N': 
             case 'n':
-                Schwierigkeitsstufenmenue(ccNickname);
+                Schwierigkeitsstufenmenue(cNickname);
                 break;
             case 'R':
             case 'r':
@@ -334,7 +309,7 @@ void Spielmenue(const char ccNickname[])
                 break;
             case 'L':
             case 'l':
-				ccNickname = NULL;
+				cNickname = NULL;
 				Startmenue();
                 // Schleife bricht ab
                 break;
@@ -350,13 +325,12 @@ Beschreibung:           Erstellt das Spielmenue.
 *******************************************************************************/
 void SpielGewonnenMenue(char cZeit[])
 {
-	printw("\n");
-	printw("\t\t============================================\n\n");
-	printw("\n");
-	printw("\n\n");
-
+    clear();
 	noecho();
 
+	printw("\n\t\t============================================\n\n");
+	printw("\n");
+	printw("\n\n");
 	printw("                    ,---.o         |         |              \n");
 	printw("                    `---..,---.    |---.,---.|---.,---.,---.\n");
 	printw("                        |||---'    |   |,---||   ||---'|   |\n");
@@ -386,29 +360,27 @@ Beschreibung:           Erstellt das Startmenue.
 *******************************************************************************/
 void Startmenue(void)
 {
-    WINDOW *menueFenster;
     char cEingabe = -1;
 
     curs_set(0); // Cursor unsichtbar machen
-    menueFenster = ErstelleNeuesMenueFenster();
+
+    clear();
+
+    // Ausgabe des Startmenues
+    printw("\nS U D O K U\n\n");
+    printw("(C) HHBK Tendo Research Center\n\n");
+    printw("============================================\n");
+    printw("[E] Einloggen\n\n");
+    printw("[N] Nicht einloggen\n\n");
+    printw("[R] Registrieren\n\n");
+    printw("[X] Beenden\n\n");
+    printw("============================================");
+
+    refresh();
 
     // Abfangen der unerwuenschten Buchstaben
     while(cEingabe != 'X' && cEingabe != 'x')
     {
-        wclear(menueFenster);
-
-        // Ausgabe des Startmenues
-        wprintw(menueFenster, "S U D O K U\n\n");
-        wprintw(menueFenster, "(C) HHBK Tendo Research Center\n\n");
-        wprintw(menueFenster, "============================================\n");
-        wprintw(menueFenster, "[E] Einloggen\n\n");
-        wprintw(menueFenster, "[N] Nicht einloggen\n\n");
-        wprintw(menueFenster, "[R] Registrieren\n\n");
-        wprintw(menueFenster, "[X] Beenden\n\n");
-        wprintw(menueFenster, "============================================");
-
-        wrefresh(menueFenster);
-
         cEingabe = getch();
 
         switch(cEingabe)
@@ -433,50 +405,50 @@ void Startmenue(void)
     }
 }
 
-int InBestenlisteEintragenDialog(int iSchwierigkeit, const char ccNickname[], char cZeit[])
+/*******************************************************************************
+Funktion InBestenlisteEintragenDialog()
+Uebergabe Parameter:    iSchwierigkeit, ccNickname, cZeit[]
+Rueckgabe:              -
+Beschreibung:           
+*******************************************************************************/
+void InBestenlisteEintragenDialog(int iSchwierigkeit, const char ccNickname[],
+                                  char cZeit[])
 {
 	char cEingabe = -1, cFalscheEingabe = TRUE;
 	int iAntwort = -1;
-	char cTest[20];
+    
+    curs_set(0); // Cursor unsichtbar machen
 
-	strcpy(cTest, ccNickname);
+    clear();
+
+    // Ausgabe des Menues fuer die Schwierigkeitsstufen
+    printw("\nS U D O K U\n\n");
+    printw("(C) HHBK Tendo Research Center\n\n");
+    printw("============================================\n");
+    printw("Wollen Sie sich in die Bestenliste eintragen?\n\n");
+    printw("[J] Ja\n\n");
+    printw("[N] Nein\n\n");
+    printw("============================================\n\n");
+
+    refresh();
 
     // Abfangen der unerwuenschten Buchstaben
     while(cFalscheEingabe)
     {
-        curs_set(0); // Cursor unsichtbar machen
-        clear();
-
-        // Ausgabe des Menues fuer die Schwierigkeitsstufen
-        printw("\n");
-        printw("\t\t\t\tS U D O K U\n\n");
-        printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
-        printw("\t\t============================================\n\n");
-        printw("\t\tWollen Sie sich in die Bestenliste eintragen?\n\n");
-        printw("\t\t\t[J]\tJa\n\n");
-        printw("\t\t\t[N]\tNein\n\n");
-        printw("\t\t============================================\n\n");
-
-        refresh();
-
         cEingabe = getch();
 
         switch(cEingabe)
         {
-        case 'J':
-        case 'j':
-			HighscoreEintragen(iSchwierigkeit, cTest, cZeit);
-            HighscoreAusgeben(1);
-            cFalscheEingabe = FALSE;
-            break;
-        case 'N':
-        case 'n':
-			Spielmenue(ccNickname);
-            cFalscheEingabe = FALSE;
-            break;
+            case 'J':
+            case 'j':
+			    HighscoreEintragen(iSchwierigkeit, ccNickname, cZeit);
+                HighscoreAusgeben(iSchwierigkeit);
+                cFalscheEingabe = FALSE;
+                break;
+            case 'N':
+            case 'n':
+                cFalscheEingabe = FALSE;
+                break;
         }
     }
-
-
-	return 0;
 }
