@@ -119,3 +119,16 @@ void HilfeBenutzen(CURSOR cursor, SUDOKUFELD sudokufelder[],
         sudokufelder[iFeld].iIstVorbefuellt = TRUE;
     }
 }
+
+int pruefeFelderManuell(SUDOKUFELD spielfelder[]) 
+{
+	int iFlag = 0;
+
+	for(int i = 0; i < 81; i++) {
+		if(spielfelder[i].iWert != spielfelder[i].iLoesung) {
+			iFlag = 1;
+		}
+	}
+
+	return iFlag;
+}
