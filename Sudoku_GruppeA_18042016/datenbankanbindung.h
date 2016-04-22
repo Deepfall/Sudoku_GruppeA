@@ -38,6 +38,6 @@ int loginDatenGefuellt(char *cNickname, char *cPasswort);
 int felderGefuellt(char *cNachname, char *cVorname,
                    char *cNickname, char *cPasswort);
 int SudokuBereitstellen(char *cSudoku, char *cLoesung, int iSchwierigkeit);
-void DatenbankOeffnen(sqlite3 *db_handle);
+void DatenbankOeffnen(sqlite3 **db_handle);
 
 #endif
