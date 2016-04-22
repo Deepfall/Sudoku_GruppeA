@@ -281,7 +281,6 @@ void ZeichneKommandos(WINDOW *kommandoFenster)
     wclear(kommandoFenster);
 
     wprintw(kommandoFenster, "[H] Hilfe (Feld füllen)\n");
-    wprintw(kommandoFenster, "[K] Kandidaten anzeigen\n");
     wprintw(kommandoFenster, "[L] Lösung\n");
     wprintw(kommandoFenster, "[R] Spielregeln\n");
 

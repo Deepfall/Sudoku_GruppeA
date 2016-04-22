@@ -121,9 +121,6 @@ void VerarbeiteKommandos(int iGedrueckteTaste, CURSOR cursor,
             HilfeBenutzen(cursor, sudokufelder, iStrafSekunden, 
                           iAnzahlHilfeGenutzt);
             break;
-        case 'K':
-        case 'k':
-            break;
         case 'L':
         case 'l':
             break;
