@@ -9,6 +9,7 @@
 
 - Globale variablen
 - Genutzte Strukturen
+- Genutzte Defines
 - Alle Funktionen:
     - Überschrift
     - In / Out
