@@ -39,7 +39,7 @@ CURSOR;
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-void InitialisiereCursor();
+void InitialisiereCursor(CURSOR *cursor);
 void BewegeCursorLinks(CURSOR *cursor);
 void BewegeCursorRechts(CURSOR *cursor);
 void BewegeCursorHoch(CURSOR *cursor);

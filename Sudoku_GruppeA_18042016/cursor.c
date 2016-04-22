@@ -17,14 +17,20 @@ Praeprozessoranweisungen
 
 /*******************************************************************************
 Funktion InitialisiereCursor()
-Uebergabe Parameter:    -
-Rueckgabe:              -
+Uebergabe Parameter:    *cursor
+Rueckgabe:              *cursor
 Beschreibung:           Setzt die Startposition und das aussehen des Cursors.
 *******************************************************************************/
-void InitialisiereCursor()
+void InitialisiereCursor(CURSOR *cursor)
 {
     curs_set(2);
-    move(CURSOR_START_POSITION_ZEILE, CURSOR_START_POSITION_SPALTE);
+
+    cursor->iAktuelleSpielfeldSpalte = CURSOR_START_SPALTE;
+    cursor->iAktuelleSpielfeldZeile = CURSOR_START_ZEILE;
+    cursor->iX = CURSOR_START_POSITION_SPALTE;
+    cursor->iY = CURSOR_START_POSITION_ZEILE;
+
+    move(cursor->iY, cursor->iX);
 }
 
 /*******************************************************************************

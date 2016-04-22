@@ -420,7 +420,6 @@ void Startmenue(void)
                 break;
             case 'X':
             case 'x':
-                exit(0);
                 break;
         }
     }

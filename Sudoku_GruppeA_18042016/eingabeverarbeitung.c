@@ -24,18 +24,14 @@ Rueckgabe:              iGedrueckteTaste, sudokufelder,
 Beschreibung:           Verarbeitet die allgemeine Benutzereingabe im Spiel.
                         Kapsellung weiterer Methoden der Benutzereingabe.
 *******************************************************************************/
-int VerarbeiteEingabe(SUDOKUFELD sudokufelder[], int *iStrafSekunden,
-                      int *iAnzahlHilfeGenutzt)
+int VerarbeiteEingabe(SUDOKUFELD sudokufelder[], CURSOR *cursor,
+                      int *iStrafSekunden, int *iAnzahlHilfeGenutzt)
 {
-    static CURSOR cursor = { CURSOR_START_POSITION_SPALTE,
-                             CURSOR_START_POSITION_ZEILE,
-                             CURSOR_START_ZEILE, CURSOR_START_SPALTE };
-
     int iGedrueckteTaste = getch();
 
-    VerarbeiteCursorBewegung(iGedrueckteTaste, &cursor);
-    VerarbeiteFeldEingabe(iGedrueckteTaste, cursor, sudokufelder);
-    VerarbeiteKommandos(iGedrueckteTaste, cursor, sudokufelder, iStrafSekunden,
+    VerarbeiteCursorBewegung(iGedrueckteTaste, cursor);
+    VerarbeiteFeldEingabe(iGedrueckteTaste, *cursor, sudokufelder);
+    VerarbeiteKommandos(iGedrueckteTaste, *cursor, sudokufelder, iStrafSekunden,
                         iAnzahlHilfeGenutzt);
 
     return iGedrueckteTaste;

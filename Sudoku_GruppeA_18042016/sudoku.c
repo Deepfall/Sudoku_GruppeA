@@ -28,6 +28,8 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
 {
     WINDOW *spielfeldFenster, *infoFenster, *kommandoFenster;
     SUDOKUFELD spielfelder[ANZAHL_SPIELFELDER];
+    CURSOR cursor = { CURSOR_START_POSITION_SPALTE, CURSOR_START_POSITION_ZEILE,
+                      CURSOR_START_ZEILE, CURSOR_START_SPALTE };
     time_t Startzeit;
     int iGedrueckteTaste = -1, iStrafSekunden = 0, iAnzahlHilfeGenutzt = 0;
     int i = 0, iSpielGeloest = FALSE;
@@ -38,7 +40,7 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
     infoFenster = ErstelleNeuesInfoFenster();
     kommandoFenster = ErstelleNeuesKommandoFenster();
 
-    InitialisiereCursor();
+    InitialisiereCursor(&cursor);
     BefuelleSpielfelder(spielfelder, iSchwierigkeit);
 
     ZeichneSpielfeld(spielfeldFenster);
@@ -51,8 +53,9 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
     while(!iSpielGeloest
           && (iGedrueckteTaste != 'L' && iGedrueckteTaste != 'l'))
     {
-        iGedrueckteTaste = VerarbeiteEingabe(spielfelder, &iStrafSekunden,
-                           &iAnzahlHilfeGenutzt);
+        iGedrueckteTaste = VerarbeiteEingabe(spielfelder, &cursor,
+                                             &iStrafSekunden,
+                                             &iAnzahlHilfeGenutzt);
 
         ZeichneVerstricheneZeit(infoFenster, Startzeit, iStrafSekunden);
         ZeichneAnzahlGenutzterHilfe(infoFenster, iAnzahlHilfeGenutzt);

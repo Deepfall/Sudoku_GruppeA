@@ -24,8 +24,8 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktionsprototypen
 *******************************************************************************/
-int VerarbeiteEingabe(SUDOKUFELD sudokufelder[], int *iStrafSekunden,
-                      int *iAnzahlHilfeGenutzt);
+int VerarbeiteEingabe(SUDOKUFELD sudokufelder[], CURSOR *cursor,
+                      int *iStrafSekunden, int *iAnzahlHilfeGenutzt);
 void VerarbeiteCursorBewegung(int iGedrueckteTaste, CURSOR *cursor);
 void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR cursor,
                            SUDOKUFELD sudokufelder[]);
