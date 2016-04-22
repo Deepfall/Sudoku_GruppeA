@@ -34,6 +34,7 @@ Funktionsprototypen
 void Startmenue(void);
 void Spielmenue(const char Nickname[]);
 void Schwierigkeitsstufenmenue(const char ccNickname[]);
+void HighscoreSchwierigkeitsStufenMenue();
 void Loginmenue(void);
 void Registrierungsmenue(void);
 

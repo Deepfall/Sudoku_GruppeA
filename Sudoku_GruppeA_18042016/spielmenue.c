@@ -208,6 +208,58 @@ void Schwierigkeitsstufenmenue(const char ccNickname[])
 }
 
 /*******************************************************************************
+Funktion HighscoreSchwierigkeitsStufenMenue()
+Uebergabe Parameter:    -
+Rueckgabe:              -
+Beschreibung:           Erstellt das Menue fuer die 3 Schwierigkeitsstufen zur
+                        Auwahl der anzuzeigenden Highscore.
+*******************************************************************************/
+void HighscoreSchwierigkeitsStufenMenue()
+{
+    char cEingabe = -1, cFalscheEingabe = TRUE;
+
+    // Abfangen der unerwuenschten Buchstaben
+    while(cFalscheEingabe)
+    {
+        curs_set(0); // Cursor unsichtbar machen
+        clear();
+
+        // Ausgabe des Menues fuer die Schwierigkeitsstufen
+        printw("\n");
+        printw("\t\t\t\tS U D O K U\n\n");
+        printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
+        printw("\t\t============================================\n\n");
+        printw("\t\t\t[L]\tLeicht\n\n");
+        printw("\t\t\t[M]\tMittel\n\n");
+        printw("\t\t\t[S]\tSchwer\n\n");
+        printw("\t\t============================================\n\n");
+
+        refresh();
+
+        cEingabe = getch();
+
+        switch(cEingabe)
+        {
+        case 'L':
+        case 'l':
+            HighscoreAusgeben(1);
+            cFalscheEingabe = FALSE;
+            break;
+        case 'M':
+        case 'm':
+            HighscoreAusgeben(2);
+            cFalscheEingabe = FALSE;
+            break;
+        case 'S':
+        case 's':
+            HighscoreAusgeben(3);
+            cFalscheEingabe = FALSE;
+            break;
+        }
+    }
+}
+
+/*******************************************************************************
 Funktion Spielmenue()
 Uebergabe Parameter:    ccNickname
 Rueckgabe:              -
@@ -249,6 +301,7 @@ void Spielmenue(const char ccNickname[])
                 break;
             case 'B': 
             case 'b':
+                HighscoreSchwierigkeitsStufenMenue();
                 break;
             case 'L':
             case 'l':

@@ -18,7 +18,11 @@ Funktion Einloggen()
 Uebergabe Parameter:    cNickname[], cPasswort[]
 Rueckgabe:              0 - Einloggen war erfolgreich
                         1 - Einloggen ist fehlgeschlagen
-Beschreibung:           
+Beschreibung:           Es wird mit Hilfe des eingegebenen Nicknamen in der 
+                        Datenbank ueber einen Select-Befehl geprueft, ob zum 
+                        einen dieser Nickname vorhanden ist und zum anderen das 
+                        in der Benutzer-Tabelle gespeicherte Passwort mit dem 
+                        eingegebenen uebereinstimmt.
 *******************************************************************************/
 int Einloggen(char *cNickname, char *cPasswort)
 {
@@ -36,6 +40,7 @@ int Einloggen(char *cNickname, char *cPasswort)
     sprintf(sql, "SELECT Passwort "
                  "FROM Benutzer WHERE Nickname = '%s';", cNickname);
 
+    // Ausfuehren des SELECT-Befehls
     sqlite3_prepare_v2(db_handle, sql, strlen(sql), &stmt, NULL);
     iSpalten = sqlite3_column_count(stmt);
 
@@ -67,7 +72,9 @@ Funktion Registrieren()
 Uebergabe Parameter:    cNachname[], cVorname[], cNickname[], cPasswort[]
 Rueckgabe:              0 - Registrierung war erfolgreich
                         1 - Registrierung ist fehlgeschlagen
-Beschreibung:           
+Beschreibung:           Mit den eingegebenen Daten (Nachname, Vorname, Nickname
+                        und Passwort) wird ein neuer Benutzer in der Tabelle 
+                        Benutzer angelegt.
 *******************************************************************************/
 int Registrieren(char cNachname[], char cVorname[],
                  char cNickname[], char cPasswort[])
@@ -83,6 +90,7 @@ int Registrieren(char cNachname[], char cVorname[],
         exit(SQLITE_CANTOPEN);
     }
 
+    // Ausfuehren des INSERT-Befehls
     sql = sqlite3_mprintf("INSERT INTO Benutzer (Name, Vorname, "
                           "Nickname, Passwort) "
                           "VALUES ('%s', '%s', '%s', '%s')",
@@ -148,7 +156,9 @@ Funktion HighscoreEintragen()
 Uebergabe Parameter:    iSchwierigkeit, cNickname[], cZeit[]
 Rueckgabe:              0 - Eintragen war erfolgreich
                         1 - Eintragen ist fehlgeschlagen
-Beschreibung:           
+Beschreibung:           Es wird mit der Schwierigkeitsstufe des Sudokus, dem
+                        Nicknamen und der gemessenen Zeit ein neuer Highscore
+                        in die Highscore-Tabelle gemacht.
 *******************************************************************************/
 int HighscoreEintragen(int iSchwierigkeit, char cNickname[], char cZeit[])
 {
@@ -202,7 +212,10 @@ int HighscoreEintragen(int iSchwierigkeit, char cNickname[], char cZeit[])
 Funktion HighscoreAusgeben()
 Uebergabe Parameter:    iSchwierigkeit
 Rueckgabe:              iRueckgabe
-Beschreibung:           
+Beschreibung:           Die Highscores werden entsprechend der Schwierigkeits-
+                        stufe ueber einen Select-Befehl aus der Highscore-
+                        Tabelle geordnet nach der kleinsten Zeit rausgelesen
+                        und dann in der Sodoku-Anwendung angezeigt.   
 ******************************************************************************/
 int HighscoreAusgeben(int iSchwierigkeit)
 {
@@ -268,7 +281,7 @@ int HighscoreAusgeben(int iSchwierigkeit)
                 printw("\t%-8s\n\n", data);
             }
         }
-
+        getch();
         refresh();
     }
 

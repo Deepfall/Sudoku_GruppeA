@@ -160,6 +160,7 @@ void SpielregelnAnzeigen(void)
     // Kommando ausfuehren
     system(cKommando);
 }
+
 /*******************************************************************************
 Funktion AusgabeAbsoulterPfad()
 Uebergabe Parameter:    cAusgabe[], ccDateiname[]

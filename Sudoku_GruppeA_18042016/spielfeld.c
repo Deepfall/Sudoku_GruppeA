@@ -122,9 +122,9 @@ void HilfeBenutzen(CURSOR cursor, SUDOKUFELD sudokufelder[],
 
 int pruefeFelderManuell(SUDOKUFELD spielfelder[]) 
 {
-	int iFlag = 0;
+	int iFlag = 0, i;
 
-	for(int i = 0; i < 81; i++) {
+	for(i = 0; i < 81; i++) {
 		if(spielfelder[i].iWert != spielfelder[i].iLoesung) {
 			iFlag = 1;
 		}

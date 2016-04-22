@@ -34,5 +34,9 @@ int Registrieren(char cNachname[], char cVorname[],
 int SudokuBereitstellen(char cSudoku[], char cLoesung[], int iSchwierigkeit);
 int HighscoreAusgeben(int iSchwierigkeit);
 int HighscoreEintragen(int iSchwierigkeit, char cNickname[], char cZeit[]);
+int loginDatenGefuellt(char *cNickname, char *cPasswort);
+int felderGefuellt(char *cNachname, char *cVorname,
+                   char *cNickname, char *cPasswort);
+int SudokuBereitstellen(char *cSudoku, char *cLoesung, int iSchwierigkeit);
 
 #endif
