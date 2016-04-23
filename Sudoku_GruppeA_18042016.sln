@@ -5,18 +5,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sudoku_GruppeA_18042016", "
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|ARM = Debug|ARM
 		Debug|Win32 = Debug|Win32
-		Release|ARM = Release|ARM
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9BB170B2-E304-48F0-AA7C-AC8E26533B39}.Debug|ARM.ActiveCfg = Debug|Win32
-		{9BB170B2-E304-48F0-AA7C-AC8E26533B39}.Debug|ARM.Build.0 = Debug|Win32
 		{9BB170B2-E304-48F0-AA7C-AC8E26533B39}.Debug|Win32.ActiveCfg = Debug|Win32
 		{9BB170B2-E304-48F0-AA7C-AC8E26533B39}.Debug|Win32.Build.0 = Debug|Win32
-		{9BB170B2-E304-48F0-AA7C-AC8E26533B39}.Release|ARM.ActiveCfg = Release|ARM
-		{9BB170B2-E304-48F0-AA7C-AC8E26533B39}.Release|ARM.Build.0 = Release|ARM
 		{9BB170B2-E304-48F0-AA7C-AC8E26533B39}.Release|Win32.ActiveCfg = Release|Win32
 		{9BB170B2-E304-48F0-AA7C-AC8E26533B39}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
