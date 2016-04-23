@@ -19,8 +19,7 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktion VerarbeiteEingabe()
 Uebergabe Parameter:    sudokufelder[], *iStrafSekunden, *iAnzahlHilfeGenutzt
-Rueckgabe:              iGedrueckteTaste, sudokufelder,
-                        *iStrafSekunden, *iAnzahlHilfeGenutzt
+Rueckgabe:              iGedrueckteTaste
 Beschreibung:           Verarbeitet die allgemeine Benutzereingabe im Spiel.
                         Kapsellung weiterer Methoden der Benutzereingabe.
 *******************************************************************************/
@@ -66,7 +65,7 @@ void VerarbeiteCursorBewegung(int iGedrueckteTaste, CURSOR *cursor)
 /*******************************************************************************
 Funktion VerarbeiteFeldEingabe()
 Uebergabe Parameter:    iGedrueckteTaste, cursor, sudokufelder[]
-Rueckgabe:              sudokufelder[]
+Rueckgabe:              -
 Beschreibung:           Prueft ob eine Taste von 1 bis 9 gedrueckt wurde und
                         schreibt diese an die aktuelle Cursorposition.
                         Prueft ob die "Entf"-Taste oder die "Backspace"-Taste
@@ -105,7 +104,7 @@ void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR cursor,
 Funktion VerarbeiteKommandos()
 Uebergabe Parameter:    iGedrueckteTaste, cursor, sudokufelder[],
                         *iStrafSekunden, *iAnzahlHilfeGenutzt
-Rueckgabe:              sudokufelder[], *iStrafSekunden, *iAnzahlHilfeGenutzt
+Rueckgabe:              -
 Beschreibung:           Prüft ob eine Kommandotaste im Spiel gedrueckt wurde und
                         delegiert an die entsprechende Funktion.
 *******************************************************************************/

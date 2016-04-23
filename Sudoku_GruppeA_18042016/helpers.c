@@ -63,7 +63,7 @@ int GeneriereZufallszahlReichweite(int iMinimum, int iMaximum)
 /*******************************************************************************
 Funktion EntferneLeerzeichenAusString()
 Uebergabe Parameter:    cString[]
-Rueckgabe:              cString[]
+Rueckgabe:              -
 Beschreibung:           Entfernt alle Leerzeichen aus dem uebergebenen String.
 *******************************************************************************/
 void EntferneLeerzeichenAusString(char cString[])
@@ -90,7 +90,6 @@ Uebergabe Parameter:    cString[], uiMindestLaenge, uiMaximalLaenge
 Rueckgabe:               0 - Text hat eine valide Laenge
                         -2 - Text ist zu lang
                         -3 - Text ist zu kurz
-                        -1 - Text ist falsch
 Beschreibung:           Prueft einen String auf seine Laenge.
                         Diese darf mindestens {uiMindestLaenge} und
                         maximal {uiMaximalLaenge} sein.
@@ -129,13 +128,10 @@ void AusgabeFehlermeldungValideTextlaenge(int iFehlerId,
     switch (iFehlerId)
     {
         case -3:
-            printw("\n%s ist zu kurz!\n", ccFeldname);
+            printw("\n\t\t\t\t %s ist zu kurz!\n", ccFeldname);
             break;
         case -2:
-            printw("\n%s ist zu lang!\n", ccFeldname);
-            break;
-        case -1:
-            printw("\n%s ist falsch!\n", ccFeldname);
+            printw("\n\t\t\t\t %s ist zu lang!\n", ccFeldname);
             break;
     }
 }

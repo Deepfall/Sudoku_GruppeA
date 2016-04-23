@@ -5,7 +5,7 @@ Klasse                  : FA11
 Programmname            : spielmenue.c
 Datum                   : 18.04.2016
 Beschreibung            : Eine Sammlung der im Projekt verwendeteten
-Spielmenues.
+                          Spielmenues.
 Version                 : 1.0
 Compiler                : Visual Studio 2012
 */
@@ -20,8 +20,8 @@ Funktion Loginmenue()
 Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           Erstellt das Menue fuer das Einloggen eines Benutzers.
-Dafuer muessen der Nickname und das Passwort eingegeben
-werden.
+                        Dafuer muessen der Nickname und das Passwort eingegeben
+                        werden.
 *******************************************************************************/
 void Loginmenue(void)
 {
@@ -82,8 +82,8 @@ Funktion Registrierungsmenue()
 Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           Erstellt das Menue fuer die Registrierung eines neuen
-Benutzers. Fuer die Registrierung werden ein Nachname,
-Vorname, Nickname und ein Passwort benoetigt.
+                        Benutzers. Fuer die Registrierung werden ein Nachname,
+                        Vorname, Nickname und ein Passwort benoetigt.
 *******************************************************************************/
 void Registrierungsmenue(void)
 {
@@ -242,7 +242,7 @@ Funktion HighscoreSchwierigkeitsStufenMenue()
 Uebergabe Parameter:    -
 Rueckgabe:              -
 Beschreibung:           Erstellt das Menue fuer die 3 Schwierigkeitsstufen zur
-Auwahl der anzuzeigenden Highscore.
+                        Auwahl der anzuzeigenden Highscores.
 *******************************************************************************/
 void HighscoreSchwierigkeitsStufenMenue(void)
 {
@@ -351,7 +351,7 @@ void SpielGewonnenMenue(char cZeit[])
 {
     noecho(); // Benutzereingabe versetecken
     curs_set(0); // Cursor unsichtbar machen
-    timeout(-1);
+    timeout(-1); // Timeout deaktivieren
     clear(); // Bildschirm leeren
 
     printw("\n\t\t============================================\n\n");
@@ -427,9 +427,11 @@ void Startmenue(void)
 
 /*******************************************************************************
 Funktion InBestenlisteEintragenDialog()
-Uebergabe Parameter:    iSchwierigkeit, ccNickname, cZeit[]
+Uebergabe Parameter:    iSchwierigkeit, ccNickname[], cZeit[]
 Rueckgabe:              -
-Beschreibung:
+Beschreibung:           Erstellt das Menue zur Abrfage eines eingeloggten 
+                        Spielers, ob dieser sich in die Bestenliste eintragen
+                        lassen moechte.
 *******************************************************************************/
 void InBestenlisteEintragenDialog(int iSchwierigkeit, const char ccNickname[],
     char cZeit[])
@@ -441,8 +443,8 @@ void InBestenlisteEintragenDialog(int iSchwierigkeit, const char ccNickname[],
     clear(); // Bildschirm leeren
 
              // Ausgabe des Menues fuer die Schwierigkeitsstufen
-    printw("\n\t\t\t\tS U D O K U\n\n");
-    printw("\t\t\t\t(C) HHBK Tendo Research Center\n\n");
+    printw("\n\n\t\t\t\t\t\tS U D O K U\n\n");
+    printw("\t\t\t\t\t     H I G H S C O R E\n\n");
     printw("\t\t\t\t============================================\n");
     printw("\t\t\t\t   Wollen Sie sich in die Bestenliste eintragen?\n\n");
     printw("\t\t\t\t   [J] Ja\n\n");

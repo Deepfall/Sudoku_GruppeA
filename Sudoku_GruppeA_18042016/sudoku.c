@@ -38,13 +38,16 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
     char cZeit[20];
     timeout(33);
 
+    // Erstellen der einzelnen Fenster
     spielfeldFenster = ErstelleNeuesSpielfeldFenster();
     infoFenster = ErstelleNeuesInfoFenster();
     kommandoFenster = ErstelleNeuesKommandoFenster();
 
+    // Initialisierung vom Cursor sowie die Befuellung des Sudoku-Feldes
     InitialisiereCursor(&cursor);
     BefuelleSpielfelder(spielfelder, iSchwierigkeit);
 
+    // Zeichnen der einzelnen Fenster
     ZeichneSpielfeld(spielfeldFenster);
     ZeichneSpielfelder(spielfeldFenster, spielfelder);
     ZeichneInfo(infoFenster);
@@ -52,9 +55,11 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
 
     time(&Startzeit);
 
+    // Loesungsanzeige oder ein geloestes Spiel als Abbruchbedingung
     while(!iSpielGeloest
           && (iGedrueckteTaste != 'L' && iGedrueckteTaste != 'l'))
     {
+        // Entgegennehmen und verarbeiten der gedrueckten Tasten
         iGedrueckteTaste = VerarbeiteEingabe(spielfelder, &cursor,
                                              &iStrafSekunden,
                                              &iAnzahlHilfeGenutzt);
@@ -64,8 +69,11 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
 
         doupdate();
 
+        // Ueberpruefung, ob das Sudoku komplett ausgefuellt ist
         if(AlleFelderGefuellt(spielfelder))
         {
+            /* Ueberpruefung, ob das ausgefuellte Sudoku mit der Loesung
+            uebereinstimmt */
             if(!PruefeFelderManuell(spielfelder))
             {
                 BerechneVerstricheneZeit(cZeit, Startzeit, iStrafSekunden);
@@ -81,6 +89,8 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
             }
             else
             {
+                /* Hinweis, dass sich ein Fehler im 
+                ausgefuellten Sudoku befindet */
                 mvwprintw(kommandoFenster, 5, 0,"Im Sudoku befindet");
                 mvwprintw(kommandoFenster, 6, 0, "sich ein Fehler!");
                 wnoutrefresh(kommandoFenster);
@@ -88,13 +98,14 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
         }
     }
 
-    timeout(-1);
+    timeout(-1); // Timeout deaktivieren
 
     if(!iSpielGeloest)
     {
         ZeichneLoesung(spielfeldFenster, spielfelder);
     }
 
+    // Schlieﬂen der zuvor erstellten Fenster
     delwin(infoFenster);
     delwin(spielfeldFenster);
     delwin(kommandoFenster);
@@ -146,7 +157,7 @@ WINDOW *ErstelleNeuesKommandoFenster(void)
 /*******************************************************************************
 Funktion ZeichneSpielfeld()
 Uebergabe Parameter:    *spielfeldFenster
-Rueckgabe:              *spielfeldFenster
+Rueckgabe:              -
 Beschreibung:           Gibt das Spielfeld im uebergebenen Fenster aus.
 *******************************************************************************/
 void ZeichneSpielfeld(WINDOW *spielfeldFenster)
@@ -285,7 +296,7 @@ Funktion ZeichneLoesung()
 Uebergabe Parameter:    *spielfeldFenster, spielfelder[]
 Rueckgabe:              *spielfeldFenster, spielfelder[]
 Beschreibung:           Gibt die Loesung der Spielfelder im uebergebenen 
-Fenster aus.
+                        Fenster aus.
 *******************************************************************************/
 void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
 {

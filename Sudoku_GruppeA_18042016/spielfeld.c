@@ -18,7 +18,7 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktion BefuelleSpielfelder()
 Uebergabe Parameter:    spielfelder[], iSchwierigkeit
-Rueckgabe:              spielfelder[]
+Rueckgabe:              -
 Beschreibung:           Befuellt die Spielfelder mit Werten aus der Datenbank
                         und speichert die Loesungen und Vorbelegungen in der
                         Struktur.
@@ -68,7 +68,7 @@ void BefuelleSpielfelder(SUDOKUFELD spielfelder[], int iSchwierigkeit)
 /*******************************************************************************
 Funktion SchreibeZahlInFeld()
 Uebergabe Parameter:    *sudokufeld
-Rueckgabe:              *sudokufeld
+Rueckgabe:              -
 Beschreibung:           Schreibt eine Zahl an die aktuelle Cursorpostition und
                         speichert diese im Feld.
 *******************************************************************************/
@@ -84,7 +84,7 @@ void SchreibeZahlInFeld(SUDOKUFELD *sudokufeld, CURSOR cursor, int iZahl)
 /*******************************************************************************
 Funktion ()
 Uebergabe Parameter:    *sudokufeld, cursor
-Rueckgabe:              *sudokufeld
+Rueckgabe:              -
 Beschreibung:           Loescht die Zahl an der aktuellen Cursorposition und
                         setzt das Feld auf 0.
 *******************************************************************************/
@@ -127,7 +127,7 @@ void HilfeBenutzen(CURSOR cursor, SUDOKUFELD sudokufelder[],
 /*******************************************************************************
 Funktion PruefeFelderManuell()
 Uebergabe Parameter:    sudokufelder[]
-Rueckgabe:              sudokufelder[]
+Rueckgabe:              iFlag
 Beschreibung:           
 *******************************************************************************/
 int PruefeFelderManuell(SUDOKUFELD sudokufelder[])
@@ -148,7 +148,8 @@ int PruefeFelderManuell(SUDOKUFELD sudokufelder[])
 /*******************************************************************************
 Funktion AlleFelderGefuellt()
 Uebergabe Parameter:    sudokufelder[]
-Rueckgabe:              sudokufelder[]
+Rueckgabe:              TRUE - Alle Felder sind gefuellt
+                        FALSE - Mindestens 1 Feld ist noch nicht gefuellt
 Beschreibung:           
 *******************************************************************************/
 int AlleFelderGefuellt(SUDOKUFELD sudokufelder[]) 

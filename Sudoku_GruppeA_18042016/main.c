@@ -34,11 +34,8 @@ int main(void)
     initscr();
 
     // Starte Farbmodus
-    start_color();
-
-    cbreak(); // evtl noch rauspacken
-    noecho(); // evtl noch rauspacken
-
+    start_color(); 
+    
     // Aktiviere Tasten wie "Esc", "Entf" und F-Tasten
     keypad(stdscr, TRUE);
 
