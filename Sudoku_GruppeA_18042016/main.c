@@ -16,7 +16,9 @@ Praeprozessoranweisungen
 #define _CRT_SECURE_NO_DEPRECATE    1
 
 #include <stdlib.h>
+#pragma warning(push, 0)
 #include <curses.h>
+#pragma warning(pop)
 #include "allgemeineDefines.h"
 #include "spielmenue.h"
 

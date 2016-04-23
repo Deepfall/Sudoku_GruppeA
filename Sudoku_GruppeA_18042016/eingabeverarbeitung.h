@@ -16,7 +16,9 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
+#pragma warning(push, 0)
 #include <curses.h>
+#pragma warning(pop)
 #include "cursor.h"
 #include "spielfeld.h"
 #include "spielmenue.h"

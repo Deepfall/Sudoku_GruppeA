@@ -52,7 +52,7 @@ int GeneriereZufallszahlReichweite(int iMinimum, int iMaximum)
     int iZufallszahl;
 
     // Salz streuen
-    srand(time(NULL));
+    srand((unsigned int) time(NULL));
 
     // Berechnen einer Zufallszahl zwischen iMinimum und iMaximum
     iZufallszahl = rand() % (iMaximum - iMinimum + 1) + iMinimum;

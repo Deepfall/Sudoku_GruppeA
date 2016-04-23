@@ -17,7 +17,9 @@ Praeprozessoranweisungen
 *******************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
+#pragma warning(push, 0)
 #include <curses.h>
+#pragma warning(pop)
 #include <string.h>
 #include "spielfeld.h"
 #include "eingabeverarbeitung.h"

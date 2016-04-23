@@ -26,7 +26,7 @@ werden.
 void Loginmenue(void)
 {
     char cNickname[TEXTLAENGE] = "", cPasswort[TEXTLAENGE] = "";
-    int iRueckgabe = -1, iKorrekt = -1;
+    int iRueckgabe = -1;
 
     curs_set(1); // Cursor sichtbar machen
     echo(); // Benutzereingabe anzeigen lassen 
@@ -196,7 +196,7 @@ Beschreibung:           Erstellt das Menue fuer die 3 Schwierigkeitsstufen.
 *******************************************************************************/
 void Schwierigkeitsstufenmenue(const char ccNickname[])
 {
-    char cEingabe = -1, cFalscheEingabe = TRUE;
+    int iEingabe = -1, cFalscheEingabe = TRUE;
 
     // Abfangen der unerwuenschten Buchstaben
     while (cFalscheEingabe)
@@ -214,9 +214,9 @@ void Schwierigkeitsstufenmenue(const char ccNickname[])
 
         refresh();
 
-        cEingabe = getch();
+        iEingabe = getch();
 
-        switch (cEingabe)
+        switch(iEingabe)
         {
         case 'L':
         case 'l':
@@ -244,9 +244,9 @@ Rueckgabe:              -
 Beschreibung:           Erstellt das Menue fuer die 3 Schwierigkeitsstufen zur
 Auwahl der anzuzeigenden Highscore.
 *******************************************************************************/
-void HighscoreSchwierigkeitsStufenMenue()
+void HighscoreSchwierigkeitsStufenMenue(void)
 {
-    char cEingabe = -1, cFalscheEingabe = TRUE;
+    int iEingabe = -1, cFalscheEingabe = TRUE;
 
     // Abfangen der unerwuenschten Buchstaben
     while (cFalscheEingabe)
@@ -265,9 +265,9 @@ void HighscoreSchwierigkeitsStufenMenue()
 
         refresh();
 
-        cEingabe = getch();
+        iEingabe = getch();
 
-        switch (cEingabe)
+        switch(iEingabe)
         {
         case 'L':
         case 'l':
@@ -296,10 +296,10 @@ Beschreibung:           Erstellt das Spielmenue.
 *******************************************************************************/
 void Spielmenue(char cNickname[])
 {
-    char cEingabe = -1;
+    int iEingabe = -1;
 
     // Abfangen der unerwuenschten Buchstaben
-    while (cEingabe != 'L' && cEingabe != 'l')
+    while(iEingabe != 'L' && iEingabe != 'l')
     {
         noecho(); // Benutzereingabe versetecken
         curs_set(0); // Cursor unsichtbar machen
@@ -316,9 +316,9 @@ void Spielmenue(char cNickname[])
 
         refresh();
 
-        cEingabe = getch();
+        iEingabe = getch();
 
-        switch (cEingabe)
+        switch(iEingabe)
         {
         case 'N':
         case 'n':
@@ -381,10 +381,10 @@ Beschreibung:           Erstellt das Startmenue.
 *******************************************************************************/
 void Startmenue(void)
 {
-    char cEingabe = -1;
+    int iEingabe = -1;
 
     // Abfangen der unerwuenschten Buchstaben
-    while (cEingabe != 'X' && cEingabe != 'x')
+    while(iEingabe != 'X' && iEingabe != 'x')
     {
         noecho(); // Benutzereingabe versetecken
         curs_set(0); // Cursor unsichtbar machen
@@ -402,9 +402,9 @@ void Startmenue(void)
 
         refresh();
 
-        cEingabe = getch();
+        iEingabe = getch();
 
-        switch (cEingabe)
+        switch(iEingabe)
         {
         case 'E':
         case 'e':
@@ -434,8 +434,7 @@ Beschreibung:
 void InBestenlisteEintragenDialog(int iSchwierigkeit, const char ccNickname[],
     char cZeit[])
 {
-    char cEingabe = -1, cFalscheEingabe = TRUE;
-    int iAntwort = -1;
+    int iEingabe = -1, cFalscheEingabe = TRUE;
 
     noecho(); // Benutzereingabe versetecken
     curs_set(0); // Cursor unsichtbar machen
@@ -455,9 +454,9 @@ void InBestenlisteEintragenDialog(int iSchwierigkeit, const char ccNickname[],
     // Abfangen der unerwuenschten Buchstaben
     while (cFalscheEingabe)
     {
-        cEingabe = getch();
+        iEingabe = getch();
 
-        switch (cEingabe)
+        switch(iEingabe)
         {
         case 'J':
         case 'j':

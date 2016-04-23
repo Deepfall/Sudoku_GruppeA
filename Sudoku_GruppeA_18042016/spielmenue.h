@@ -18,7 +18,9 @@ Praeprozessoranweisungen
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#pragma warning(push, 0)
 #include <curses.h>
+#pragma warning(pop)
 #include "datenbankanbindung.h"
 #include "sudoku.h"
 #include "allgemeineDefines.h"
@@ -34,9 +36,9 @@ Praeprozessoranweisungen
 Funktionsprototypen
 *******************************************************************************/
 void Startmenue(void);
-void Spielmenue(const char Nickname[]);
+void Spielmenue(char cNickname[]);
 void Schwierigkeitsstufenmenue(const char ccNickname[]);
-void HighscoreSchwierigkeitsStufenMenue();
+void HighscoreSchwierigkeitsStufenMenue(void);
 void Loginmenue(void);
 void Registrierungsmenue(void);
 void SpielGewonnenMenue(char cZeit[]);

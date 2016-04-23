@@ -15,7 +15,11 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
+#define _CRT_SECURE_NO_DEPRECATE    1
+
+#pragma warning(push, 0)
 #include <curses.h>
+#pragma warning(pop)
 #include "cursor.h"
 #include "datenbankanbindung.h"
 #include "allgemeineDefines.h"

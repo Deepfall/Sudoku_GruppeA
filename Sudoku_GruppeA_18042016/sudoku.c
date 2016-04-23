@@ -13,6 +13,8 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
+#define _CRT_SECURE_NO_DEPRECATE    1
+
 #include "sudoku.h"
 
 /*******************************************************************************
@@ -32,7 +34,7 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
                       CURSOR_START_ZEILE, CURSOR_START_SPALTE };
     time_t Startzeit;
     int iGedrueckteTaste = -1, iStrafSekunden = 0, iAnzahlHilfeGenutzt = 0;
-    int i = 0, iSpielGeloest = FALSE;
+    int iSpielGeloest = FALSE;
     char cZeit[20];
     timeout(33);
 

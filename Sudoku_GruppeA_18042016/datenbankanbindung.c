@@ -148,7 +148,7 @@ int HighscoreEintragen(int iSchwierigkeit, const char ccNickname[],
                        char cZeit[])
 {
     int iRueckgabe;
-    char *sql, *cErrMsg, *cSchwierigkeit;
+    char *sql, *cErrMsg, *cSchwierigkeit = "";
     sqlite3 *db_handle;
 
     DatenbankOeffnen(&db_handle);

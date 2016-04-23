@@ -15,14 +15,14 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
-#include <stdio.h>
-#include <stdlib.h>
+#define _CRT_SECURE_NO_DEPRECATE    1
+
 #include <string.h>
-#include <time.h>
+#pragma warning(push, 0)
 #include <curses.h>
 #include "sqlite3.h"
+#pragma warning(pop)
 #include "helpers.h"
-#include "spielfeld.h"
 
 #define TEXTLAENGE                 20
 #define DATENBANK_SUDOKU  "Sudoku.db"
@@ -37,10 +37,6 @@ int SudokuBereitstellen(char cSudoku[], char cLoesung[], int iSchwierigkeit);
 int HighscoreAusgeben(int iSchwierigkeit);
 int HighscoreEintragen(int iSchwierigkeit, const char ccNickname[],
                        char cZeit[]);
-int loginDatenGefuellt(char *cNickname, char *cPasswort);
-int felderGefuellt(char *cNachname, char *cVorname,
-                   char *cNickname, char *cPasswort);
-int SudokuBereitstellen(char *cSudoku, char *cLoesung, int iSchwierigkeit);
 void DatenbankOeffnen(sqlite3 **db_handle);
 
 #endif

@@ -85,7 +85,6 @@
     <ClInclude Include="spielfeld.h" />
     <ClInclude Include="spielmenue.h" />
     <ClInclude Include="sqlite3.h" />
-    <ClInclude Include="sqlite3ext.h" />
     <ClInclude Include="sudoku.h" />
     <ClInclude Include="zeitmessung.h" />
   </ItemGroup>
