@@ -229,13 +229,11 @@ int HighscoreAusgeben(int iSchwierigkeit)
 
     clear();
 
-    printw("\n");
-    printw("\t\t\t\tS U D O K U\n\n");
-    printw("\t\t\t     H I G H S C O R E\n\n");
-    printw("\t\t\t\t  (%s)\n\n", cSchwierigkeit);
-    printw("\t\t\t(C) HHBK Tendo Research Center\n\n");
-    printw("\t\t============================================\n\n");
-    printw("\t\t%4s\t%-20s\t%-8s\n\n", "Rang", "Nickname", "Zeit");
+    printw("\n\n\t\t\t\t\t\tS U D O K U\n\n");
+    printw("\t\t\t\t\t     H I G H S C O R E\n\n");
+    printw("\t\t\t\t\t\t  (%s)\n\n", cSchwierigkeit);
+    printw("\t\t\t\t============================================\n\n");
+    printw("\t\t\t\t  %4s\t%-20s\t%-8s\n\n", "Rang", "Nickname", "Zeit");
 
     while(sqlite3_step(stmt) == SQLITE_ROW)
     {
@@ -245,7 +243,7 @@ int HighscoreAusgeben(int iSchwierigkeit)
 
             if(iSpalte % 2 == 0)
             {
-                printw("\t\t%4d\t%-20s", iZaehler++, data);
+                printw("\t\t\t\t  %4d\t%-20s", iZaehler++, data);
             }
             else
             {
@@ -254,8 +252,8 @@ int HighscoreAusgeben(int iSchwierigkeit)
         }
     }
 
-    printw("\t\t============================================\n\n");
-    printw("\t<Zum Fortfahren eine beliebige Taste druecken>");
+    printw("\t\t\t\t============================================\n\n");
+    printw("\t\t\t\t<Zum Fortfahren eine beliebige Taste druecken>");
     
     getch();
     refresh();

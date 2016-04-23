@@ -255,8 +255,8 @@ void HighscoreSchwierigkeitsStufenMenue(void)
         clear(); // Bildschirm leeren
 
                  // Ausgabe des Menues fuer die Schwierigkeitsstufen
-        printw("\n\t\t\t\tS U D O K U\n\n");
-        printw("\t\t\t\t(C) HHBK Tendo Research Center\n\n");
+        printw("\n\n\t\t\t\t\t\tS U D O K U\n\n");
+        printw("\t\t\t\t\t     H I G H S C O R E\n\n");
         printw("\t\t\t\t============================================\n\n");
         printw("\t\t\t\t   [L] Leicht\n\n");
         printw("\t\t\t\t   [M] Mittel\n\n");
