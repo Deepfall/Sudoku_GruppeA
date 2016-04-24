@@ -2,7 +2,7 @@
 Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
                           Jennifer Hermanns
 Klasse                  : FA11
-Programmname            : sudoku.c
+Programmname            : spielfeld.c
 Datum                   : 18.04.2016
 Beschreibung            : Dieses Modul enthaelt alle Funktionen die mit dem
                           Spielfeld zu tun haben.

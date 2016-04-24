@@ -18,7 +18,7 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktion BerechneVerstricheneZeit()
 Uebergabe Parameter:    cVerstricheneZeit[], Startzeit, iStrafSekunden
-Rueckgabe:              cVerstricheneZeit[]
+Rueckgabe:              -
 Beschreibung:           Berechnet die Differenz zwischen der aktuellen Zeit und
                         der Startzeit und addiert anschliessend die Strafzeit.
                         Speichert diese formatiert in cVerstricheneZeit[].
@@ -40,7 +40,7 @@ void BerechneVerstricheneZeit(char cVerstricheneZeit[], time_t Startzeit,
 /*******************************************************************************
 Funktion SchreibeFormatierteZeit()
 Uebergabe Parameter:    cFormatierteZeit[], int iVerstricheneSekunden
-Rueckgabe:              cFormatierteZeit[]
+Rueckgabe:              -
 Beschreibung:           Formatiert Sekunden in das Format HH:MM:SS und speichert
                         es in cFormatierteZeit[].
 *******************************************************************************/

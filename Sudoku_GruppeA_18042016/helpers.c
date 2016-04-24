@@ -161,7 +161,7 @@ void SpielregelnAnzeigen(void)
 /*******************************************************************************
 Funktion AusgabeAbsoulterPfad()
 Uebergabe Parameter:    cAusgabe[], ccDateiname[]
-Rueckgabe:              cAusgabe[]
+Rueckgabe:              -
 Beschreibung:           Ausgeben des absoulten Dateipfades einer Datei, um zu
                         gewaehrleisten, dass diese relativ zur EXE-Datei aus
                         geoeffnet werden kann.

@@ -245,7 +245,7 @@ void ZeichneSpielfeld(WINDOW *spielfeldFenster)
 /*******************************************************************************
 Funktion ZeichneSpielfelder()
 Uebergabe Parameter:    *spielfeldFenster, spielfelder[]
-Rueckgabe:              *spielfeldFenster, spielfelder[]
+Rueckgabe:              -
 Beschreibung:           Gibt die Spielfelder im uebergebenen Fenster aus.
 *******************************************************************************/
 void ZeichneSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
@@ -294,7 +294,7 @@ void ZeichneSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
 /*******************************************************************************
 Funktion ZeichneLoesung()
 Uebergabe Parameter:    *spielfeldFenster, spielfelder[]
-Rueckgabe:              *spielfeldFenster, spielfelder[]
+Rueckgabe:              -
 Beschreibung:           Gibt die Loesung der Spielfelder im uebergebenen 
                         Fenster aus.
 *******************************************************************************/

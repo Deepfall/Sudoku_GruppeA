@@ -1,6 +1,6 @@
 /*
 Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
-Jennifer Hermanns
+                          Jennifer Hermanns
 Klasse                  : FA11
 Programmname            : spielmenue.c
 Datum                   : 18.04.2016
