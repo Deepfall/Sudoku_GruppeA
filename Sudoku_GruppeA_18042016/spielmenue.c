@@ -311,7 +311,7 @@ void Spielmenue(char cNickname[])
         printw("\t\t\t\t   [N] Neues Spiel\n\n");
         printw("\t\t\t\t   [R] Spielregeln\n\n");
         printw("\t\t\t\t   [B] Bestenliste\n\n");
-        printw("\t\t\t\t   [L] Logout\n\n");
+        printw("\t\t\t\t   [L] Logout/ Verlassen\n\n");
         printw("\t\t\t\t============================================");
 
         refresh();
@@ -354,21 +354,21 @@ void SpielGewonnenMenue(char cZeit[])
     timeout(-1); // Timeout deaktivieren
     clear(); // Bildschirm leeren
 
-    printw("\n\t\t============================================\n\n");
-    printw("                  ,---.o         |         |              \n");
-    printw("                  `---..,---.    |---.,---.|---.,---.,---.\n");
-    printw("                      |||---'    |   |,---||   ||---'|   |\n");
-    printw("                  `---'``---'    `   '`---^`---'`---'`   '\n");
-    printw("                                                          \n");
-    printw("                                                          \n");
-    printw("                                                          \n");
-    printw("                  ,---.,---.. . .,---.,---.,---.,---.,---.\n");
-    printw("                  |   ||---'| | ||   ||   ||   ||---'|   |\n");
-    printw("                  `---|`---'`-'-'`---'`   '`   '`---'`   '\n");
-    printw("                  `---'                                   \n");
+    printw("\n\t\t\t\t============================================\n\n");
+    printw("\t\t\t          ,---.o         |         |              \n");
+    printw("\t\t\t          `---..,---.    |---.,---.|---.,---.,---.\n");
+    printw("\t\t\t              |||---'    |   |,---||   ||---'|   |\n");
+    printw("\t\t\t          `---'``---'    `   '`---^`---'`---'`   '\n");
+    printw("\t\t\t                                                  \n");
+    printw("\t\t\t                                                  \n");
+    printw("\t\t\t                                                  \n");
+    printw("\t\t\t          ,---.,---.. . .,---.,---.,---.,---.,---.\n");
+    printw("\t\t\t          |   ||---'| | ||   ||   ||   ||---'|   |\n");
+    printw("\t\t\t          `---|`---'`-'-'`---'`   '`   '`---'`   '\n");
+    printw("\t\t\t          `---'                                   \n");
     printw("\n\n\n");
-    printw("                       Deine Zeit betraegt : %s\n", cZeit);
-    printw("\t\t============================================\n\n");
+    printw("\t\t\t               Deine Zeit betraegt : %s\n", cZeit);
+    printw("\t\t\t\t============================================\n\n");
 
     getch();
 }
