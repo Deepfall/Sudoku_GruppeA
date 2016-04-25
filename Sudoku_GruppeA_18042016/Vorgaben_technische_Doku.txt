@@ -10,6 +10,7 @@
 - Globale variablen
 - Genutzte Strukturen
 - Genutzte Defines
+- Aufbau der Datenbank 
 - Alle Funktionen:
     - Überschrift
     - In / Out

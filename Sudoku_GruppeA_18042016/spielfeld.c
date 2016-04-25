@@ -127,22 +127,25 @@ void HilfeBenutzen(CURSOR cursor, SUDOKUFELD sudokufelder[],
 /*******************************************************************************
 Funktion PruefeFelderManuell()
 Uebergabe Parameter:    sudokufelder[]
-Rueckgabe:              iFlag
-Beschreibung:           
+Rueckgabe:              TRUE - Feld stimmt nicht mit Loesung ueberein
+                        FALSE - Feld stimmt mit Loesung ueberein
+Beschreibung:           Ueberprueft, ob das Feld mit der Loesung uebereinstimmt.
+                        Wenn dies nicht der Fall ist, gibt die Funktion TRUE
+                        zurueck.
 *******************************************************************************/
 int PruefeFelderManuell(SUDOKUFELD sudokufelder[])
 {
-    int iFlag = 0, i;
+    int i;
 
     for(i = 0; i < ANZAHL_SPIELFELDER; i++)
     {
         if(sudokufelder[i].iWert != sudokufelder[i].iLoesung)
         {
-            iFlag = 1;
+            return TRUE;
         }
     }
 
-    return iFlag;
+    return FALSE;
 }
 
 /*******************************************************************************
@@ -150,7 +153,7 @@ Funktion AlleFelderGefuellt()
 Uebergabe Parameter:    sudokufelder[]
 Rueckgabe:              TRUE - Alle Felder sind gefuellt
                         FALSE - Mindestens 1 Feld ist noch nicht gefuellt
-Beschreibung:           
+Beschreibung:           Ueberprueft, ob alle Felder gefuellt sind.
 *******************************************************************************/
 int AlleFelderGefuellt(SUDOKUFELD sudokufelder[]) 
 {
