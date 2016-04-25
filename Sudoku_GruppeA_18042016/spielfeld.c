@@ -82,7 +82,7 @@ void SchreibeZahlInFeld(SUDOKUFELD *sudokufeld, CURSOR cursor, int iZahl)
 }
 
 /*******************************************************************************
-Funktion ()
+Funktion LoescheZahlAusFeld()
 Uebergabe Parameter:    *sudokufeld, cursor
 Rueckgabe:              -
 Beschreibung:           Loescht die Zahl an der aktuellen Cursorposition und

@@ -21,7 +21,7 @@ Uebergabe Parameter:    iSchwierigkeit, ccNickname[]
 Rueckgabe:              -
 Beschreibung:           Startet ein neues Spiel und initialisiert die dafuer
                         notwendigen Komponenten.
-                        Verarbeitet in einer dauerschleife die Benutzereingaben.
+                        Verarbeitet in einer Dauerschleife die Benutzereingaben.
                         Verwaltet die Spielelemente.
 *******************************************************************************/
 void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
@@ -110,19 +110,7 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
     clear();
 }
 
-/*******************************************************************************
-Funktion ErstelleNeuesSpielfeldFenster()
-Uebergabe Parameter:    -
-Rueckgabe:              *spielfeldFenster
-Beschreibung:           Erstellt ein neues Fenster fuer das Spielfeld.
-*******************************************************************************/
-WINDOW *ErstelleNeuesSpielfeldFenster(void)
-{
-    int iHoehe = 38, iBreite = 78, iPositionY = 1, iPositionX = 1;
-    WINDOW *spielfeldFenster = newwin(iHoehe, iBreite, iPositionY, iPositionX);
 
-    return spielfeldFenster;
-}
 
 /*******************************************************************************
 Funktion ErstelleNeuesInfoFenster()
@@ -136,6 +124,20 @@ WINDOW *ErstelleNeuesInfoFenster(void)
     WINDOW *infoFenster = newwin(iHoehe, iBreite, iPositionY, iPositionX);
 
     return infoFenster;
+}
+
+/*******************************************************************************
+Funktion ErstelleNeuesSpielfeldFenster()
+Uebergabe Parameter:    -
+Rueckgabe:              *spielfeldFenster
+Beschreibung:           Erstellt ein neues Fenster fuer das Spielfeld.
+*******************************************************************************/
+WINDOW *ErstelleNeuesSpielfeldFenster(void)
+{
+    int iHoehe = 38, iBreite = 78, iPositionY = 1, iPositionX = 1;
+    WINDOW *spielfeldFenster = newwin(iHoehe, iBreite, iPositionY, iPositionX);
+
+    return spielfeldFenster;
 }
 
 /*******************************************************************************
@@ -335,7 +337,7 @@ void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
 /*******************************************************************************
 Funktion ZeichneInfo()
 Uebergabe Parameter:    *infoFenster
-Rueckgabe:              *infoFenster
+Rueckgabe:              -
 Beschreibung:           Gibt die Informationen zum Spiel im uebergebenen
                         Fenster aus.
 *******************************************************************************/
@@ -352,7 +354,7 @@ void ZeichneInfo(WINDOW *infoFenster)
 /*******************************************************************************
 Funktion ZeichneKommandos()
 Uebergabe Parameter:    *kommandoFenster
-Rueckgabe:              *kommandoFenster
+Rueckgabe:              -
 Beschreibung:           Gibt die waehrend des Spiels verfuegbaren Kommandos 
                         im uebergebenen Fenster aus.
 *******************************************************************************/
@@ -370,7 +372,7 @@ void ZeichneKommandos(WINDOW *kommandoFenster)
 /*******************************************************************************
 Funktion ZeichneVerstricheneZeit()
 Uebergabe Parameter:    *infoFenster, Startzeit, iStrafSekunden
-Rueckgabe:              *infoFenster
+Rueckgabe:              -
 Beschreibung:           Gibt die waehrend des Spiels verstrichene Zeit im
                         uebergebenen Fenster aus.
 *******************************************************************************/
@@ -390,7 +392,7 @@ void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit,
 /*******************************************************************************
 Funktion ZeichneAnzahlGenutzterHilfe()
 Uebergabe Parameter:    *infoFenster, iAnzahlGenutzterHilfe
-Rueckgabe:              *infoFenster
+Rueckgabe:              -
 Beschreibung:           Gibt die Anzahl der waehrend des Spiels genutzte Hilfe
                         im uebergebenen Fenster aus.
 *******************************************************************************/

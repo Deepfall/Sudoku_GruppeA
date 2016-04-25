@@ -16,6 +16,217 @@ Praeprozessoranweisungen
 #include "spielmenue.h"
 
 /*******************************************************************************
+Funktion Startmenue()
+Uebergabe Parameter:    -
+Rueckgabe:              -
+Beschreibung:           Erstellt das Startmenue, welches als erstes erscheint,
+                        wenn das Programm gestartet wird. Von diesem aus kann
+                        der Spieler sich einloggen, registrieren, direkt in das
+                        Spielmenue navigieren oder das Programm beenden.
+*******************************************************************************/
+void Startmenue(void)
+{
+    int iEingabe = -1;
+
+    // Abfangen der unerwuenschten Buchstaben
+    while(iEingabe != 'X' && iEingabe != 'x')
+    {
+        noecho(); // Benutzereingabe versetecken
+        curs_set(0); // Cursor unsichtbar machen
+        clear(); // Bildschirm leeren
+
+                 // Ausgabe des Startmenues
+        printw("\n\t\t\t\t\t\tS U D O K U\n\n");
+        printw("\t\t\t\t\t(C) HHBK Tendo Research Center\n\n");
+        printw("\t\t\t\t============================================\n\n");
+        printw("\t\t\t\t   [E] Einloggen\n\n");
+        printw("\t\t\t\t   [N] Nicht einloggen\n\n");
+        printw("\t\t\t\t   [R] Registrieren\n\n");
+        printw("\t\t\t\t   [X] Beenden\n\n");
+        printw("\t\t\t\t============================================");
+
+        refresh();
+
+        iEingabe = getch();
+
+        switch(iEingabe)
+        {
+        case 'E':
+        case 'e':
+            Loginmenue();
+            break;
+        case 'N':
+        case 'n':
+            Spielmenue("");
+            break;
+        case 'R':
+        case 'r':
+            Registrierungsmenue();
+            break;
+        case 'X':
+        case 'x':
+            break;
+        }
+    }
+}
+
+/*******************************************************************************
+Funktion Spielmenue()
+Uebergabe Parameter:    cNickname
+Rueckgabe:              -
+Beschreibung:           Erstellt das Spielmenue von dem der Spieler sich zu 
+                        einer neuen Spielrunde, der Bestenliste, den Regeln oder
+                        zurueck zum Startmenue navigieren kann.
+*******************************************************************************/
+void Spielmenue(char cNickname[])
+{
+    int iEingabe = -1;
+
+    // Abfangen der unerwuenschten Buchstaben
+    while(iEingabe != 'L' && iEingabe != 'l')
+    {
+        noecho(); // Benutzereingabe versetecken
+        curs_set(0); // Cursor unsichtbar machen
+        clear(); // Bildschirm leeren
+
+                 // Ausgabe des Spielmenues
+        printw("\n\n\n\t\t\t\t\t\tSpielmenue\n\n");
+        printw("\t\t\t\t============================================\n\n");
+        printw("\t\t\t\t   [N] Neues Spiel\n\n");
+        printw("\t\t\t\t   [R] Spielregeln\n\n");
+        printw("\t\t\t\t   [B] Bestenliste\n\n");
+        printw("\t\t\t\t   [L] Logout / Verlassen\n\n");
+        printw("\t\t\t\t============================================");
+
+        refresh();
+
+        iEingabe = getch();
+
+        switch(iEingabe)
+        {
+        case 'N':
+        case 'n':
+            Schwierigkeitsstufenmenue(cNickname);
+            break;
+        case 'R':
+        case 'r':
+            SpielregelnAnzeigen();
+            break;
+        case 'B':
+        case 'b':
+            HighscoreSchwierigkeitsStufenMenue();
+            break;
+        case 'L':
+        case 'l':
+            cNickname = NULL;
+            // Schleife bricht ab
+            break;
+        }
+    }
+}
+
+/*******************************************************************************
+Funktion Schwierigkeitsstufenmenue()
+Uebergabe Parameter:    ccNickname[]
+Rueckgabe:              -
+Beschreibung:           Erstellt das Menue fuer die 3 Schwierigkeitsstufen
+                        eines Sudokus.
+*******************************************************************************/
+void Schwierigkeitsstufenmenue(const char ccNickname[])
+{
+    int iEingabe = -1, cFalscheEingabe = TRUE;
+
+    // Abfangen der unerwuenschten Buchstaben
+    while (cFalscheEingabe)
+    {
+        curs_set(0); // Cursor unsichtbar machen
+        clear(); // Bildschirm leeren
+
+                 // Ausgabe des Menues fuer die Schwierigkeitsstufen
+        printw("\n\n\n\t\t\t\t\t     Schwierigkeitsstufe\n\n");
+        printw("\t\t\t\t============================================\n\n");
+        printw("\t\t\t\t   [L] Leicht\n\n");
+        printw("\t\t\t\t   [M] Mittel\n\n");
+        printw("\t\t\t\t   [S] Schwer\n\n");
+        printw("\t\t\t\t============================================");
+
+        refresh();
+
+        iEingabe = getch();
+
+        switch(iEingabe)
+        {
+        case 'L':
+        case 'l':
+            NeuesSpiel(1, ccNickname);
+            cFalscheEingabe = FALSE;
+            break;
+        case 'M':
+        case 'm':
+            NeuesSpiel(2, ccNickname);
+            cFalscheEingabe = FALSE;
+            break;
+        case 'S':
+        case 's':
+            NeuesSpiel(3, ccNickname);
+            cFalscheEingabe = FALSE;
+            break;
+        }
+    }
+}
+
+/*******************************************************************************
+Funktion HighscoreSchwierigkeitsStufenMenue()
+Uebergabe Parameter:    -
+Rueckgabe:              -
+Beschreibung:           Erstellt das Menue fuer die 3 Schwierigkeitsstufen zur
+                        Auswahl der anzuzeigenden Highscores.
+*******************************************************************************/
+void HighscoreSchwierigkeitsStufenMenue(void)
+{
+    int iEingabe = -1, cFalscheEingabe = TRUE;
+
+    // Abfangen der unerwuenschten Buchstaben
+    while (cFalscheEingabe)
+    {
+        curs_set(0); // Cursor unsichtbar machen
+        clear(); // Bildschirm leeren
+
+                 // Ausgabe des Menues fuer die Schwierigkeitsstufen
+        printw("\n\n\t\t\t\t\t\tS U D O K U\n\n");
+        printw("\t\t\t\t\t     H I G H S C O R E\n\n");
+        printw("\t\t\t\t============================================\n\n");
+        printw("\t\t\t\t   [L] Leicht\n\n");
+        printw("\t\t\t\t   [M] Mittel\n\n");
+        printw("\t\t\t\t   [S] Schwer\n\n");
+        printw("\t\t\t\t============================================");
+
+        refresh();
+
+        iEingabe = getch();
+
+        switch(iEingabe)
+        {
+        case 'L':
+        case 'l':
+            HighscoreAusgeben(1);
+            cFalscheEingabe = FALSE;
+            break;
+        case 'M':
+        case 'm':
+            HighscoreAusgeben(2);
+            cFalscheEingabe = FALSE;
+            break;
+        case 'S':
+        case 's':
+            HighscoreAusgeben(3);
+            cFalscheEingabe = FALSE;
+            break;
+        }
+    }
+}
+
+/*******************************************************************************
 Funktion Loginmenue()
 Uebergabe Parameter:    -
 Rueckgabe:              -
@@ -197,163 +408,11 @@ void Registrierungsmenue(void)
 }
 
 /*******************************************************************************
-Funktion Schwierigkeitsstufenmenue()
-Uebergabe Parameter:    ccNickname[]
-Rueckgabe:              -
-Beschreibung:           Erstellt das Menue fuer die 3 Schwierigkeitsstufen.
-*******************************************************************************/
-void Schwierigkeitsstufenmenue(const char ccNickname[])
-{
-    int iEingabe = -1, cFalscheEingabe = TRUE;
-
-    // Abfangen der unerwuenschten Buchstaben
-    while (cFalscheEingabe)
-    {
-        curs_set(0); // Cursor unsichtbar machen
-        clear(); // Bildschirm leeren
-
-                 // Ausgabe des Menues fuer die Schwierigkeitsstufen
-        printw("\n\n\n\t\t\t\t\t     Schwierigkeitsstufe\n\n");
-        printw("\t\t\t\t============================================\n\n");
-        printw("\t\t\t\t   [L] Leicht\n\n");
-        printw("\t\t\t\t   [M] Mittel\n\n");
-        printw("\t\t\t\t   [S] Schwer\n\n");
-        printw("\t\t\t\t============================================");
-
-        refresh();
-
-        iEingabe = getch();
-
-        switch(iEingabe)
-        {
-        case 'L':
-        case 'l':
-            NeuesSpiel(1, ccNickname);
-            cFalscheEingabe = FALSE;
-            break;
-        case 'M':
-        case 'm':
-            NeuesSpiel(2, ccNickname);
-            cFalscheEingabe = FALSE;
-            break;
-        case 'S':
-        case 's':
-            NeuesSpiel(3, ccNickname);
-            cFalscheEingabe = FALSE;
-            break;
-        }
-    }
-}
-
-/*******************************************************************************
-Funktion HighscoreSchwierigkeitsStufenMenue()
-Uebergabe Parameter:    -
-Rueckgabe:              -
-Beschreibung:           Erstellt das Menue fuer die 3 Schwierigkeitsstufen zur
-                        Auwahl der anzuzeigenden Highscores.
-*******************************************************************************/
-void HighscoreSchwierigkeitsStufenMenue(void)
-{
-    int iEingabe = -1, cFalscheEingabe = TRUE;
-
-    // Abfangen der unerwuenschten Buchstaben
-    while (cFalscheEingabe)
-    {
-        curs_set(0); // Cursor unsichtbar machen
-        clear(); // Bildschirm leeren
-
-                 // Ausgabe des Menues fuer die Schwierigkeitsstufen
-        printw("\n\n\t\t\t\t\t\tS U D O K U\n\n");
-        printw("\t\t\t\t\t     H I G H S C O R E\n\n");
-        printw("\t\t\t\t============================================\n\n");
-        printw("\t\t\t\t   [L] Leicht\n\n");
-        printw("\t\t\t\t   [M] Mittel\n\n");
-        printw("\t\t\t\t   [S] Schwer\n\n");
-        printw("\t\t\t\t============================================");
-
-        refresh();
-
-        iEingabe = getch();
-
-        switch(iEingabe)
-        {
-        case 'L':
-        case 'l':
-            HighscoreAusgeben(1);
-            cFalscheEingabe = FALSE;
-            break;
-        case 'M':
-        case 'm':
-            HighscoreAusgeben(2);
-            cFalscheEingabe = FALSE;
-            break;
-        case 'S':
-        case 's':
-            HighscoreAusgeben(3);
-            cFalscheEingabe = FALSE;
-            break;
-        }
-    }
-}
-
-/*******************************************************************************
-Funktion Spielmenue()
-Uebergabe Parameter:    cNickname
-Rueckgabe:              -
-Beschreibung:           Erstellt das Spielmenue.
-*******************************************************************************/
-void Spielmenue(char cNickname[])
-{
-    int iEingabe = -1;
-
-    // Abfangen der unerwuenschten Buchstaben
-    while(iEingabe != 'L' && iEingabe != 'l')
-    {
-        noecho(); // Benutzereingabe versetecken
-        curs_set(0); // Cursor unsichtbar machen
-        clear(); // Bildschirm leeren
-
-                 // Ausgabe des Spielmenues
-        printw("\n\n\n\t\t\t\t\t\tSpielmenue\n\n");
-        printw("\t\t\t\t============================================\n\n");
-        printw("\t\t\t\t   [N] Neues Spiel\n\n");
-        printw("\t\t\t\t   [R] Spielregeln\n\n");
-        printw("\t\t\t\t   [B] Bestenliste\n\n");
-        printw("\t\t\t\t   [L] Logout / Verlassen\n\n");
-        printw("\t\t\t\t============================================");
-
-        refresh();
-
-        iEingabe = getch();
-
-        switch(iEingabe)
-        {
-        case 'N':
-        case 'n':
-            Schwierigkeitsstufenmenue(cNickname);
-            break;
-        case 'R':
-        case 'r':
-            SpielregelnAnzeigen();
-            break;
-        case 'B':
-        case 'b':
-            HighscoreSchwierigkeitsStufenMenue();
-            break;
-        case 'L':
-        case 'l':
-            cNickname = NULL;
-            // Schleife bricht ab
-            break;
-        }
-    }
-}
-
-/*******************************************************************************
 Funktion SpielGewonnenMenue()
 Uebergabe Parameter:    cZeit
 Rueckgabe:              -
-Beschreibung:           Erstellt das Spielmenue.
+Beschreibung:           Erstellt den Bildschirm, der nach einem gewonnenen Sudoku
+                        erscheint.
 *******************************************************************************/
 void SpielGewonnenMenue(char cZeit[])
 {
@@ -381,63 +440,13 @@ void SpielGewonnenMenue(char cZeit[])
     getch();
 }
 
-/*******************************************************************************
-Funktion Startmenue()
-Uebergabe Parameter:    -
-Rueckgabe:              -
-Beschreibung:           Erstellt das Startmenue.
-*******************************************************************************/
-void Startmenue(void)
-{
-    int iEingabe = -1;
 
-    // Abfangen der unerwuenschten Buchstaben
-    while(iEingabe != 'X' && iEingabe != 'x')
-    {
-        noecho(); // Benutzereingabe versetecken
-        curs_set(0); // Cursor unsichtbar machen
-        clear(); // Bildschirm leeren
-
-                 // Ausgabe des Startmenues
-        printw("\n\t\t\t\t\t\tS U D O K U\n\n");
-        printw("\t\t\t\t\t(C) HHBK Tendo Research Center\n\n");
-        printw("\t\t\t\t============================================\n\n");
-        printw("\t\t\t\t   [E] Einloggen\n\n");
-        printw("\t\t\t\t   [N] Nicht einloggen\n\n");
-        printw("\t\t\t\t   [R] Registrieren\n\n");
-        printw("\t\t\t\t   [X] Beenden\n\n");
-        printw("\t\t\t\t============================================");
-
-        refresh();
-
-        iEingabe = getch();
-
-        switch(iEingabe)
-        {
-        case 'E':
-        case 'e':
-            Loginmenue();
-            break;
-        case 'N':
-        case 'n':
-            Spielmenue("");
-            break;
-        case 'R':
-        case 'r':
-            Registrierungsmenue();
-            break;
-        case 'X':
-        case 'x':
-            break;
-        }
-    }
-}
 
 /*******************************************************************************
 Funktion InBestenlisteEintragenDialog()
 Uebergabe Parameter:    iSchwierigkeit, ccNickname[], cZeit[]
 Rueckgabe:              -
-Beschreibung:           Erstellt das Menue zur Abrfage eines eingeloggten 
+Beschreibung:           Erstellt das Menue zur Abfrage eines eingeloggten 
                         Spielers, ob dieser sich in die Bestenliste eintragen
                         lassen moechte.
 *******************************************************************************/
