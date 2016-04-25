@@ -45,7 +45,7 @@ int GeneriereSudokuId(int iSchwierigkeit)
 Funktion GeneriereZufallszahlReichweite()
 Uebergabe Parameter:    iMinimum, iMaximum
 Rueckgabe:              iZufallszahl
-Beschreibung:           Erzeugt eine Zufallszahl von {iMinimum} bis {iMaximum}.
+Beschreibung:           Erzeugt eine Zufallszahl von iMinimum bis iMaximum.
 *******************************************************************************/
 int GeneriereZufallszahlReichweite(int iMinimum, int iMaximum)
 {
@@ -71,6 +71,7 @@ void EntferneLeerzeichenAusString(char cString[])
     char *i = cString;
     char *j = cString;
 
+    // Ersetze Leerzeichen und ruecke alle Zeichen dahinter, nach vorne auf
     while (*j != 0)
     {
         *i = *j++;
@@ -94,8 +95,8 @@ Beschreibung:           Prueft einen String auf seine Laenge.
                         Diese darf mindestens {uiMindestLaenge} und
                         maximal {uiMaximalLaenge} sein.
 *******************************************************************************/
-int PruefeAufValideStringlaenge(char cString[], 
-                                unsigned int uiMindestLaenge, 
+int PruefeAufValideStringlaenge(char cString[],
+                                unsigned int uiMindestLaenge,
                                 unsigned int uiMaximalLaenge)
 {
     unsigned int iStringLaenge;
@@ -154,7 +155,7 @@ void SpielregelnAnzeigen(void)
     char cPfad[_MAX_PATH] = "";
 
     // Erstellen des Kommandos, um die Regeln.html zu oeffnen
-    AusgabeAbsoulterPfad(cPfad, "Regeln.html");
+    AusgabeAbsoulterPfad(cPfad, "Dokumentation/Regeln/Regeln.html");
     strcat(cKommando, cPfad);
 
     // Kommando ausfuehren
@@ -173,7 +174,7 @@ void AusgabeAbsoulterPfad(char cAusgabe[], const char ccDateiname[])
 {
     char cPfad[_MAX_PATH] = "";
 
-    // Hole den aktuellen Pfad und haenge {ccDateiname} an
+    // Hole den aktuellen Pfad und haenge ccDateiname an
     _fullpath(cAusgabe, ccDateiname, _MAX_PATH);
 
     // Pfad in "" setzen, damit Leerzeichen keine Fehler verursachen
@@ -181,6 +182,6 @@ void AusgabeAbsoulterPfad(char cAusgabe[], const char ccDateiname[])
     strcat(cPfad, cAusgabe);
     strcat(cPfad, "\"");
 
-    // Fuer die Rueckgabe in {cAusgabe} kopieren
+    // Fuer die Rueckgabe in cAusgabe kopieren
     strcpy(cAusgabe, cPfad);
 }

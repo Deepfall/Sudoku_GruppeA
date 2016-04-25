@@ -16,9 +16,9 @@ Compiler                : Visual Studio 2012
 Praeprozessoranweisungen
 *******************************************************************************/
 #include "allgemeineDefines.h"
-#pragma warning(push, 0)
-#include <curses.h>
-#pragma warning(pop)
+#pragma warning(push, 0) // Vermeide Warnungen ab hier
+#include <curses.h> // Muss unter Unix-System durch ncurses.h ersetzt werden
+#pragma warning(pop) // Vermeide Warnungen bis hier
 
 #define CURSOR_START_POSITION_SPALTE        5
 #define CURSOR_START_POSITION_ZEILE         3

@@ -15,13 +15,15 @@ Praeprozessoranweisungen
 *******************************************************************************/
 #include "allgemeineDefines.h"
 #include <stdlib.h>
-#pragma warning(push, 0)
-#include <curses.h>
-#pragma warning(pop)
+#pragma warning(push, 0) // Vermeide Warnungen ab hier
+#include <curses.h> // Muss unter Unix-System durch ncurses.h ersetzt werden
+#pragma warning(pop) // Vermeide Warnungen bis hier
 #include "spielmenue.h"
 
 /*******************************************************************************
 Funktion main()
+Beschreibung:           Startet das Spielmenue fuer das Sudokuspiel und
+                        initialisiert die curses Biliothek.
 *******************************************************************************/
 int main(void)
 {
@@ -30,7 +32,15 @@ int main(void)
     
     // Initialisiere curses.h
     initscr();
-    
+
+    // Initialisiere Farbmodus, wenn moeglich
+    if(has_colors())
+    {
+        start_color();
+        init_pair(1, COLOR_GREEN, COLOR_BLACK); // Vorbefuellte Felder
+        init_pair(2, COLOR_YELLOW, COLOR_BLACK); // Mit Hilfe befuellte Felder
+    }
+
     // Aktiviere "Entf"-Taste
     keypad(stdscr, TRUE);
 

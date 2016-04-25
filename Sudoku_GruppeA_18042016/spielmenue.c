@@ -28,14 +28,14 @@ void Startmenue(void)
 {
     int iEingabe = -1;
 
-    // Abfangen der unerwuenschten Buchstaben
+    // Laeuft bis zum Ende des Programmms
     while(iEingabe != 'X' && iEingabe != 'x')
     {
         noecho(); // Benutzereingabe versetecken
         curs_set(0); // Cursor unsichtbar machen
         clear(); // Bildschirm leeren
 
-                 // Ausgabe des Startmenues
+        // Ausgabe des Startmenues
         printw("\n\t\t\t\t\t\tS U D O K U\n\n");
         printw("\t\t\t\t\t(C) HHBK Tendo Research Center\n\n");
         printw("\t\t\t\t============================================\n\n");
@@ -45,34 +45,34 @@ void Startmenue(void)
         printw("\t\t\t\t   [X] Beenden\n\n");
         printw("\t\t\t\t============================================");
 
-        refresh();
+        refresh(); // Eigentliches Zeichnen der Ausgabe
 
-        iEingabe = getch();
+        iEingabe = getch(); // Tastendruck einlesen
 
         switch(iEingabe)
         {
-        case 'E':
-        case 'e':
-            Loginmenue();
-            break;
-        case 'N':
-        case 'n':
-            Spielmenue("");
-            break;
-        case 'R':
-        case 'r':
-            Registrierungsmenue();
-            break;
-        case 'X':
-        case 'x':
-            break;
+            case 'E':
+            case 'e':
+                Loginmenue();
+                break;
+            case 'N':
+            case 'n':
+                Spielmenue("");
+                break;
+            case 'R':
+            case 'r':
+                Registrierungsmenue();
+                break;
+            case 'X':
+            case 'x':
+                break;
         }
     }
 }
 
 /*******************************************************************************
 Funktion Spielmenue()
-Uebergabe Parameter:    cNickname
+Uebergabe Parameter:    cNickname[]
 Rueckgabe:              -
 Beschreibung:           Erstellt das Spielmenue von dem der Spieler sich zu 
                         einer neuen Spielrunde, der Bestenliste, den Regeln oder
@@ -89,7 +89,7 @@ void Spielmenue(char cNickname[])
         curs_set(0); // Cursor unsichtbar machen
         clear(); // Bildschirm leeren
 
-                 // Ausgabe des Spielmenues
+        // Ausgabe des Spielmenues
         printw("\n\n\n\t\t\t\t\t\tSpielmenue\n\n");
         printw("\t\t\t\t============================================\n\n");
         printw("\t\t\t\t   [N] Neues Spiel\n\n");
@@ -98,29 +98,29 @@ void Spielmenue(char cNickname[])
         printw("\t\t\t\t   [L] Logout / Verlassen\n\n");
         printw("\t\t\t\t============================================");
 
-        refresh();
+        refresh(); // Eigentliches Zeichnen der Ausgabe
 
-        iEingabe = getch();
+        iEingabe = getch(); // Tastendruck einlesen
 
         switch(iEingabe)
         {
-        case 'N':
-        case 'n':
-            Schwierigkeitsstufenmenue(cNickname);
-            break;
-        case 'R':
-        case 'r':
-            SpielregelnAnzeigen();
-            break;
-        case 'B':
-        case 'b':
-            HighscoreSchwierigkeitsStufenMenue();
-            break;
-        case 'L':
-        case 'l':
-            cNickname = NULL;
-            // Schleife bricht ab
-            break;
+            case 'N':
+            case 'n':
+                Schwierigkeitsstufenmenue(cNickname);
+                break;
+            case 'R':
+            case 'r':
+                SpielregelnAnzeigen();
+                break;
+            case 'B':
+            case 'b':
+                HighscoreSchwierigkeitsStufenMenue();
+                break;
+            case 'L':
+            case 'l':
+                cNickname = NULL; // Benutzer ausloggen
+                // Schleife bricht ab
+                break;
         }
     }
 }
@@ -142,7 +142,7 @@ void Schwierigkeitsstufenmenue(const char ccNickname[])
         curs_set(0); // Cursor unsichtbar machen
         clear(); // Bildschirm leeren
 
-                 // Ausgabe des Menues fuer die Schwierigkeitsstufen
+        // Ausgabe des Menues fuer die Schwierigkeitsstufen
         printw("\n\n\n\t\t\t\t\t     Schwierigkeitsstufe\n\n");
         printw("\t\t\t\t============================================\n\n");
         printw("\t\t\t\t   [L] Leicht\n\n");
@@ -150,27 +150,27 @@ void Schwierigkeitsstufenmenue(const char ccNickname[])
         printw("\t\t\t\t   [S] Schwer\n\n");
         printw("\t\t\t\t============================================");
 
-        refresh();
+        refresh(); // Eigentliches Zeichnen der Ausgabe
 
-        iEingabe = getch();
+        iEingabe = getch(); // Tastendruck einlesen
 
         switch(iEingabe)
         {
-        case 'L':
-        case 'l':
-            NeuesSpiel(1, ccNickname);
-            cFalscheEingabe = FALSE;
-            break;
-        case 'M':
-        case 'm':
-            NeuesSpiel(2, ccNickname);
-            cFalscheEingabe = FALSE;
-            break;
-        case 'S':
-        case 's':
-            NeuesSpiel(3, ccNickname);
-            cFalscheEingabe = FALSE;
-            break;
+            case 'L':
+            case 'l':
+                NeuesSpiel(1, ccNickname);
+                cFalscheEingabe = FALSE;
+                break;
+            case 'M':
+            case 'm':
+                NeuesSpiel(2, ccNickname);
+                cFalscheEingabe = FALSE;
+                break;
+            case 'S':
+            case 's':
+                NeuesSpiel(3, ccNickname);
+                cFalscheEingabe = FALSE;
+                break;
         }
     }
 }
@@ -192,7 +192,7 @@ void HighscoreSchwierigkeitsStufenMenue(void)
         curs_set(0); // Cursor unsichtbar machen
         clear(); // Bildschirm leeren
 
-                 // Ausgabe des Menues fuer die Schwierigkeitsstufen
+        // Ausgabe des Menues fuer die Schwierigkeitsstufen
         printw("\n\n\t\t\t\t\t\tS U D O K U\n\n");
         printw("\t\t\t\t\t     H I G H S C O R E\n\n");
         printw("\t\t\t\t============================================\n\n");
@@ -201,27 +201,27 @@ void HighscoreSchwierigkeitsStufenMenue(void)
         printw("\t\t\t\t   [S] Schwer\n\n");
         printw("\t\t\t\t============================================");
 
-        refresh();
+        refresh(); // Eigentliches Zeichnen der Ausgabe
 
-        iEingabe = getch();
+        iEingabe = getch(); // Tastendruck einlesen
 
         switch(iEingabe)
         {
-        case 'L':
-        case 'l':
-            HighscoreAusgeben(1);
-            cFalscheEingabe = FALSE;
-            break;
-        case 'M':
-        case 'm':
-            HighscoreAusgeben(2);
-            cFalscheEingabe = FALSE;
-            break;
-        case 'S':
-        case 's':
-            HighscoreAusgeben(3);
-            cFalscheEingabe = FALSE;
-            break;
+            case 'L':
+            case 'l':
+                HighscoreAusgeben(1);
+                cFalscheEingabe = FALSE;
+                break;
+            case 'M':
+            case 'm':
+                HighscoreAusgeben(2);
+                cFalscheEingabe = FALSE;
+                break;
+            case 'S':
+            case 's':
+                HighscoreAusgeben(3);
+                cFalscheEingabe = FALSE;
+                break;
         }
     }
 }
@@ -236,7 +236,7 @@ Beschreibung:           Erstellt das Menue fuer das Einloggen eines Benutzers.
 *******************************************************************************/
 void Loginmenue(void)
 {
-    char cNickname[TEXTLAENGE] = "", cPasswort[TEXTLAENGE] = "";
+    char cNickname[TEXTLAENGE + 1] = "", cPasswort[TEXTLAENGE + 1] = "";
     int iRueckgabe = -1;
 
     curs_set(1); // Cursor sichtbar machen
@@ -244,6 +244,7 @@ void Loginmenue(void)
     timeout(-1); // Timeout deaktivieren
     clear(); // Bildschirm leeren
 
+    // Ausgabe des Menues zum Einloggen
     printw("\n\n\n\t\t\t\t\t\tEinloggen\n\n");
     printw("\t\t\t\t============================================\n\n");
     printw("\t\t\t\t   Falls Sie sich nicht einloggen wollen,\n");
@@ -251,9 +252,8 @@ void Loginmenue(void)
     printw("\t\t\t\t   zurueckzukehren\n\n");
     printw("\t\t\t\t   Bitte geben Sie ihre Daten ein.\n\n\n");
 
-    // Einlesen des Nicknamen
     printw("\t\t\t\t   Nickname: ");
-    getstr(cNickname);
+    getnstr(cNickname, TEXTLAENGE); // Einlesen des Nicknamenn
 
     if (strcmp(cNickname, "Q") != 0 && strcmp(cNickname, "q") != 0)
     {
@@ -261,9 +261,8 @@ void Loginmenue(void)
         Benutzereingabe verstecken */
         noecho();
 
-        // Einlesen des Passwortes
         printw("\t\t\t\t   Passwort: ");
-        getstr(cPasswort);
+        getnstr(cPasswort, TEXTLAENGE); // Einlesen des Passwortes
 
         printw("\n\n\t\t\t\t============================================\n\n");
 
@@ -272,18 +271,23 @@ void Loginmenue(void)
 
         if (iRueckgabe == 0)
         {
+            // Ausgabe der Erfolgsmeldung
             printw("\t\t\t\t   Erfolgreich eingeloggt.\n\n");
             printw("\t\t\t\t   Druecken Sie eine beliebige Taste...");
-            refresh();
-            getch();
+
+            refresh(); // Eigentliches Zeichnen der Ausgabe
+            getch(); // Tastendruck einlesen
+
             Spielmenue(cNickname);
         }
         else
         {
+            // Ausgabe der Fehlermeldung
             printw("\t\t\t\t   Einloggen ist fehlgeschlagen.\n\n");
             printw("\t\t\t\t   Druecken Sie eine beliebige Taste...");
-            refresh();
-            getch();
+
+            refresh(); // Eigentliches Zeichnen der Ausgabe
+            getch(); // Tastendruck einlesen
         }
     }
 }
@@ -298,8 +302,8 @@ Beschreibung:           Erstellt das Menue fuer die Registrierung eines neuen
 *******************************************************************************/
 void Registrierungsmenue(void)
 {
-    char cNachname[TEXTLAENGE], cVorname[TEXTLAENGE],
-         cNickname[TEXTLAENGE], cPasswort[TEXTLAENGE];
+    char cNachname[TEXTLAENGE + 1], cVorname[TEXTLAENGE + 1],
+         cNickname[TEXTLAENGE + 1], cPasswort[TEXTLAENGE + 1];
     int iRichtig;
 
     curs_set(1); // Cursor sichtbar machen
@@ -307,80 +311,80 @@ void Registrierungsmenue(void)
     timeout(-1); // Timeout deaktivieren
     clear(); // Bildschirm leeren
 
-    iRichtig = -10;
+    iRichtig = -10; // Zuruecksetzen der Kontrollvariable
     while (iRichtig != 0)
     {
         clear(); // Bildschirm leeren
 
-        // Ausgabe des Registrierungsmenues
+        // Ausgabe des Menues zum Registrieren
         printw("\n\n\n\t\t\t\t\t\tRegistrierung\n\n");
         printw("\t\t\t\t============================================\n\n");
         printw("\t\t\t\t Bitte fuellen Sie die folgenden Felder aus.\n");
 
         AusgabeFehlermeldungValideTextlaenge(iRichtig, NACHNAME);
         printw("\n\t\t\t\t Nachname (max. 20 Zeichen): ");
-        getstr(cNachname);
-        iRichtig = PruefeAufValideStringlaenge(cNachname, 1, 20);
+        getnstr(cNachname, TEXTLAENGE); // Einlesen des Nachnamens
+        iRichtig = PruefeAufValideStringlaenge(cNachname, 1, TEXTLAENGE);
     }
 
-    iRichtig = -10;
+    iRichtig = -10; // Zuruecksetzen der Kontrollvariable
     while (iRichtig != 0)
     {
         clear(); // Bildschirm leeren
 
-        // Ausgabe des Registrierungsmenues
+        // Ausgabe des Menues zum Registrieren
         printw("\n\n\n\t\t\t\t\t\tRegistrierung\n\n");
         printw("\t\t\t\t============================================\n\n");
         printw("\t\t\t\t Bitte fuellen Sie die folgenden Felder aus.\n");
 
         AusgabeFehlermeldungValideTextlaenge(iRichtig, VORNAME);
         printw("\n\t\t\t\t Vorname  (max. 20 Zeichen): ");
-        getstr(cVorname);
-        iRichtig = PruefeAufValideStringlaenge(cVorname, 1, 20);
+        getnstr(cVorname, TEXTLAENGE); // Einlesen des Vornamens
+        iRichtig = PruefeAufValideStringlaenge(cVorname, 1, TEXTLAENGE);
     }
 
-    iRichtig = -10;
+    iRichtig = -10; // Zuruecksetzen der Kontrollvariable
     while (iRichtig != 0)
     {
         clear(); // Bildschirm leeren
 
-        // Ausgabe des Registrierungsmenues
+        // Ausgabe des Menues zum Registrieren
         printw("\n\n\n\t\t\t\t\t\tRegistrierung\n\n");
         printw("\t\t\t\t============================================\n\n");
         printw("\t\t\t\t Bitte fuellen Sie die folgenden Felder aus.\n");
 
         AusgabeFehlermeldungValideTextlaenge(iRichtig, NICKNAME);
         printw("\n\t\t\t\t Nickname (max. 20 Zeichen): ");
-        getstr(cNickname);
+        getnstr(cNickname, TEXTLAENGE); // Einlesen des Nicknamens
 
+        // Verhindern, dass man den Benutzer "Q" oder "q" registrieren kann
         if (strcmp(cNickname, "Q") == 0 || strcmp(cNickname, "q") == 0)
         {
             iRichtig = -1;
         }
         else
         {
-            iRichtig = PruefeAufValideStringlaenge(cNickname, 1, 20);
+            iRichtig = PruefeAufValideStringlaenge(cNickname, 1, TEXTLAENGE);
         }
     }
 
     // Wir wollen das Passwort niemandem zeigen, also Benutzereingabe verstecken
     noecho();
 
-    iRichtig = -10;
+    iRichtig = -10; // Zuruecksetzen der Kontrollvariable
     while (iRichtig != 0)
     {
         clear(); // Bildschirm leeren
 
-        // Ausgabe des Registrierungsmenues
+        // Ausgabe des Menues zum Registrieren
         printw("\n\n\n\t\t\t\t\t\tRegistrierung\n\n");
         printw("\t\t\t\t============================================\n\n");
         printw("\t\t\t\t Bitte fuellen Sie die folgenden Felder aus.\n");
 
         AusgabeFehlermeldungValideTextlaenge(iRichtig, PASSWORT);
         printw("\n\t\t\t\t Passwort  (min. 6 Zeichen): ");
-        getstr(cPasswort);
-        printw("\n");
-        iRichtig = PruefeAufValideStringlaenge(cPasswort, 6, 20);
+        getnstr(cPasswort, TEXTLAENGE); // Einlesen des Passwortes
+        iRichtig = PruefeAufValideStringlaenge(cPasswort, 6, TEXTLAENGE);
     }
 
     printw("\n\n\t\t\t\t=============================================\n\n");
@@ -391,9 +395,8 @@ void Registrierungsmenue(void)
         clear(); // Bildschirm leeren
         printw("\n\n\n\t\t\t\t Die Registrierung war erfolgreich.\n\n");
         printw("\t\t\t\t Druecken Sie eine beliebige Taste...");
-        refresh();
-        getch();
-        Startmenue();
+        refresh(); // Eigentliches Zeichnen der Ausgabe
+        getch(); // Tastendruck einlesen
     }
     else
     {
@@ -401,26 +404,26 @@ void Registrierungsmenue(void)
         printw("\n\n\n\t\t\t\t Die Registrierung ist fehlgeschlagen.\n");
         printw("\t\t\t\t Der Nickname ist bereits vergeben.\n\n");
         printw("\t\t\t\t Druecken Sie eine beliebige Taste...");
-        refresh();
-        getch();
-        Startmenue();
+        refresh(); // Eigentliches Zeichnen der Ausgabe
+        getch(); // Tastendruck einlesen
     }
 }
 
 /*******************************************************************************
 Funktion SpielGewonnenMenue()
-Uebergabe Parameter:    cZeit
+Uebergabe Parameter:    ccZeit[]
 Rueckgabe:              -
-Beschreibung:           Erstellt den Bildschirm, der nach einem gewonnenen Sudoku
-                        erscheint.
+Beschreibung:           Erstellt den Bildschirm, der nach einem gewonnenen
+                        Sudoku erscheint.
 *******************************************************************************/
-void SpielGewonnenMenue(char cZeit[])
+void SpielGewonnenMenue(const char ccZeit[])
 {
-    noecho(); // Benutzereingabe versetecken
+    noecho(); // Benutzereingabe verstecken
     curs_set(0); // Cursor unsichtbar machen
     timeout(-1); // Timeout deaktivieren
     clear(); // Bildschirm leeren
 
+    // Ausgabe des Gewinnerbildschrimes
     printw("\n\t\t\t\t============================================\n\n");
     printw("\t\t\t          ,---.o         |         |              \n");
     printw("\t\t\t          `---..,---.    |---.,---.|---.,---.,---.\n");
@@ -433,25 +436,25 @@ void SpielGewonnenMenue(char cZeit[])
     printw("\t\t\t          |   ||---'| | ||   ||   ||   ||---'|   |\n");
     printw("\t\t\t          `---|`---'`-'-'`---'`   '`   '`---'`   '\n");
     printw("\t\t\t          `---'                                   \n\n\n\n");
-    printw("\t\t\t                 Ihre Zeit betraegt: %s\n\n", cZeit);
+    printw("\t\t\t                 Ihre Zeit betraegt: %s\n\n", ccZeit);
     printw("\t\t\t\t============================================\n\n");
     printw("\t\t\t\t   Druecken Sie eine beliebige Taste...");
 
-    getch();
+    getch(); // Tastendruck einlesen
 }
 
 
 
 /*******************************************************************************
 Funktion InBestenlisteEintragenDialog()
-Uebergabe Parameter:    iSchwierigkeit, ccNickname[], cZeit[]
+Uebergabe Parameter:    iSchwierigkeit, ccNickname[], ccZeit[]
 Rueckgabe:              -
 Beschreibung:           Erstellt das Menue zur Abfrage eines eingeloggten 
                         Spielers, ob dieser sich in die Bestenliste eintragen
                         lassen moechte.
 *******************************************************************************/
 void InBestenlisteEintragenDialog(int iSchwierigkeit, const char ccNickname[],
-    char cZeit[])
+                                  const char ccZeit[])
 {
     int iEingabe = -1, cFalscheEingabe = TRUE;
 
@@ -459,7 +462,7 @@ void InBestenlisteEintragenDialog(int iSchwierigkeit, const char ccNickname[],
     curs_set(0); // Cursor unsichtbar machen
     clear(); // Bildschirm leeren
 
-             // Ausgabe des Menues fuer die Schwierigkeitsstufen
+    // Ausgabe des Menues fuer die Schwierigkeitsstufen
     printw("\n\n\t\t\t\t\t\tS U D O K U\n\n");
     printw("\t\t\t\t\t     H I G H S C O R E\n\n");
     printw("\t\t\t\t============================================\n\n");
@@ -469,25 +472,25 @@ void InBestenlisteEintragenDialog(int iSchwierigkeit, const char ccNickname[],
     printw("\t\t\t\t   [N] Nein\n\n");
     printw("\t\t\t\t============================================\n\n");
 
-    refresh();
+    refresh(); // Eigentliches Zeichnen der Ausgabe
 
     // Abfangen der unerwuenschten Buchstaben
     while (cFalscheEingabe)
     {
-        iEingabe = getch();
+        iEingabe = getch(); // Tastendruck einlesen
 
         switch(iEingabe)
         {
-        case 'J':
-        case 'j':
-            HighscoreEintragen(iSchwierigkeit, ccNickname, cZeit);
-            HighscoreAusgeben(iSchwierigkeit);
-            cFalscheEingabe = FALSE;
-            break;
-        case 'N':
-        case 'n':
-            cFalscheEingabe = FALSE;
-            break;
+            case 'J':
+            case 'j':
+                HighscoreEintragen(iSchwierigkeit, ccNickname, ccZeit);
+                HighscoreAusgeben(iSchwierigkeit);
+                cFalscheEingabe = FALSE;
+                break;
+            case 'N':
+            case 'n':
+                cFalscheEingabe = FALSE;
+                break;
         }
     }
 }

@@ -17,16 +17,16 @@ Praeprozessoranweisungen
 
 /*******************************************************************************
 Funktion Einloggen()
-Uebergabe Parameter:    *cNickname, *cPasswort
-Rueckgabe:              0 - Einloggen war erfolgreich
-                        1 - Einloggen ist fehlgeschlagen
-Beschreibung:           Es wird mit Hilfe des eingegebenen Nicknamen in der 
-                        Datenbank ueber einen Select-Befehl geprueft, ob zum 
-                        einen dieser Nickname vorhanden ist und zum anderen das 
-                        in der Benutzer-Tabelle gespeicherte Passwort mit dem 
-                        eingegebenen uebereinstimmt.
+Uebergabe Parameter:    ccNickname[], ccPasswort[]
+Rueckgabe:               0 - Einloggen war erfolgreich
+                        -1 - Einloggen ist fehlgeschlagen
+Beschreibung:           Es wird mit Hilfe des eingegebenen Nicknamen in der
+                        Datenbank ueber einen Select-Befehl geprueft, ob zum
+                        einen dieser Nickname vorhanden ist und zum anderen, ob
+                        das in der Benutzer-Tabelle gespeicherte Passwort mit
+                        dem eingegebenen uebereinstimmt.
 *******************************************************************************/
-int Einloggen(char *cNickname, char *cPasswort)
+int Einloggen(const char ccNickname[], const char ccPasswort[])
 {
     int iRueckgabe = -1;
     char sql[1000]; 
@@ -38,7 +38,7 @@ int Einloggen(char *cNickname, char *cPasswort)
 
     // Aufbauen des Select-Befehls
     sprintf(sql, "SELECT Passwort "
-                 "FROM Benutzer WHERE Nickname = '%s';", cNickname);
+                 "FROM Benutzer WHERE Nickname = '%s';", ccNickname);
 
     // Ausfuehren des Select-Befehls
     sqlite3_prepare_v2(db_handle, sql, strlen(sql), &stmt, NULL);
@@ -48,7 +48,7 @@ int Einloggen(char *cNickname, char *cPasswort)
         data = (const char *) sqlite3_column_text(stmt, 0);
 
         // Vergleiche das eingegebene Passwort mit dem ausgelesenen Passwort
-        if(strcmp(data, cPasswort) == 0)
+        if(strcmp(data, ccPasswort) == 0)
         {
             iRueckgabe = 0;
         }
@@ -63,15 +63,15 @@ int Einloggen(char *cNickname, char *cPasswort)
 
 /*******************************************************************************
 Funktion Registrieren()
-Uebergabe Parameter:    cNachname[], cVorname[], cNickname[], cPasswort[]
-Rueckgabe:              0 - Registrierung war erfolgreich
-                        1 - Registrierung ist fehlgeschlagen
+Uebergabe Parameter:    ccNachname[], ccVorname[], ccNickname[], ccPasswort[]
+Rueckgabe:               0 - Registrierung war erfolgreich
+                        -1 - Registrierung ist fehlgeschlagen
 Beschreibung:           Mit den eingegebenen Daten (Nachname, Vorname, Nickname
                         und Passwort) wird ein neuer Benutzer in der Tabelle 
                         Benutzer angelegt.
 *******************************************************************************/
-int Registrieren(char cNachname[], char cVorname[],
-                 char cNickname[], char cPasswort[])
+int Registrieren(const char ccNachname[], const char ccVorname[],
+                 const char ccNickname[], const char ccPasswort[])
 {
     int iRueckgabe;
     char *sql, *cErrMsg;
@@ -83,7 +83,7 @@ int Registrieren(char cNachname[], char cVorname[],
     sql = sqlite3_mprintf("INSERT INTO Benutzer (Name, Vorname, "
                           "Nickname, Passwort) "
                           "VALUES ('%s', '%s', '%s', '%s')",
-                          cNachname, cVorname, cNickname, cPasswort);
+                          ccNachname, ccVorname, ccNickname, ccPasswort);
 
     // Ausfuehren des Select-Befehls
     iRueckgabe = sqlite3_exec(db_handle, sql, NULL, NULL, &cErrMsg);
@@ -100,15 +100,14 @@ int Registrieren(char cNachname[], char cVorname[],
     {
         return -1;
     }
-
 }
 
 /*******************************************************************************
 Funktion SudokuBereitstellen()
 Uebergabe Parameter:    cSudoku[], cLoesung[], iSchwierigkeit
 Rueckgabe:              iRueckgabe
-Beschreibung:           Es wird ein Sudoku anhand der SudokuId aus der Sudoku-
-                        Tabelle selektiert.
+Beschreibung:           Es wird ein Sudoku anhand der Sudoku ID aus der 
+                        Sudoku-Tabelle selektiert.
 *******************************************************************************/
 int SudokuBereitstellen(char cSudoku[], char cLoesung[], int iSchwierigkeit)
 {
@@ -147,8 +146,8 @@ Uebergabe Parameter:    iSchwierigkeit
 Rueckgabe:              iRueckgabe
 Beschreibung:           Die Highscores werden entsprechend der Schwierigkeits-
                         stufe ueber einen Select-Befehl aus der Highscore-
-                        Tabelle geordnet nach der kleinsten Zeit rausgelesen
-                        und dann in der Sodoku-Anwendung angezeigt.   
+                        Tabelle geordnet nach der kleinsten Zeit ausgelesen
+                        und dann in der Sodoku-Anwendung angezeigt.
 ******************************************************************************/
 int HighscoreAusgeben(int iSchwierigkeit)
 {
@@ -226,15 +225,15 @@ int HighscoreAusgeben(int iSchwierigkeit)
 
 /*******************************************************************************
 Funktion HighscoreEintragen()
-Uebergabe Parameter:    iSchwierigkeit, ccNickname[], cZeit[]
-Rueckgabe:              0 - Eintragen war erfolgreich
-                        1 - Eintragen ist fehlgeschlagen
+Uebergabe Parameter:    iSchwierigkeit, ccNickname[], ccZeit[]
+Rueckgabe:               0 - Eintragen war erfolgreich
+                        -1 - Eintragen ist fehlgeschlagen
 Beschreibung:           Es wird mit der Schwierigkeitsstufe des Sudokus, dem
                         Nicknamen und der gemessenen Zeit ein neuer Highscore
-                        in die Highscore-Tabelle gemacht.
+                        in die Highscore-Tabelle eingetragen.
 *******************************************************************************/
 int HighscoreEintragen(int iSchwierigkeit, const char ccNickname[],
-                       char cZeit[])
+                       const char ccZeit[])
 {
     int iRueckgabe;
     char *sql, *cErrMsg, *cSchwierigkeit = "";
@@ -260,7 +259,7 @@ int HighscoreEintragen(int iSchwierigkeit, const char ccNickname[],
     sql = sqlite3_mprintf("INSERT INTO Highscore "
                           "(Nickname, Schwierigkeit, Zeit)"
                           "VALUES ('%s', '%s', '%s')",
-                          ccNickname, cSchwierigkeit, cZeit);
+                          ccNickname, cSchwierigkeit, ccZeit);
 
     // Ausfuehren des Insert-Befehls
     iRueckgabe = sqlite3_exec(db_handle, sql, NULL, NULL, &cErrMsg);
@@ -284,7 +283,7 @@ int HighscoreEintragen(int iSchwierigkeit, const char ccNickname[],
 Funktion DatenbankOeffnen()
 Uebergabe Parameter:    **db_handle
 Rueckgabe:              -
-Beschreibung:           Oeffnen einer Datenbankverbindung mit Fehlerbehandlung.   
+Beschreibung:           Oeffnen einer Datenbankverbindung mit Fehlerbehandlung.
 ******************************************************************************/
 void DatenbankOeffnen(sqlite3 **db_handle)
 {

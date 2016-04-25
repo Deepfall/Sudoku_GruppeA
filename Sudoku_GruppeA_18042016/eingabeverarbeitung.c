@@ -18,19 +18,19 @@ Praeprozessoranweisungen
 
 /*******************************************************************************
 Funktion VerarbeiteEingabe()
-Uebergabe Parameter:    sudokufelder[], *iStrafSekunden, *iAnzahlHilfeGenutzt
+Uebergabe Parameter:    sudokufelder[], *cursor, *iAnzahlHilfeGenutzt
 Rueckgabe:              iGedrueckteTaste
 Beschreibung:           Verarbeitet die allgemeine Benutzereingabe im Spiel.
                         Kapsellung weiterer Methoden der Benutzereingabe.
 *******************************************************************************/
 int VerarbeiteEingabe(SUDOKUFELD sudokufelder[], CURSOR *cursor,
-                      int *iStrafSekunden, int *iAnzahlHilfeGenutzt)
+                      int *iAnzahlHilfeGenutzt)
 {
     int iGedrueckteTaste = getch();
 
     VerarbeiteCursorBewegung(iGedrueckteTaste, cursor);
     VerarbeiteFeldEingabe(iGedrueckteTaste, *cursor, sudokufelder);
-    VerarbeiteKommandos(iGedrueckteTaste, *cursor, sudokufelder, iStrafSekunden,
+    VerarbeiteKommandos(iGedrueckteTaste, *cursor, sudokufelder,
                         iAnzahlHilfeGenutzt);
 
     return iGedrueckteTaste;
@@ -39,7 +39,7 @@ int VerarbeiteEingabe(SUDOKUFELD sudokufelder[], CURSOR *cursor,
 /*******************************************************************************
 Funktion VerarbeiteCursorBewegung()
 Uebergabe Parameter:    iGedrueckteTaste, *cursor
-Rueckgabe:              *cursor
+Rueckgabe:              -
 Beschreibung:           Verarbeitet die Cursorbewegung mit den
                         Pfeiltasten im Spiel.
 *******************************************************************************/
@@ -68,13 +68,13 @@ Uebergabe Parameter:    iGedrueckteTaste, cursor, sudokufelder[]
 Rueckgabe:              -
 Beschreibung:           Prueft ob eine Taste von 1 bis 9 gedrueckt wurde und
                         schreibt diese an die aktuelle Cursorposition.
-                        Prueft ob die "Entf"-Taste oder die "Backspace"-Taste
-                        gedrueckt wurde und loescht den Wert an der aktuellen
-                        Cursorpostition.
+                        Prueft ob die "Entf"-Taste gedrueckt wurde und loescht
+                        den Wert an der aktuellen Cursorpostition.
 *******************************************************************************/
 void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR cursor,
                            SUDOKUFELD sudokufelder[])
 {
+    // Berechne Index des aktuell ausgewaehlten Feldes anhand der Cursorposition
     int iFeld = cursor.iAktuelleSpielfeldSpalte
                 + ((cursor.iAktuelleSpielfeldZeile - 1) * 9) - 1;
     int iZahl;
@@ -90,7 +90,7 @@ void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR cursor,
         case '7':
         case '8':
         case '9':
-            iZahl = iGedrueckteTaste - 48;
+            iZahl = iGedrueckteTaste - 48; // ASCII-Char zu integer
             SchreibeZahlInFeld(&sudokufelder[iFeld], cursor, iZahl);
             break;
         case KEY_DC:
@@ -104,19 +104,17 @@ Funktion VerarbeiteKommandos()
 Uebergabe Parameter:    iGedrueckteTaste, cursor, sudokufelder[],
                         *iStrafSekunden, *iAnzahlHilfeGenutzt
 Rueckgabe:              -
-Beschreibung:           Prüft ob eine Kommandotaste im Spiel gedrueckt wurde und
-                        delegiert an die entsprechende Funktion.
+Beschreibung:           Prueft ob eine Kommandotaste im Spiel gedrueckt wurde
+                        und delegiert an die entsprechende Funktion.
 *******************************************************************************/
 void VerarbeiteKommandos(int iGedrueckteTaste, CURSOR cursor,
-                         SUDOKUFELD sudokufelder[], int *iStrafSekunden,
-                         int *iAnzahlHilfeGenutzt)
+                         SUDOKUFELD sudokufelder[], int *iAnzahlHilfeGenutzt)
 {
     switch(iGedrueckteTaste)
     {
         case 'H':
         case 'h':
-            HilfeBenutzen(cursor, sudokufelder, iStrafSekunden, 
-                          iAnzahlHilfeGenutzt);
+            HilfeBenutzen(cursor, sudokufelder, iAnzahlHilfeGenutzt);
             break;
         case 'L':
         case 'l':

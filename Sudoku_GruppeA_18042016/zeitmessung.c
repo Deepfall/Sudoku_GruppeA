@@ -4,8 +4,8 @@ Autor(en)               : Dominik Elis, Robin Grahl, Dustin Welz, David Fischer,
 Klasse                  : FA11
 Programmname            : zeitmessung.c
 Datum                   : 21.04.2016
-Beschreibung            : Dieses Modul berechnet die verstrichenen Zeit im Spiel
-                          und beinhaltet dafuer notwendige Funktionen.
+Beschreibung            : Dieses Modul berechnet die verstrichene Zeit im Spiel
+                          und beinhaltet die dafuer notwendigen Funktionen.
 Version                 : 1.0
 Compiler                : Visual Studio 2012
 */
@@ -17,32 +17,33 @@ Praeprozessoranweisungen
 
 /*******************************************************************************
 Funktion BerechneVerstricheneZeit()
-Uebergabe Parameter:    cVerstricheneZeit[], Startzeit, iStrafSekunden
+Uebergabe Parameter:    cVerstricheneZeit[], Startzeit, iAnzahlHilfeGenutzt
 Rueckgabe:              -
 Beschreibung:           Berechnet die Differenz zwischen der aktuellen Zeit und
                         der Startzeit und addiert anschliessend die Strafzeit.
-                        Speichert diese formatiert in cVerstricheneZeit[].
+                        Abschliessend wird die Zeit formatiert.
 *******************************************************************************/
 void BerechneVerstricheneZeit(char cVerstricheneZeit[], time_t Startzeit,
-                              int iStrafSekunden)
+                              int iAnzahlHilfeGenutzt)
 {
     time_t AktuelleZeit;
     int iVerstricheneSekunden;
 
+    // Hole aktuelle Zeit
     time(&AktuelleZeit);
 
+    // Berechne die Differenz der aktuellen und der Startzeit, addiere Strafzeit
     iVerstricheneSekunden = (int) difftime(AktuelleZeit, Startzeit);
-    iVerstricheneSekunden += iStrafSekunden;
+    iVerstricheneSekunden += iAnzahlHilfeGenutzt * HILFE_STRAFSEKUNDEN;
 
     SchreibeFormatierteZeit(cVerstricheneZeit, iVerstricheneSekunden);
 }
 
 /*******************************************************************************
 Funktion SchreibeFormatierteZeit()
-Uebergabe Parameter:    cFormatierteZeit[], int iVerstricheneSekunden
+Uebergabe Parameter:    cFormatierteZeit[], iVerstricheneSekunden
 Rueckgabe:              -
-Beschreibung:           Formatiert Sekunden in das Format HH:MM:SS und speichert
-                        es in cFormatierteZeit[].
+Beschreibung:           Formatiert Sekunden in das Format HH:MM:SS.
 *******************************************************************************/
 void SchreibeFormatierteZeit(char cFormatierteZeit[], int iVerstricheneSekunden)
 {

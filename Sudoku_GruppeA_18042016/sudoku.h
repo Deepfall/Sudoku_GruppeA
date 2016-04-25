@@ -18,9 +18,9 @@ Praeprozessoranweisungen
 #include "allgemeineDefines.h"
 #include <stdio.h>
 #include <stdlib.h>
-#pragma warning(push, 0)
-#include <curses.h>
-#pragma warning(pop)
+#pragma warning(push, 0) // Vermeide Warnungen ab hier
+#include <curses.h> // Muss unter Unix-System durch ncurses.h ersetzt werden
+#pragma warning(pop) // Vermeide Warnungen bis hier
 #include <string.h>
 #include "spielfeld.h"
 #include "eingabeverarbeitung.h"
@@ -46,8 +46,7 @@ void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[]);
 void ZeichneInfo(WINDOW *infoFenster);
 void ZeichneKommandos(WINDOW *kommandoFenster);
 void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit,
-                             int iStrafSekunden);
-void ZeichneAnzahlGenutzterHilfe(WINDOW *infoFenster,
-                                 int iAnzahlGenutzterHilfe);
+                             int iAnzahlHilfeGenutzt);
+void ZeichneAnzahlGenutzterHilfe(WINDOW *infoFenster, int iAnzahlHilfeGenutzt);
 
 #endif

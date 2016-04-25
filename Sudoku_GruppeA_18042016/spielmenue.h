@@ -19,18 +19,18 @@ Praeprozessoranweisungen
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#pragma warning(push, 0)
-#include <curses.h>
-#pragma warning(pop)
+#pragma warning(push, 0) // Vermeide Warnungen ab hier
+#include <curses.h> // Muss unter Unix-System durch ncurses.h ersetzt werden
+#pragma warning(pop) // Vermeide Warnungen bis hier
 #include "datenbankanbindung.h"
 #include "sudoku.h"
 #include "helpers.h"
 
-#define TEXTLAENGE                 20
-#define NACHNAME				"Nachname"
-#define VORNAME				    "Vorname"
-#define NICKNAME				"Nickname"
-#define PASSWORT				"Passwort"
+#define TEXTLAENGE                      20
+#define NACHNAME                "Nachname"
+#define VORNAME                  "Vorname"
+#define NICKNAME                "Nickname"
+#define PASSWORT                "Passwort"
 
 /*******************************************************************************
 Funktionsprototypen
@@ -41,8 +41,8 @@ void Schwierigkeitsstufenmenue(const char ccNickname[]);
 void HighscoreSchwierigkeitsStufenMenue(void);
 void Loginmenue(void);
 void Registrierungsmenue(void);
-void SpielGewonnenMenue(char cZeit[]);
+void SpielGewonnenMenue(const char ccZeit[]);
 void InBestenlisteEintragenDialog(int iSchwierigkeit, const char ccNickname[],
-                                  char cZeit[]);
+                                  const char ccZeit[]);
 
 #endif

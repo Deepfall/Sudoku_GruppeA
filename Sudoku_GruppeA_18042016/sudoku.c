@@ -31,9 +31,9 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
     CURSOR cursor = { CURSOR_START_POSITION_SPALTE, CURSOR_START_POSITION_ZEILE,
                       CURSOR_START_ZEILE, CURSOR_START_SPALTE };
     time_t Startzeit;
-    int iGedrueckteTaste = -1, iStrafSekunden = 0, iAnzahlHilfeGenutzt = 0;
+    int iGedrueckteTaste = -1, iAnzahlHilfeGenutzt = 0;
     int iSpielGeloest = FALSE;
-    char cZeit[20];
+    char cZeit[9];
     timeout(33);
 
     // Erstellen der einzelnen Fenster
@@ -41,7 +41,7 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
     infoFenster = ErstelleNeuesInfoFenster();
     kommandoFenster = ErstelleNeuesKommandoFenster();
 
-    // Initialisierung vom Cursor sowie die Befuellung des Sudoku-Feldes
+    // Initialisierung vom Cursor sowie die Befuellung der Spielfelder
     InitialisiereCursor(&cursor);
     BefuelleSpielfelder(spielfelder, iSchwierigkeit);
 
@@ -51,6 +51,7 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
     ZeichneInfo(infoFenster);
     ZeichneKommandos(kommandoFenster);
 
+    // Holen der Startzeit
     time(&Startzeit);
 
     // Loesungsanzeige oder ein geloestes Spiel als Abbruchbedingung
@@ -59,24 +60,26 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
     {
         // Entgegennehmen und verarbeiten der gedrueckten Tasten
         iGedrueckteTaste = VerarbeiteEingabe(spielfelder, &cursor,
-                                             &iStrafSekunden,
                                              &iAnzahlHilfeGenutzt);
 
-        ZeichneVerstricheneZeit(infoFenster, Startzeit, iStrafSekunden);
+        ZeichneVerstricheneZeit(infoFenster, Startzeit, iAnzahlHilfeGenutzt);
         ZeichneAnzahlGenutzterHilfe(infoFenster, iAnzahlHilfeGenutzt);
 
-        doupdate();
+        doupdate(); // Zeichne alles auf einmal neu
 
         // Ueberpruefung, ob das Sudoku komplett ausgefuellt ist
         if(AlleFelderGefuellt(spielfelder))
         {
             /* Ueberpruefung, ob das ausgefuellte Sudoku mit der Loesung
-            uebereinstimmt */
-            if(!PruefeFelderManuell(spielfelder))
+               uebereinstimmt */
+            if(FelderKorrektAusgefuellt(spielfelder))
             {
-                BerechneVerstricheneZeit(cZeit, Startzeit, iStrafSekunden);
+                // Endzeit berechnen
+                BerechneVerstricheneZeit(cZeit, Startzeit, iAnzahlHilfeGenutzt);
+
                 SpielGewonnenMenue(cZeit);
 
+                // Nur wenn eingeloggter Benutzer
                 if(strlen(ccNickname) > 0)
                 {
                     InBestenlisteEintragenDialog(iSchwierigkeit,
@@ -88,7 +91,7 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
             else
             {
                 /* Hinweis, dass sich ein Fehler im 
-                ausgefuellten Sudoku befindet */
+                   ausgefuellten Sudoku befindet */
                 mvwprintw(kommandoFenster, 5, 0, "Im Sudoku befindet");
                 mvwprintw(kommandoFenster, 6, 0, "sich ein Fehler!");
                 wnoutrefresh(kommandoFenster);
@@ -98,6 +101,7 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
 
     timeout(-1); // Timeout deaktivieren
 
+    // Zeichne die Loesung nur wenn das Spiel nicht vom Benutzer geloest wurde
     if(!iSpielGeloest)
     {
         ZeichneLoesung(spielfeldFenster, spielfelder);
@@ -107,7 +111,8 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
     delwin(infoFenster);
     delwin(spielfeldFenster);
     delwin(kommandoFenster);
-    clear();
+
+    clear(); // Bildschirm leeren
 }
 
 
@@ -116,7 +121,7 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
 Funktion ErstelleNeuesInfoFenster()
 Uebergabe Parameter:    -
 Rueckgabe:              *infoFenster
-Beschreibung:           Erstellt ein neues Fenster fuer das Spielfeld.
+Beschreibung:           Erstellt ein neues Fenster fuer die Spielinformationen.
 *******************************************************************************/
 WINDOW *ErstelleNeuesInfoFenster(void)
 {
@@ -144,7 +149,7 @@ WINDOW *ErstelleNeuesSpielfeldFenster(void)
 Funktion ErstelleNeuesKommandoFenster()
 Uebergabe Parameter:    -
 Rueckgabe:              *kommandoFenster
-Beschreibung:           Erstellt ein neues Fenster fuer das Spielfeld.
+Beschreibung:           Erstellt ein neues Fenster fuer die Kommandos.
 *******************************************************************************/
 WINDOW *ErstelleNeuesKommandoFenster(void)
 {
@@ -239,7 +244,7 @@ void ZeichneSpielfeld(WINDOW *spielfeldFenster)
     wprintw(spielfeldFenster, "+-------+-------+-------++-------+-------+------"
                               "-++-------+-------+-------+\n");
 
-    wnoutrefresh(spielfeldFenster);
+    wrefresh(spielfeldFenster);
 }
 
 /*******************************************************************************
@@ -253,7 +258,11 @@ void ZeichneSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
     int i = 0, x = START_POSITION_SPALTE, y = START_POSITION_ZEILE;
     char cSpielfeldWertString[11];
 
-    wattron(spielfeldFenster, A_BOLD);
+    // Wenn Farbmodus aktiv
+    if(has_colors())
+    {
+        wattron(spielfeldFenster, COLOR_PAIR(1)); // Faerbe Wert Gruen - Start
+    }
 
     for(i = 0; i < ANZAHL_SPIELFELDER; i++)
     {
@@ -261,34 +270,42 @@ void ZeichneSpielfelder(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
         {
             if(i % 9 == 0)
             {
+                // Geh in die naechste Zeile
                 x = START_POSITION_SPALTE;
                 y += OFFSET_ZEILE;
             }
             else if(i % 3 == 0)
             {
+                // Ueberspringe alle 3 Spalten ein zeichen mehr
                 x += OFFSET_SPALTE + 1;
             }
             else
             {
+                // Geh in die naechste Spalte
                 x += OFFSET_SPALTE;
             }
         }
 
+        // Zeichne den Wert in das Feld
         if(spielfelder[i].iWert >= 1 && spielfelder[i].iWert <= 9)
         {
             sprintf(cSpielfeldWertString, "%i", spielfelder[i].iWert);
         }
         else
         {
-            strcpy(cSpielfeldWertString, "");
+            strcpy(cSpielfeldWertString, " ");
         }
 
         mvwprintw(spielfeldFenster, y, x, cSpielfeldWertString);
     }
 
-    wattroff(spielfeldFenster, A_BOLD);
+    wrefresh(spielfeldFenster);
 
-    wnoutrefresh(spielfeldFenster);
+    // Wenn Farbmodus aktiv
+    if(has_colors())
+    {
+        wattroff(spielfeldFenster, COLOR_PAIR(1)); // Faerbe Wert Gruen - Ende
+    }
 }
 
 /*******************************************************************************
@@ -301,7 +318,6 @@ Beschreibung:           Gibt die Loesung der Spielfelder im uebergebenen
 void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
 {
     int i = 0, x = START_POSITION_SPALTE, y = START_POSITION_ZEILE;
-    char cSpielfeldWertString[11];
 
     for(i = 0; i < ANZAHL_SPIELFELDER; i++)
     {
@@ -309,27 +325,30 @@ void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
         {
             if(i % 9 == 0)
             {
+                // Geh in die naechste Spalte
                 x = START_POSITION_SPALTE;
                 y += OFFSET_ZEILE;
             }
             else if(i % 3 == 0)
             {
+                // Ueberspringe alle 3 Spalten ein zeichen mehr
                 x += OFFSET_SPALTE + 1;
             }
             else
             {
+                // Geh in die naechste Spalte
                 x += OFFSET_SPALTE;
             }
         }
 
+        // Zeichne den Wert in das Feld
         if(!spielfelder[i].iIstVorbefuellt)
         {
-            sprintf(cSpielfeldWertString, "%i", spielfelder[i].iLoesung);
-            mvwprintw(spielfeldFenster, y, x, cSpielfeldWertString);
+            mvwprintw(spielfeldFenster, y, x, "%i", spielfelder[i].iLoesung);
         }
     }
 
-    wnoutrefresh(spielfeldFenster);
+    wrefresh(spielfeldFenster);
 
     getch();
 }
@@ -345,10 +364,10 @@ void ZeichneInfo(WINDOW *infoFenster)
 {
     wclear(infoFenster);
 
-    wprintw(infoFenster, "Zeit:          \n");
+    wprintw(infoFenster, "Zeit:          00:00:00\n");
     wprintw(infoFenster, "Hilfe genutzt: 0");
 
-    wnoutrefresh(infoFenster);
+    wrefresh(infoFenster);
 }
 
 /*******************************************************************************
@@ -366,24 +385,25 @@ void ZeichneKommandos(WINDOW *kommandoFenster)
     wprintw(kommandoFenster, "[L] Lösung\n");
     wprintw(kommandoFenster, "[R] Spielregeln\n");
 
-    wnoutrefresh(kommandoFenster);
+    wrefresh(kommandoFenster);
 }
 
 /*******************************************************************************
 Funktion ZeichneVerstricheneZeit()
-Uebergabe Parameter:    *infoFenster, Startzeit, iStrafSekunden
+Uebergabe Parameter:    *infoFenster, Startzeit, iAnzahlHilfeGenutzt
 Rueckgabe:              -
 Beschreibung:           Gibt die waehrend des Spiels verstrichene Zeit im
                         uebergebenen Fenster aus.
 *******************************************************************************/
 void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit,
-                             int iStrafSekunden)
+                             int iAnzahlHilfeGenutzt)
 {
     char cformatierteVerstricheneZeit[9];
 
     BerechneVerstricheneZeit(cformatierteVerstricheneZeit, Startzeit,
-                             iStrafSekunden);
+                             iAnzahlHilfeGenutzt);
 
+    // Zeichne den Wert in das Feld
     mvwprintw(infoFenster, 0, 15, cformatierteVerstricheneZeit);
 
     wnoutrefresh(infoFenster);
@@ -391,14 +411,15 @@ void ZeichneVerstricheneZeit(WINDOW *infoFenster, time_t Startzeit,
 
 /*******************************************************************************
 Funktion ZeichneAnzahlGenutzterHilfe()
-Uebergabe Parameter:    *infoFenster, iAnzahlGenutzterHilfe
+Uebergabe Parameter:    *infoFenster, iAnzahlHilfeGenutzt
 Rueckgabe:              -
 Beschreibung:           Gibt die Anzahl der waehrend des Spiels genutzte Hilfe
                         im uebergebenen Fenster aus.
 *******************************************************************************/
-void ZeichneAnzahlGenutzterHilfe(WINDOW *infoFenster, int iAnzahlGenutzterHilfe)
+void ZeichneAnzahlGenutzterHilfe(WINDOW *infoFenster, int iAnzahlHilfeGenutzt)
 {
-    mvwprintw(infoFenster, 1, 15, "%i", iAnzahlGenutzterHilfe);
+    // Zeichne den Wert in das Feld
+    mvwprintw(infoFenster, 1, 15, "%i", iAnzahlHilfeGenutzt);
 
     wnoutrefresh(infoFenster);
 }

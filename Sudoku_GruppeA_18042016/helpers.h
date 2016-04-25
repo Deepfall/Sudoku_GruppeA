@@ -18,10 +18,10 @@ Praeprozessoranweisungen
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#pragma warning(push, 0)
+#pragma warning(push, 0) // Vermeide Warnungen ab hier
 #include <time.h>
-#include <curses.h>
-#pragma warning(pop)
+#include <curses.h> // Muss unter Unix-System durch ncurses.h ersetzt werden
+#pragma warning(pop) // Vermeide Warnungen bis hier
 
 /*******************************************************************************
 Funktionsprototypen
