@@ -13,13 +13,11 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
-#define _CRT_SECURE_NO_DEPRECATE    1
-
+#include "allgemeineDefines.h"
 #include <stdlib.h>
 #pragma warning(push, 0)
 #include <curses.h>
 #pragma warning(pop)
-#include "allgemeineDefines.h"
 #include "spielmenue.h"
 
 /*******************************************************************************
@@ -32,11 +30,8 @@ int main(void)
     
     // Initialisiere curses.h
     initscr();
-
-    // Starte Farbmodus
-    start_color(); 
     
-    // Aktiviere Tasten wie "Esc", "Entf" und F-Tasten
+    // Aktiviere "Entf"-Taste
     keypad(stdscr, TRUE);
 
     // Initiales aktualisieren des Outputs

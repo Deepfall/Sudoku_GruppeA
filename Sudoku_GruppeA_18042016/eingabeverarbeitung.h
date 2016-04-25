@@ -16,6 +16,7 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
+#include "allgemeineDefines.h"
 #pragma warning(push, 0)
 #include <curses.h>
 #pragma warning(pop)

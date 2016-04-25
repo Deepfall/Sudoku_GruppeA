@@ -15,6 +15,7 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
+#include "allgemeineDefines.h"
 #include <stdio.h>
 #include <stdlib.h>
 #pragma warning(push, 0)
@@ -23,7 +24,6 @@ Praeprozessoranweisungen
 #include <string.h>
 #include "spielfeld.h"
 #include "eingabeverarbeitung.h"
-#include "allgemeineDefines.h"
 #include "datenbankanbindung.h"
 #include "zeitmessung.h"
 #include "cursor.h"

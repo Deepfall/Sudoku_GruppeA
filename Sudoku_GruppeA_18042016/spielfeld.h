@@ -15,14 +15,12 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
-#define _CRT_SECURE_NO_DEPRECATE    1
-
+#include "allgemeineDefines.h"
 #pragma warning(push, 0)
 #include <curses.h>
 #pragma warning(pop)
 #include "cursor.h"
 #include "datenbankanbindung.h"
-#include "allgemeineDefines.h"
 
 #define ANZAHL_SPIELFELDER                 81
 #define HILFE_STRAFZEIT                    30

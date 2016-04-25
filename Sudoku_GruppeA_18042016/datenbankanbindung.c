@@ -28,7 +28,7 @@ Beschreibung:           Es wird mit Hilfe des eingegebenen Nicknamen in der
 *******************************************************************************/
 int Einloggen(char *cNickname, char *cPasswort)
 {
-    int iRueckgabe = -1, iSpalten, iSpalte;
+    int iRueckgabe = -1;
     char sql[1000]; 
     const char *data;
     sqlite3_stmt *stmt;
@@ -42,21 +42,19 @@ int Einloggen(char *cNickname, char *cPasswort)
 
     // Ausfuehren des Select-Befehls
     sqlite3_prepare_v2(db_handle, sql, strlen(sql), &stmt, NULL);
-    iSpalten = sqlite3_column_count(stmt);
 
-    while(sqlite3_step(stmt) == SQLITE_ROW)
+    if(sqlite3_step(stmt) == SQLITE_ROW)
     {
-        for(iSpalte = 0; iSpalte < iSpalten; iSpalte++)
-        {
-            data = (const char *) sqlite3_column_text(stmt, iSpalte);
+        data = (const char *) sqlite3_column_text(stmt, 0);
 
-            if(strcmp(data,cPasswort) == 0)
-            {
-                iRueckgabe = 0;
-            }
+        // Vergleiche das eingegebene Passwort mit dem ausgelesenen Passwort
+        if(strcmp(data, cPasswort) == 0)
+        {
+            iRueckgabe = 0;
         }
     }
 
+    // Speicher freigeben
     sqlite3_finalize(stmt);
     sqlite3_close(db_handle);
 
@@ -90,6 +88,7 @@ int Registrieren(char cNachname[], char cVorname[],
     // Ausfuehren des Select-Befehls
     iRueckgabe = sqlite3_exec(db_handle, sql, NULL, NULL, &cErrMsg);
 
+    // Speicher freigeben
     sqlite3_free(sql);
     sqlite3_close(db_handle);
 
@@ -130,10 +129,95 @@ int SudokuBereitstellen(char cSudoku[], char cLoesung[], int iSchwierigkeit)
 
     if(sqlite3_step(stmt) == SQLITE_ROW)
     {
+        // Speichern der Daten in die uebergebenen Parameter
         strcpy(cSudoku, (const char *) sqlite3_column_text(stmt, 0));
         strcpy(cLoesung, (const char *) sqlite3_column_text(stmt, 1));
     }
 
+    // Speicher freigeben
+    sqlite3_finalize(stmt);
+    sqlite3_close(db_handle);
+
+    return iRueckgabe;
+}
+
+/******************************************************************************
+Funktion HighscoreAusgeben()
+Uebergabe Parameter:    iSchwierigkeit
+Rueckgabe:              iRueckgabe
+Beschreibung:           Die Highscores werden entsprechend der Schwierigkeits-
+                        stufe ueber einen Select-Befehl aus der Highscore-
+                        Tabelle geordnet nach der kleinsten Zeit rausgelesen
+                        und dann in der Sodoku-Anwendung angezeigt.   
+******************************************************************************/
+int HighscoreAusgeben(int iSchwierigkeit)
+{
+    int iRueckgabe = -1, iSpalten, iSpalte, iZaehler = 1;
+    char sql[1000], *cSchwierigkeit = "";
+    const char *data;
+    sqlite3_stmt *stmt;
+    sqlite3 *db_handle;
+
+    DatenbankOeffnen(&db_handle);
+  
+    // Je nach gewaehlter Schwierigkeit wird der Select-Befehl angepasst
+    switch(iSchwierigkeit)
+    {
+        case 1:
+            cSchwierigkeit = "Leicht";
+            break;
+        case 2:
+            cSchwierigkeit = "Mittel";
+            break;
+        case 3:
+            cSchwierigkeit = "Schwer";
+            break;
+    }
+
+    // Aufbauen des Select-Befehls
+    sprintf(sql, "SELECT Nickname, Zeit FROM Highscore "
+                 "WHERE Schwierigkeit = '%s' " 
+                 "ORDER BY Zeit ASC LIMIT 10;"
+                 , cSchwierigkeit);
+
+    // Ausfuehren des Select-Befehls
+    iRueckgabe = sqlite3_prepare_v2(db_handle, sql, strlen(sql), &stmt, NULL);
+    iSpalten = sqlite3_column_count(stmt);
+
+    clear(); // Bildschirm leeren
+
+    /* Anzeigen der 10 schnellesten Spiele des 
+       ausgewaehlten Schwierigkeitsgerades */ 
+    printw("\n\n\t\t\t\t\t\tS U D O K U\n\n");
+    printw("\t\t\t\t\t     H I G H S C O R E\n\n");
+    printw("\t\t\t\t\t\t  (%s)\n\n", cSchwierigkeit);
+    printw("\t\t\t\t============================================\n\n");
+    printw("\t\t\t\t   %4s\t%-20s\t %-8s\n\n", "Rang", "Nickname", "Zeit");
+
+    // Solange es gelesene Zeilen gibt sollen die Daten ausgelesen werden
+    while(sqlite3_step(stmt) == SQLITE_ROW)
+    {
+        for(iSpalte = 0; iSpalte < iSpalten; iSpalte++)
+        {
+            data = (const char *) sqlite3_column_text(stmt, iSpalte);
+
+            // Ausgeben der Ergebnisse des Select-Befehls
+            if(iSpalte % 2 == 0)
+            {
+                printw("\t\t\t\t%4d\t%-20s", iZaehler++, data);
+            }
+            else
+            {
+                printw("\t %-8s\n\n", data);
+            }
+        }
+    }
+
+    printw("\t\t\t\t============================================\n\n");
+    printw("\t\t\t\t   Druecken Sie eine beliebige Taste...");
+    getch();
+
+    // Speicher freigeben
     sqlite3_finalize(stmt);
     sqlite3_close(db_handle);
 
@@ -181,6 +265,7 @@ int HighscoreEintragen(int iSchwierigkeit, const char ccNickname[],
     // Ausfuehren des Insert-Befehls
     iRueckgabe = sqlite3_exec(db_handle, sql, NULL, NULL, &cErrMsg);
 
+    // Speicher freigeben
     sqlite3_free(sql);
     sqlite3_close(db_handle);
 
@@ -196,97 +281,14 @@ int HighscoreEintragen(int iSchwierigkeit, const char ccNickname[],
 }
 
 /******************************************************************************
-Funktion HighscoreAusgeben()
-Uebergabe Parameter:    iSchwierigkeit
-Rueckgabe:              iRueckgabe
-Beschreibung:           Die Highscores werden entsprechend der Schwierigkeits-
-                        stufe ueber einen Select-Befehl aus der Highscore-
-                        Tabelle geordnet nach der kleinsten Zeit rausgelesen
-                        und dann in der Sodoku-Anwendung angezeigt.   
-******************************************************************************/
-int HighscoreAusgeben(int iSchwierigkeit)
-{
-    int iRueckgabe = -1, iSpalten, iSpalte, iZaehler = 1;
-    char sql[1000], *cSchwierigkeit = "";
-    const char *data;
-    sqlite3_stmt *stmt;
-    sqlite3 *db_handle;
-
-    DatenbankOeffnen(&db_handle);
-  
-    // Je nach gewaehlter Schwierigkeit wird der Select-Befehl angepasst
-    switch(iSchwierigkeit)
-    {
-        case 1:
-            cSchwierigkeit = "Leicht";
-            break;
-        case 2:
-            cSchwierigkeit = "Mittel";
-            break;
-        case 3:
-            cSchwierigkeit = "Schwer";
-            break;
-    }
-
-    // Aufbauen des Select-Befehls
-    sprintf(sql, "SELECT Nickname, Zeit FROM Highscore "
-                 "WHERE Schwierigkeit = '%s' " 
-                 "ORDER BY Zeit ASC LIMIT 10;"
-                 , cSchwierigkeit);
-
-    // Ausfuehren des Select-Befehls
-    iRueckgabe = sqlite3_prepare_v2(db_handle, sql, strlen(sql), &stmt, NULL);
-    iSpalten = sqlite3_column_count(stmt);
-
-    clear();
-
-    /* Anzeigen der 10 schnellesten Spiele des 
-    ausgewaehlten Schwierigkeitsgerades */ 
-    printw("\n\n\t\t\t\t\t\tS U D O K U\n\n");
-    printw("\t\t\t\t\t     H I G H S C O R E\n\n");
-    printw("\t\t\t\t\t\t  (%s)\n\n", cSchwierigkeit);
-    printw("\t\t\t\t============================================\n\n");
-    printw("\t\t\t\t   %4s\t%-20s\t %-8s\n\n", "Rang", "Nickname", "Zeit");
-
-    // Ausgeben der Ergebnisse des Select-Befehls
-    while(sqlite3_step(stmt) == SQLITE_ROW)
-    {
-        for(iSpalte = 0; iSpalte < iSpalten; iSpalte++)
-        {
-            data = (const char *) sqlite3_column_text(stmt, iSpalte);
-
-            if(iSpalte % 2 == 0)
-            {
-                printw("\t\t\t\t%4d\t%-20s", iZaehler++, data);
-            }
-            else
-            {
-                printw("\t %-8s\n\n", data);
-            }
-        }
-    }
-
-    printw("\t\t\t\t============================================\n\n");
-    printw("\t\t\t\t   Druecken Sie eine beliebige Taste...");
-    
-    getch();
-    refresh();
-
-    sqlite3_finalize(stmt);
-    sqlite3_close(db_handle);
-
-    return iRueckgabe;
-}
-
-/******************************************************************************
 Funktion DatenbankOeffnen()
 Uebergabe Parameter:    **db_handle
 Rueckgabe:              -
-Beschreibung:           Oeffnen der Datenbank in der sich die Tabellen fuer
-                        die Benutzer, die Sudokus und die Highscores befinden.   
+Beschreibung:           Oeffnen einer Datenbankverbindung mit Fehlerbehandlung.   
 ******************************************************************************/
 void DatenbankOeffnen(sqlite3 **db_handle)
 {
+    // Versuche die Datenbank zu oeffnen
     if(sqlite3_open(DATENBANK_SUDOKU, db_handle) != SQLITE_OK)
     {
         exit(SQLITE_CANTOPEN);

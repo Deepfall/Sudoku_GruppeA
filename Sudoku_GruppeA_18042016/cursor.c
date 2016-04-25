@@ -18,18 +18,21 @@ Praeprozessoranweisungen
 /*******************************************************************************
 Funktion InitialisiereCursor()
 Uebergabe Parameter:    *cursor
-Rueckgabe:              *cursor
-Beschreibung:           Setzt die Startposition und das aussehen des Cursors.
+Rueckgabe:              -
+Beschreibung:           Setzt die Startposition und das Aussehen des Cursors.
 *******************************************************************************/
 void InitialisiereCursor(CURSOR *cursor)
 {
+    // Mache den Cursor sehr sichtbar
     curs_set(2);
 
+    // Setzen der Startposition
     cursor->iAktuelleSpielfeldSpalte = CURSOR_START_SPALTE;
     cursor->iAktuelleSpielfeldZeile = CURSOR_START_ZEILE;
     cursor->iX = CURSOR_START_POSITION_SPALTE;
     cursor->iY = CURSOR_START_POSITION_ZEILE;
 
+    // Bewege den Cursor an die Startposition
     move(cursor->iY, cursor->iX);
 }
 
@@ -78,7 +81,7 @@ void BewegeCursorRechts(CURSOR *cursor)
         cursor->iX += CURSOR_OFFSET_SPALTE;
 
         /* Nach je 3 Spielfeldern ist der Block durch zwei Zeichen getrennt,
-        daher muss {cursor->iX} noch einmal um 1 erhoeht werden. */
+           daher muss {cursor->iX} noch einmal um 1 erhoeht werden. */
         if(cursor->iAktuelleSpielfeldSpalte % 3 == 0)
         {
             cursor->iX++;

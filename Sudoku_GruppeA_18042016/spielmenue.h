@@ -15,6 +15,7 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
+#include "allgemeineDefines.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,7 +24,6 @@ Praeprozessoranweisungen
 #pragma warning(pop)
 #include "datenbankanbindung.h"
 #include "sudoku.h"
-#include "allgemeineDefines.h"
 #include "helpers.h"
 
 #define TEXTLAENGE                 20

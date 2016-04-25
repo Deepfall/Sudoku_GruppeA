@@ -15,7 +15,9 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
-#define TRUE                1
-#define FALSE               0
+#define _CRT_SECURE_NO_DEPRECATE    1
+
+#define TRUE                        1
+#define FALSE                       0
 
 #endif

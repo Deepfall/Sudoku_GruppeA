@@ -13,8 +13,6 @@ Compiler                : Visual Studio 2012
 /*******************************************************************************
 Praeprozessoranweisungen
 *******************************************************************************/
-#define _CRT_SECURE_NO_DEPRECATE    1
-
 #include "sudoku.h"
 
 /*******************************************************************************
@@ -91,7 +89,7 @@ void NeuesSpiel(int iSchwierigkeit, const char ccNickname[])
             {
                 /* Hinweis, dass sich ein Fehler im 
                 ausgefuellten Sudoku befindet */
-                mvwprintw(kommandoFenster, 5, 0,"Im Sudoku befindet");
+                mvwprintw(kommandoFenster, 5, 0, "Im Sudoku befindet");
                 mvwprintw(kommandoFenster, 6, 0, "sich ein Fehler!");
                 wnoutrefresh(kommandoFenster);
             }

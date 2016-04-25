@@ -94,7 +94,6 @@ void VerarbeiteFeldEingabe(int iGedrueckteTaste, CURSOR cursor,
             SchreibeZahlInFeld(&sudokufelder[iFeld], cursor, iZahl);
             break;
         case KEY_DC:
-        case KEY_BACKSPACE:
             LoescheZahlAusFeld(&sudokufelder[iFeld], cursor);
             break;
     }
