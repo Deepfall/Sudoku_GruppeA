@@ -246,7 +246,7 @@ int HighscoreAusgeben(int iSchwierigkeit)
     printw("\t\t\t\t\t     H I G H S C O R E\n\n");
     printw("\t\t\t\t\t\t  (%s)\n\n", cSchwierigkeit);
     printw("\t\t\t\t============================================\n\n");
-    printw("\t\t\t\t  %4s\t%-20s\t%-8s\n\n", "Rang", "Nickname", "Zeit");
+    printw("\t\t\t\t   %4s\t%-20s\t %-8s\n\n", "Rang", "Nickname", "Zeit");
 
     // Ausgeben der Ergebnisse des Select-Befehls
     while(sqlite3_step(stmt) == SQLITE_ROW)
@@ -257,17 +257,17 @@ int HighscoreAusgeben(int iSchwierigkeit)
 
             if(iSpalte % 2 == 0)
             {
-                printw("\t\t\t\t  %4d\t%-20s", iZaehler++, data);
+                printw("\t\t\t\t%4d\t%-20s", iZaehler++, data);
             }
             else
             {
-                printw("\t%-8s\n\n", data);
+                printw("\t %-8s\n\n", data);
             }
         }
     }
 
     printw("\t\t\t\t============================================\n\n");
-    printw("\t\t\t\tDruecken Sie eine beliebige Taste...");
+    printw("\t\t\t\t   Druecken Sie eine beliebige Taste...");
     
     getch();
     refresh();

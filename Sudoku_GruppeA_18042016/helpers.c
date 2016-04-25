@@ -133,6 +133,9 @@ void AusgabeFehlermeldungValideTextlaenge(int iFehlerId,
         case -2:
             printw("\n\t\t\t\t %s ist zu lang!\n", ccFeldname);
             break;
+        case -1:
+            printw("\n\t\t\t\t %s ist nicht verfuegbar!\n", ccFeldname);
+            break;
     }
 }
 

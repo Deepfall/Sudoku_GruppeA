@@ -88,7 +88,7 @@ Beschreibung:           Erstellt das Menue fuer die Registrierung eines neuen
 void Registrierungsmenue(void)
 {
     char cNachname[TEXTLAENGE], cVorname[TEXTLAENGE],
-        cNickname[TEXTLAENGE], cPasswort[TEXTLAENGE];
+         cNickname[TEXTLAENGE], cPasswort[TEXTLAENGE];
     int iRichtig;
 
     curs_set(1); // Cursor sichtbar machen
@@ -101,7 +101,7 @@ void Registrierungsmenue(void)
     {
         clear(); // Bildschirm leeren
 
-                 // Ausgabe des Registrierungsmenues
+        // Ausgabe des Registrierungsmenues
         printw("\n\n\n\t\t\t\t\t\tRegistrierung\n\n");
         printw("\t\t\t\t============================================\n\n");
         printw("\t\t\t\t Bitte fuellen Sie die folgenden Felder aus.\n");
@@ -117,7 +117,7 @@ void Registrierungsmenue(void)
     {
         clear(); // Bildschirm leeren
 
-                 // Ausgabe des Registrierungsmenues
+        // Ausgabe des Registrierungsmenues
         printw("\n\n\n\t\t\t\t\t\tRegistrierung\n\n");
         printw("\t\t\t\t============================================\n\n");
         printw("\t\t\t\t Bitte fuellen Sie die folgenden Felder aus.\n");
@@ -133,7 +133,7 @@ void Registrierungsmenue(void)
     {
         clear(); // Bildschirm leeren
 
-                 // Ausgabe des Registrierungsmenues
+        // Ausgabe des Registrierungsmenues
         printw("\n\n\n\t\t\t\t\t\tRegistrierung\n\n");
         printw("\t\t\t\t============================================\n\n");
         printw("\t\t\t\t Bitte fuellen Sie die folgenden Felder aus.\n");
@@ -141,7 +141,15 @@ void Registrierungsmenue(void)
         AusgabeFehlermeldungValideTextlaenge(iRichtig, NICKNAME);
         printw("\n\t\t\t\t Nickname (max. 20 Zeichen): ");
         getstr(cNickname);
-        iRichtig = PruefeAufValideStringlaenge(cNickname, 1, 20);
+
+        if (strcmp(cNickname, "Q") == 0 || strcmp(cNickname, "q") == 0)
+        {
+            iRichtig = -1;
+        }
+        else
+        {
+            iRichtig = PruefeAufValideStringlaenge(cNickname, 1, 20);
+        }
     }
 
     // Wir wollen das Passwort niemandem zeigen, also Benutzereingabe verstecken
@@ -152,7 +160,7 @@ void Registrierungsmenue(void)
     {
         clear(); // Bildschirm leeren
 
-                 // Ausgabe des Registrierungsmenues
+        // Ausgabe des Registrierungsmenues
         printw("\n\n\n\t\t\t\t\t\tRegistrierung\n\n");
         printw("\t\t\t\t============================================\n\n");
         printw("\t\t\t\t Bitte fuellen Sie die folgenden Felder aus.\n");
@@ -205,7 +213,7 @@ void Schwierigkeitsstufenmenue(const char ccNickname[])
         clear(); // Bildschirm leeren
 
                  // Ausgabe des Menues fuer die Schwierigkeitsstufen
-        printw("\n\n\n\t\t\t\t\t   Schwierigkeitsstufe\n\n");
+        printw("\n\n\n\t\t\t\t\t     Schwierigkeitsstufe\n\n");
         printw("\t\t\t\t============================================\n\n");
         printw("\t\t\t\t   [L] Leicht\n\n");
         printw("\t\t\t\t   [M] Mittel\n\n");
@@ -311,7 +319,7 @@ void Spielmenue(char cNickname[])
         printw("\t\t\t\t   [N] Neues Spiel\n\n");
         printw("\t\t\t\t   [R] Spielregeln\n\n");
         printw("\t\t\t\t   [B] Bestenliste\n\n");
-        printw("\t\t\t\t   [L] Logout/ Verlassen\n\n");
+        printw("\t\t\t\t   [L] Logout / Verlassen\n\n");
         printw("\t\t\t\t============================================");
 
         refresh();
@@ -365,10 +373,10 @@ void SpielGewonnenMenue(char cZeit[])
     printw("\t\t\t          ,---.,---.. . .,---.,---.,---.,---.,---.\n");
     printw("\t\t\t          |   ||---'| | ||   ||   ||   ||---'|   |\n");
     printw("\t\t\t          `---|`---'`-'-'`---'`   '`   '`---'`   '\n");
-    printw("\t\t\t          `---'                                   \n");
-    printw("\n\n\n");
-    printw("\t\t\t               Deine Zeit betraegt : %s\n", cZeit);
+    printw("\t\t\t          `---'                                   \n\n\n\n");
+    printw("\t\t\t                 Ihre Zeit betraegt: %s\n\n", cZeit);
     printw("\t\t\t\t============================================\n\n");
+    printw("\t\t\t\t   Druecken Sie eine beliebige Taste...");
 
     getch();
 }
@@ -445,8 +453,9 @@ void InBestenlisteEintragenDialog(int iSchwierigkeit, const char ccNickname[],
              // Ausgabe des Menues fuer die Schwierigkeitsstufen
     printw("\n\n\t\t\t\t\t\tS U D O K U\n\n");
     printw("\t\t\t\t\t     H I G H S C O R E\n\n");
-    printw("\t\t\t\t============================================\n");
-    printw("\t\t\t\t   Wollen Sie sich in die Bestenliste eintragen?\n\n");
+    printw("\t\t\t\t============================================\n\n");
+    printw("\t\t\t\t   Wollen Sie sich in die Bestenliste\n");
+    printw("\t\t\t\t   eintragen?\n\n");
     printw("\t\t\t\t   [J] Ja\n\n");
     printw("\t\t\t\t   [N] Nein\n\n");
     printw("\t\t\t\t============================================\n\n");
