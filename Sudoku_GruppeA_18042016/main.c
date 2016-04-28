@@ -27,9 +27,6 @@ Beschreibung:           Startet das Spielmenue fuer das Sudokuspiel und
 *******************************************************************************/
 int main(void)
 {
-    // Festsetzen der Groesse des Konsolenfensters
-    system("MODE CON: COLS=109 LINES=40");
-    
     // Initialisiere curses.h
     initscr();
 
@@ -43,6 +40,9 @@ int main(void)
 
     // Aktiviere "Entf"-Taste
     keypad(stdscr, TRUE);
+
+    // Festsetzen der Groesse des Konsolenfensters
+    resize_term(40, 109);
 
     // Initiales aktualisieren des Outputs
     refresh();
