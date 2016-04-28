@@ -366,8 +366,8 @@ void ZeichneInfo(WINDOW *infoFenster)
 {
     wclear(infoFenster);
 
-    wprintw(infoFenster, "Zeit:          00:00:00\n");
-    wprintw(infoFenster, "Hilfe genutzt: 0");
+    wprintw(infoFenster, "Zeit:         \n");
+    wprintw(infoFenster, "Hilfe genutzt:");
 
     wrefresh(infoFenster);
 }
