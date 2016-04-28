@@ -345,10 +345,12 @@ void ZeichneLoesung(WINDOW *spielfeldFenster, SUDOKUFELD spielfelder[])
         if(!spielfelder[i].iIstVorbefuellt)
         {
             mvwprintw(spielfeldFenster, y, x, "%i", spielfelder[i].iLoesung);
+
+            wnoutrefresh(spielfeldFenster);
         }
     }
 
-    wrefresh(spielfeldFenster);
+    doupdate();
 
     getch();
 }
