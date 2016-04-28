@@ -33,9 +33,6 @@
     <ClCompile Include="cursor.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="sqlite3.c">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="spielmenue.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -60,9 +57,6 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="cursor.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="sqlite3.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="spielmenue.h">

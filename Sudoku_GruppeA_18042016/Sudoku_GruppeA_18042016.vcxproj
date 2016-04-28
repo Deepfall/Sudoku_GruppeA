@@ -45,10 +45,11 @@
       <Optimization>Disabled</Optimization>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(ProjectDir)lib\pdcurses.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)lib\pdcurses.lib;$(ProjectDir)lib\sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -72,7 +73,6 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="spielfeld.c" />
     <ClCompile Include="spielmenue.c" />
-    <ClCompile Include="sqlite3.c" />
     <ClCompile Include="sudoku.c" />
     <ClCompile Include="zeitmessung.c" />
   </ItemGroup>
@@ -84,7 +84,6 @@
     <ClInclude Include="helpers.h" />
     <ClInclude Include="spielfeld.h" />
     <ClInclude Include="spielmenue.h" />
-    <ClInclude Include="sqlite3.h" />
     <ClInclude Include="sudoku.h" />
     <ClInclude Include="zeitmessung.h" />
   </ItemGroup>

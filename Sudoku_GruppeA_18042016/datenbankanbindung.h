@@ -19,7 +19,7 @@ Praeprozessoranweisungen
 #include <string.h>
 #pragma warning(push, 0) // Vermeide Warnungen ab hier
 #include <curses.h> // Muss unter Unix-System durch ncurses.h ersetzt werden
-#include "sqlite3.h"
+#include <sqlite3.h>
 #pragma warning(pop) // Vermeide Warnungen bis hier
 #include "helpers.h"
 
