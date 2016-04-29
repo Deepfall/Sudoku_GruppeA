@@ -1,0 +1,35 @@
+- Deckblatt
+- Schriftart, Silbentrennung, Blocksatz
+- Inhaltsverzeichnis
+- Kopf- und Fußzeilen
+- Ränder
+- Seitennummern
+- Impressum
+- Rechtschreibfehler
+
+- Globale variablen
+- Genutzte Strukturen
+- Genutzte Defines
+- Aufbau der Datenbank 
+- Alle Funktionen:
+    - Überschrift
+    - In / Out
+    - Beschreibung
+    - Struktogramme nur zu den wichtigsten 5 Funktionen (Komplexität und Referenz)
+- Form
+
+- Struktogramme:
+    - Referenz auf Struktogramme
+    - Anzahl der Struktogramme
+    - Komplexität der Struktogramme
+
+- Änderungen gegenüber Pflichtenheft
+- Quellen
+
+
+
+
+
+
+
+

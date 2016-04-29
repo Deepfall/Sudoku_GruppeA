@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<struktogramm fontfamily="83;101;114;105;102;" fontstyle="0" fontsize="15">
+<strelem typ="0" zx="0" zy="0" textcolor="-16777216" bgcolor="-1">
+<text>105;110;116;32;109;97;105;110;40;118;111;105;100;41;59;</text>
+</strelem>
+<strelem typ="8" zx="0" zy="0" textcolor="-16777216" bgcolor="-1">
+<text>115;121;115;116;101;109;40;34;77;79;68;69;32;67;79;78;58;32;67;79;76;83;61;49;48;57;32;76;73;78;69;83;61;52;48;34;41;59;32;</text>
+</strelem>
+<strelem typ="8" zx="0" zy="0" textcolor="-16777216" bgcolor="-1">
+<text>105;110;105;116;115;99;114;40;41;59;32;</text>
+</strelem>
+<strelem typ="1" zx="0" zy="0" textcolor="-16777216" bgcolor="-1">
+<text>104;97;115;95;99;111;108;111;114;115;40;41;</text>
+<fall fallname="84;114;117;101;">
+<strelem typ="8" zx="0" zy="0" textcolor="-16777216" bgcolor="-1">
+<text>115;116;97;114;116;95;99;111;108;111;114;40;41;59;32;</text>
+</strelem>
+<strelem typ="8" zx="0" zy="0" textcolor="-16777216" bgcolor="-1">
+<text>105;110;105;116;95;112;97;105;114;40;49;44;32;67;79;76;79;82;95;71;82;69;69;78;44;32;67;79;76;79;82;95;66;76;65;67;75;41;59;32;</text>
+</strelem>
+<strelem typ="8" zx="0" zy="0" textcolor="-16777216" bgcolor="-1">
+<text>105;110;105;116;95;112;97;105;114;40;50;44;32;67;79;76;79;82;95;89;69;76;76;79;87;44;32;67;79;76;79;82;95;66;76;65;67;75;41;59;32;</text>
+</strelem>
+</fall>
+<fall fallname="70;97;108;115;101;">
+</fall>
+</strelem>
+<strelem typ="8" zx="0" zy="0" textcolor="-16777216" bgcolor="-1">
+<text>107;101;121;112;97;100;40;115;116;100;115;99;114;44;32;84;82;85;69;41;59;32;</text>
+</strelem>
+<strelem typ="8" zx="0" zy="0" textcolor="-16777216" bgcolor="-1">
+<text>114;101;102;114;101;115;104;40;41;59;32;</text>
+</strelem>
+<strelem typ="8" zx="0" zy="0" textcolor="-16777216" bgcolor="-1">
+<text>83;116;97;114;116;109;101;110;117;101;40;41;59;32;</text>
+</strelem>
+<strelem typ="8" zx="0" zy="0" textcolor="-16777216" bgcolor="-1">
+<text>101;110;100;119;105;110;40;41;59;32;</text>
+</strelem>
+<strelem typ="7" zx="0" zy="0" textcolor="-16777216" bgcolor="-1">
+<text>114;101;116;117;114;110;32;69;88;73;84;95;83;85;67;67;69;83;83;59;32;</text>
+</strelem>
+</struktogramm>
